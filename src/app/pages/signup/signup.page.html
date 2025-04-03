@@ -18,30 +18,52 @@
         <ion-icon slot="end" name="person-outline"></ion-icon>
       </ion-item>
       <div *ngIf="ionicForm.controls?.['fullname'].touched && ionicForm.controls?.['fullname'].invalid">
-        <ion-text *ngIf="errorControl.fullname.errors?.required" class="errorInput" color="danger">Fullname is required.</ion-text>
+        <ion-text *ngIf="errorControl['fullname']?.errors?.['required']" class="errorInput" color="danger">
+          Fullname is required.
+        </ion-text>
       </div>
+      
 
       <!-- Email Field -->
       <ion-item>
         <ion-input class="input" formControlName="email" placeholder="Email"></ion-input>
         <ion-icon slot="end" name="mail-outline"></ion-icon>
       </ion-item>
-      <div *ngIf="ionicForm.controls?.['email'].touched && ionicForm.controls?.['email'].invalid">
-        <ion-text *ngIf="errorControl.email.errors?.required" class="errorInput" color="danger">Email is required.</ion-text>
-        <ion-text *ngIf="errorControl.email.errors?.pattern" class="errorInput" color="danger">Please provide a valid email.</ion-text>
-      </div>
+      <div style="padding-top: -26px;padding-bottom: 16px;"
+      *ngIf="ionicForm.controls?.['email'].touched && ionicForm.controls?.['email'].invalid">
+      
+     <ion-text *ngIf="errorControl['email']?.errors?.['required']" class="errorInput" color="danger">
+         Email is required.
+     </ion-text>
+     
+     <ion-text *ngIf="errorControl['email']?.errors?.['pattern']" class="errorInput" color="danger">
+         Please provide a valid email.
+     </ion-text>
+ </div>
+ 
 
       <!-- Password Field -->
       <ion-item>
         <ion-input class="input" type="password" formControlName="password" placeholder="Password"></ion-input>
         <ion-icon slot="end" name="lock-closed-outline"></ion-icon>
       </ion-item>
-      <div *ngIf="ionicForm.controls?.['password'].touched && ionicForm.controls?.['password'].invalid">
-        <ion-text *ngIf="errorControl.password.errors?.required" class="errorInput" color="danger">Password is required.</ion-text>
-        <ion-text *ngIf="errorControl.password.errors?.pattern" class="errorInput" color="danger">
-          Password must contain at least 8 characters, one uppercase letter, one number, and one special character.
+      <ion-item>
+        <ion-input type="password" placeholder="Password" formControlName="password" class="input"></ion-input>
+        <ion-icon name="lock-closed-outline"></ion-icon>
+    </ion-item>
+    
+    <div style="padding-top: -26px; padding-bottom: 16px;" 
+         *ngIf="ionicForm.controls?.['password'].touched && ionicForm.controls?.['password'].invalid">
+         
+        <ion-text *ngIf="errorControl['password']?.errors?.['required']" class="errorInput" color="danger">
+            Password is required.
         </ion-text>
-      </div>
+    
+        <ion-text *ngIf="errorControl['password']?.errors?.['pattern']" class="errorInput" color="danger">
+            Password must contain at least one character.
+        </ion-text>
+    </div>
+    
 
       <!-- Contact Field -->
       <ion-item>

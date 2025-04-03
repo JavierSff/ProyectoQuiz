@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthenticationService } from 'src/app/authentication.service'; // Importa el servicio de autenticación
-import { Router } from '@angular/router'; // Importa Router para la navegación
-import { ToastController } from '@ionic/angular'; // Importa ToastController para mostrar el mensaje emergente
+import { Router } from '@angular/router';
+import { AuthenticationService } from 'src/app/authentication.service';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { AlertController, LoadingController } from '@ionic/angular';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -11,69 +12,67 @@ import { ToastController } from '@ionic/angular'; // Importa ToastController par
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-  loginForm: FormGroup;
+  ionicForm: FormGroup;
 
-  constructor(
-    private formBuilder: FormBuilder,
-    private authService: AuthenticationService,  // Inyecta el servicio de autenticación
-    private router: Router,  // Inyecta Router para la navegación
-    private toastController: ToastController  // Inyecta ToastController
-  ) {
-    // Inicializa el formulario con validación
-    this.loginForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],  // Email validation
-      password: ['', [Validators.required, Validators.minLength(8)]], // Password validation
+  // email:any
+  // password:any
+  // contact:any
+
+  constructor(private toastController: ToastController, private alertController: AlertController, private loadingController: LoadingController, private authService: AuthenticationService, private router: Router, public formBuilder: FormBuilder) { }
+
+  ngOnInit() {
+    this.ionicForm = this.formBuilder.group({
+      email: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,3}$'),
+        ],
+      ],
+      password: ['', [
+        // Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}'),
+        Validators.required,
+      ]
+      ],
     });
   }
 
-  ngOnInit() {}
+  async login() {
+    const loading = await this.loadingController.create();
+    await loading.present();
+    // console.log(this.email + this.password);
+    if (this.ionicForm.valid) {
 
-  // Enviar el formulario
-  onSubmit() {
-    if (this.loginForm.valid) {
-      const email = this.loginForm.value.email;
-      const password = this.loginForm.value.password;
-  
-      // Usar el servicio de autenticación para iniciar sesión con las credenciales proporcionadas
-      this.authService.loginUser(email, password)
-        .then(user => {
-          console.log('Usuario autenticado correctamente:', user);  // Debugging line
-          // Redirige al usuario a la página de inicio después de un inicio de sesión exitoso
-          this.router.navigate(['/home']).then(() => {
-            console.log('Redirigiendo al home');  // Debugging line
-          });
-        })
-        .catch(err => {
-          console.log('Error en el inicio de sesión:', err);  // Log the error
-          this.handleLoginError(err);  // Llamar a un método para manejar los errores
-        });
+      //  await  loading.dismiss();
+      const user = await this.authService.loginUser(this.ionicForm.value.email, this.ionicForm.value.password).catch((err) => {
+        this.presentToast(err)
+        console.log(err);
+        loading.dismiss();
+      })
+
+      if (user) {
+        loading.dismiss();
+        this.router.navigate(
+          ['/journals'])
+      }
     } else {
-      console.log('El formulario no es válido');  // Log form validation error
+      return console.log('Please provide all the required values!');
     }
+
+  }
+  get errorControl() {
+    return this.ionicForm.controls;
   }
 
-  // Maneja el error de inicio de sesión
-  handleLoginError(error: any) {
-    if (error.code === 'auth/user-not-found') {
-      console.log('Usuario no encontrado');
-      this.showToast('Usuario no encontrado. Verifica tu email.');
-    } else if (error.code === 'auth/wrong-password') {
-      console.log('Contraseña incorrecta');
-      this.showToast('Contraseña incorrecta. Intenta de nuevo.');
-    } else {
-      console.log('Error desconocido:', error);
-      this.showToast('Usuario o contraseña incorrectos. Intenta nuevamente.');
-    }
-  }
+  async presentToast(message: undefined) {
+    console.log(message);
 
-  // Función para mostrar el toast
-  async showToast(message: string) {
     const toast = await this.toastController.create({
       message: message,
-      duration: 2000,  // Duración en milisegundos
-      position: 'top',  // Posición del toast (top, bottom, middle)
-      color: 'danger',  // Color del toast (puedes cambiarlo a 'dark', 'primary', etc.)
+      duration: 1500,
+      position: 'top',
     });
-    toast.present();
+
+    await toast.present();
   }
 }

@@ -1,5 +1,6 @@
 
 import { Component, Input, OnInit } from '@angular/core';
+import { ModalController, ToastController } from '@ionic/angular';
 import { Journal, JournalServiceService } from 'src/app/services/journal-service.service';
 
 
@@ -12,7 +13,7 @@ import { Journal, JournalServiceService } from 'src/app/services/journal-service
 export class JournalPage implements OnInit {
 @Input() id :string
 journal : Journal
-  constructor(private journalService:JournalServiceService) {
+  constructor(private journalService:JournalServiceService,private toastCtrl:ToastController, private modalCtrl: ModalController) {
   
    }
 
@@ -22,5 +23,23 @@ journal : Journal
       this.journal = res
     })
   }
+  async updateJournal(){
+    this.journalService.updateJournal(this.journal)
+    const toast = await this.toastCtrl.create({
+      message:'Note Updated',
+      duration: 2000
+    })
+    toast.present()
+    this.modalCtrl.dismiss()
+  }
 
+  async deleteJournal(){
+    this.journalService.removeJournal(this.id)
+    const toast = await this.toastCtrl.create({
+      message:'Note Succesfully deleted',
+      duration: 2000
+    })
+    toast.present()
+    this.modalCtrl.dismiss()
+  }
 }

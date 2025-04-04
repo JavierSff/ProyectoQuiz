@@ -1,6 +1,19 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>journal</ion-title>
+
+
+    <ion-buttons slot="start">
+      <ion-button (click)="updateJournal()">
+        <ion-icon color="primary" size="large" slot="icon-only" name="save-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="deleteJournal()">
+        <ion-icon color="danger" size="large" slot="icon-only" name="trash-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
   </ion-toolbar>
 </ion-header>
 
@@ -16,6 +29,6 @@
       <ion-input label="Title"[(ngModel)]="journal.title" ></ion-input>
     </ion-item>
     <ion-textarea class="text-content" lines="none"[(ngModel)]="journal.content"></ion-textarea>
-
   </div>
+
 </ion-content>

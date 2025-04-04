@@ -42,6 +42,10 @@ const routes: Routes = [
     path: 'journal',
     loadChildren: () => import('./pages/journal/journal.module').then( m => m.JournalPageModule)
   },
+  {
+    path: 'todo',
+    loadChildren: () => import('./pages/todo/todo.module').then( m => m.TodoPageModule)
+  },
  
 ];
 

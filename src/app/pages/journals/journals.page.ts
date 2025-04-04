@@ -37,7 +37,7 @@ export class JournalsPage implements OnInit {
         this.title =''
         this.note = ''
         const toast = await this.toastCtrl.create({
-          message: "Jounal added successful",
+          message: "Note added successfully",
           duration:2000
         })
         toast.present()

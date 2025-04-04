@@ -10,4 +10,12 @@
       <ion-title size="large">journal</ion-title>
     </ion-toolbar>
   </ion-header>
+  <div angIf="journal">
+    <ion-item>
+
+      <ion-input label="Title"[(ngModel)]="journal.title" ></ion-input>
+    </ion-item>
+    <ion-textarea class="text-content" lines="none"[(ngModel)]="journal.content"></ion-textarea>
+
+  </div>
 </ion-content>

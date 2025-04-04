@@ -64,7 +64,7 @@ export class JournalServiceService {
     const  refq =  query(jouralRef,where('userId','==',userId))
     return collectionData(refq,{ idField: 'id'}) as Observable<Journal[]>
   }
-
+  
    getUser(){
      this.authService.getProfile().then(user =>{
       this.userId = user?.uid

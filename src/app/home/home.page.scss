@@ -25,3 +25,34 @@
 #container a {
   text-decoration: none;
 }
+.weather-card-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+ion-card {
+  width: 600px; 
+  max-height: 200px; 
+  padding: 4px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  background-color: orange; /* Darker background */
+  color: #fff; /* White text color for contrast */
+}
+
+ion-item {
+  --padding-start: 8px;
+  --inner-padding-end: 8px;
+  --min-height: 30px;
+  font-size: 14px;
+}
+ion-item span, ion-item img {
+  margin: 0 4px;
+  font-size: 14px;
+}
+.weather-icon {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+}

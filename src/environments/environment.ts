@@ -12,7 +12,12 @@ export const environment = {
     messagingSenderId: "139009552761",
     appId: "1:139009552761:web:b6135c04df4dd6d6403fa8"
   },
+  weatherApi: {
+    API_KEY: 'd4e4dc67c4c8bc8649cc849525c59371',
+    API_URL: 'https://api.openweathermap.org/data/2.5'
+  }
 };
+
 
 /*
  * For easier debugging in development mode, you can import the following file

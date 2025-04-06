@@ -45,9 +45,14 @@ const routes: Routes = [
   {
     path: 'todo',
     loadChildren: () => import('./pages/todo/todo.module').then( m => m.TodoPageModule)
-  },  {
+  },
+  {
     path: 'quiz-runner',
     loadChildren: () => import('./pages/quiz-runner/quiz-runner.module').then( m => m.QuizRunnerPageModule)
+  },
+  {
+    path: 'quiz-creator',
+    loadChildren: () => import('./pages/quiz-creator/quiz-creator.module').then( m => m.QuizCreatorPageModule)
   },
 
  

@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Create Quiz</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-item>
+    <ion-input placeholder="Quiz title" [(ngModel)]="title"></ion-input>
+  </ion-item>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Add a Question</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-input placeholder="Question" [(ngModel)]="newQuestion"></ion-input>
+      </ion-item>
+
+      <ion-radio-group [(ngModel)]="selectedAnswer">
+        <ion-list>
+          <ion-item *ngFor="let option of newOptions; let i = index">
+            <ion-label>Option {{ i + 1 }}</ion-label>
+            <ion-radio slot="start" [value]="i"></ion-radio>
+            <ion-input placeholder="Enter option" [(ngModel)]="newOptions[i]"></ion-input>
+          </ion-item>
+        </ion-list>
+      </ion-radio-group>
+      
+
+      <ion-button expand="block" (click)="addQuestion()">Add Question</ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-list *ngIf="questions.length > 0">
+    <ion-list-header>
+      <ion-label>Quiz Questions</ion-label>
+    </ion-list-header>
+    <ion-item *ngFor="let q of questions; let idx = index">
+      <ion-label>
+        <strong>{{ idx + 1 }}.</strong> {{ q.question }}
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-button color="success" expand="block" (click)="saveQuiz()">Save Quiz</ion-button>
+</ion-content>

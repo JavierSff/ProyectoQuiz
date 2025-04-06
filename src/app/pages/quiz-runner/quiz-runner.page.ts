@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { QuizService } from 'src/app/services/quiz-service.service';
+
 
 interface Question {
   question: string;
   options: string[];
-  correctAnswer: number; // index 0-3
+  correctAnswer: number;
 }
 
 @Component({
@@ -19,27 +22,21 @@ export class QuizRunnerPage implements OnInit {
   showResult = false;
   hasAnswered = false;
 
-  questions: Question[] = [
-    {
-      question: 'What is the capital of France?',
-      options: ['Madrid', 'Berlin', 'Paris', 'Rome'],
-      correctAnswer: 2,
-    },
-    {
-      question: 'Which planet is known as the Red Planet?',
-      options: ['Earth', 'Mars', 'Jupiter', 'Saturn'],
-      correctAnswer: 1,
-    },
-    {
-      question: 'What is 2 + 2?',
-      options: ['3', '4', '5', '6'],
-      correctAnswer: 1,
-    },
-  ];
+  questions: Question[] = [];
 
-  constructor() {}
+  constructor(
+    private quizService: QuizService,
+    private route: ActivatedRoute
+  ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    const quizId = this.route.snapshot.paramMap.get('id');
+    if (quizId) {
+      this.quizService.getQuizById(quizId).subscribe(quiz => {
+        this.questions = quiz.questions;
+      });
+    }
+  }
 
   selectOption(index: number) {
     if (this.hasAnswered) return;

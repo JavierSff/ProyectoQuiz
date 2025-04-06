@@ -5,9 +5,9 @@ import { QuizRunnerPage } from './quiz-runner.page';
 
 const routes: Routes = [
   {
-    path: '',
-    component: QuizRunnerPage
-  }
+    path: ':id',  // <- This is key for dynamic routing
+    component: QuizRunnerPage,
+  },
 ];
 
 @NgModule({

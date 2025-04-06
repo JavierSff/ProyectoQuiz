@@ -1,3 +1,22 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button fill="clear" (click)="goBack()">
+        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Let's study!</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="toggleDeleteMode()">
+        <ion-icon [name]="deleteMode ? 'close-circle-outline' : 'trash-outline'" slot="icon-only"></ion-icon>
+      </ion-button>
+      <ion-button routerLink="/quiz-creator" *ngIf="!deleteMode">
+        <ion-icon name="add-circle-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
 <ion-content class="quiz-content" *ngIf="questions && questions.length > 0; else loading">
   
   <!-- 🧡 Fondo con tarjeta blanca en flujo -->

@@ -24,14 +24,20 @@ export class QuizRunnerPage implements OnInit {
 
   questions: Question[] = [];
 
+  deleteMode = false; // 🔁 nuevo estado para mostrar/hide botones
+
   constructor(
     private quizService: QuizService,
     private route: ActivatedRoute,
-    private navCtrl: NavController // Inject NavController here
+    private navCtrl: NavController
   ) {}
 
   goBack() {
     this.navCtrl.navigateBack('/quiz-list');
+  }
+
+  toggleDeleteMode() {
+    this.deleteMode = !this.deleteMode; // 🔁 alternar modo eliminar
   }
 
   ngOnInit() {

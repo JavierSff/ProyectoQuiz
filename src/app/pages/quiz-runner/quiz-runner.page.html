@@ -18,12 +18,16 @@
   <!-- Quiz content renders only when questions are loaded -->
   
   <!-- Question Card -->
+<!-- Question Card with Background -->
+<div class="question-card-wrapper">
   <div class="question-card">
     <div class="question-count">
       Question {{ currentQuestionIndex + 1 }} / {{ questions.length }}
     </div>
     <h2 class="question">{{ questions[currentQuestionIndex]?.question }}</h2>
   </div>
+</div>
+
 
   <!-- Options -->
   <div class="options">

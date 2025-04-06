@@ -11,47 +11,38 @@
   --padding-top: 24px;
 }
 
-.quiz-progress {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  margin-bottom: 20px;
-
-  .circle {
-    background: orange;
-    color: white;
-    font-weight: bold;
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    font-size: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+/* ✅ NEW: Question card wrapper with background image */
+.question-card-wrapper {
+  background-image: url('/assets/fondocards.png'); /* replace with your actual filename */
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 24px;
+  padding: 32px 16px;
+  margin-bottom: 24px;
 }
 
+/* Inner white question card */
 .question-card {
   background: white;
   padding: 20px;
   border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  margin-bottom: 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   text-align: center;
-
-  .question-count {
-    color: orange;
-    font-size: 14px;
-    margin-bottom: 8px;
-  }
-
-  .question {
-    font-size: 18px;
-    font-weight: 600;
-  }
 }
 
+.question-card .question-count {
+  color: orange;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.question-card .question {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+/* Answer buttons */
 .options {
   display: flex;
   flex-direction: column;
@@ -101,10 +92,12 @@
   }
 }
 
+/* Bottom button (Next / See Results) */
 .bottom {
   margin-top: 24px;
 }
 
+/* Quiz result message */
 .result {
   text-align: center;
   padding: 20px;

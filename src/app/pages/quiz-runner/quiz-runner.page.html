@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Quiz</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div *ngIf="!showResult">
+    <h2 class="question">{{ questions[currentQuestionIndex].question }}</h2>
+
+    <div class="options">
+      <ion-button
+        expand="block"
+        *ngFor="let option of questions[currentQuestionIndex].options; let i = index"
+        [color]="
+          hasAnswered
+            ? i === questions[currentQuestionIndex].correctAnswer
+              ? 'success'
+              : i === selectedOptionIndex
+              ? 'danger'
+              : 'medium'
+            : 'light'
+        "
+        (click)="selectOption(i)"
+      >
+        {{ option }}
+      </ion-button>
+    </div>
+
+    <div class="bottom">
+      <ion-button expand="block" *ngIf="hasAnswered" (click)="nextQuestion()">
+        {{ currentQuestionIndex === questions.length - 1 ? 'See Results' : 'Next' }}
+      </ion-button>
+    </div>
+  </div>
+
+  <div *ngIf="showResult" class="result">
+    <h2>You got {{ score }} out of {{ questions.length }} correct!</h2>
+    <ion-button expand="block" (click)="restartQuiz()">Try Again</ion-button>
+  </div>
+</ion-content>

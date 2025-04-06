@@ -31,20 +31,19 @@ export class QuizListPage implements OnInit {
     });
   }
 
+  goBack() {
+    // Navigate to home page instead of simply going back
+    this.navCtrl.navigateRoot(['/home']);
+  }
+
   takeQuiz(id: string) {
-    // If delete mode is active, don’t navigate on item click.
     if (!this.deleteMode) {
       this.navCtrl.navigateForward(['/quiz-runner', id]);
     }
   }
 
-  createQuiz() {
-    this.navCtrl.navigateForward(['/quiz-creator']);
-  }
-
   toggleDeleteMode() {
     this.deleteMode = !this.deleteMode;
-    // Clear any selections when toggling out of delete mode.
     if (!this.deleteMode) {
       this.selectedQuizzes = [];
     }
@@ -69,7 +68,6 @@ export class QuizListPage implements OnInit {
         duration: 2000,
       });
       toast.present();
-      // Clear selections and turn off delete mode.
       this.selectedQuizzes = [];
       this.deleteMode = false;
     } catch (error) {

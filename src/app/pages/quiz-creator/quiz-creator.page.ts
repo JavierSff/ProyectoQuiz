@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { QuizService } from 'src/app/services/quiz-service.service';
 import { AuthenticationService } from 'src/app/authentication.service';
-import { ToastController } from '@ionic/angular';
+import { ToastController, NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-quiz-creator',
@@ -24,13 +24,18 @@ export class QuizCreatorPage implements OnInit {
   constructor(
     private quizService: QuizService,
     private authService: AuthenticationService,
-    private toastCtrl: ToastController
+    private toastCtrl: ToastController,
+    private navCtrl: NavController
   ) {}
 
   ngOnInit() {
     this.authService.getProfile().then(user => {
       this.userId = user?.uid || '';
     });
+  }
+
+  goBack() {
+    this.navCtrl.back();
   }
 
   addQuestion() {
@@ -45,12 +50,7 @@ export class QuizCreatorPage implements OnInit {
       return;
     }
 
-    const options = [
-      this.newOption1,
-      this.newOption2,
-      this.newOption3,
-      this.newOption4,
-    ];
+    const options = [this.newOption1, this.newOption2, this.newOption3, this.newOption4];
 
     this.questions.push({
       question: this.newQuestion,
@@ -58,7 +58,7 @@ export class QuizCreatorPage implements OnInit {
       correctAnswer: this.selectedAnswer,
     });
 
-    // Reset the question and options for the next entry.
+    // Reset inputs for the next question.
     this.newQuestion = '';
     this.newOption1 = '';
     this.newOption2 = '';

@@ -1,12 +1,19 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <!-- Back Button -->
+      <ion-button fill="clear" (click)="goBack()">
+        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
     <ion-title>My Quizzes</ion-title>
     <ion-buttons slot="end">
       <!-- Toggle delete mode button -->
       <ion-button (click)="toggleDeleteMode()">
         <ion-icon [name]="deleteMode ? 'close-circle-outline' : 'trash-outline'" slot="icon-only"></ion-icon>
       </ion-button>
-      <ion-button (click)="createQuiz()" *ngIf="!deleteMode">
+      <!-- Create Quiz Button -->
+      <ion-button routerLink="/quiz-creator" *ngIf="!deleteMode">
         <ion-icon name="add-circle-outline" slot="icon-only"></ion-icon>
       </ion-button>
     </ion-buttons>

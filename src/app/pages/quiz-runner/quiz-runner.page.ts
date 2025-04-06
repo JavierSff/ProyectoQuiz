@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { NavController } from '@ionic/angular';
 import { QuizService } from 'src/app/services/quiz-service.service';
-
 
 interface Question {
   question: string;
@@ -26,8 +26,13 @@ export class QuizRunnerPage implements OnInit {
 
   constructor(
     private quizService: QuizService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private navCtrl: NavController // Inject NavController here
   ) {}
+
+  goBack() {
+    this.navCtrl.navigateBack('/quiz-list');
+  }
 
   ngOnInit() {
     const quizId = this.route.snapshot.paramMap.get('id');

@@ -1,35 +1,18 @@
-<ion-header class="quiz-header">
-  <ion-toolbar color="primary">
-    <ion-buttons slot="start">
-      <ion-button fill="clear" (click)="goBack()">
-        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
-      </ion-button>      
-    </ion-buttons>
-    <ion-title>Quiz</ion-title>
-    <ion-buttons slot="end">
-      <ion-button fill="clear">
-        <ion-icon slot="icon-only" name="options-outline"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content class="quiz-content" *ngIf="questions && questions.length > 0; else loading">
-  <!-- Quiz content renders only when questions are loaded -->
   
-  <!-- Question Card -->
-<!-- Question Card with Background -->
-<div class="question-card-wrapper">
-  <div class="question-card">
-    <div class="question-count">
-      Question {{ currentQuestionIndex + 1 }} / {{ questions.length }}
+  <!-- 🧡 Fondo con tarjeta blanca en flujo -->
+  <div class="question-top-section">
+    <div class="background-orange"></div>
+
+    <div class="question-card">
+      <div class="question-count">
+        Question {{ currentQuestionIndex + 1 }} / {{ questions.length }}
+      </div>
+      <h2 class="question">{{ questions[currentQuestionIndex]?.question }}</h2>
     </div>
-    <h2 class="question">{{ questions[currentQuestionIndex]?.question }}</h2>
   </div>
-</div>
 
-
-  <!-- Options -->
+  <!-- ✅ Opciones -->
   <div class="options">
     <button
       class="option-button"
@@ -47,14 +30,14 @@
     </button>
   </div>
 
-  <!-- Next Button -->
+  <!-- ✅ Botón siguiente -->
   <div class="bottom">
     <ion-button shape="round" expand="block" *ngIf="hasAnswered" (click)="nextQuestion()">
       {{ currentQuestionIndex === questions.length - 1 ? 'See Results' : 'Next' }}
     </ion-button>
   </div>
 
-  <!-- Result -->
+  <!-- ✅ Resultado -->
   <div *ngIf="showResult" class="result">
     <h2>You got {{ score }} out of {{ questions.length }} correct!</h2>
     <ion-button expand="block" shape="round" (click)="restartQuiz()">Try Again</ion-button>

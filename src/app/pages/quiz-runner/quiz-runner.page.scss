@@ -8,27 +8,33 @@
 .quiz-content {
   --padding-start: 16px;
   --padding-end: 16px;
-  --padding-top: 24px;
+  --padding-top: 0;
 }
 
-/* ✅ NEW: Question card wrapper with background image */
-.question-card-wrapper {
-  background-image: url('/assets/fondocards.png'); /* replace with your actual filename */
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  border-radius: 24px;
-  padding: 32px 16px;
+/* 🧡 Sección superior con fondo naranja */
+.question-top-section {
+  position: relative;
   margin-bottom: 24px;
 }
 
-/* Inner white question card */
+.background-orange {
+  background-image: url('/assets/fondocards.png');
+  background-size: cover;
+  background-position: center;
+  height: 180px;
+  border-radius: 0 0 24px 24px;
+}
+
+/* ⬜ Tarjeta blanca flotando visualmente */
 .question-card {
   background: white;
   padding: 20px;
   border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
   text-align: center;
+  margin: -40px 16px 0 16px; /* efecto flotante */
+  z-index: 1;
+  position: relative;
 }
 
 .question-card .question-count {
@@ -42,7 +48,7 @@
   font-weight: 600;
 }
 
-/* Answer buttons */
+/* ✅ Opciones */
 .options {
   display: flex;
   flex-direction: column;
@@ -92,12 +98,12 @@
   }
 }
 
-/* Bottom button (Next / See Results) */
+/* ✅ Botón inferior */
 .bottom {
   margin-top: 24px;
 }
 
-/* Quiz result message */
+/* ✅ Resultado */
 .result {
   text-align: center;
   padding: 20px;

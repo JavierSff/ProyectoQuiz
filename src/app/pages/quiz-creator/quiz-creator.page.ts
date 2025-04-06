@@ -12,18 +12,14 @@ import { ToastController } from '@ionic/angular';
 export class QuizCreatorPage implements OnInit {
   title: string = '';
   userId: string = '';
-  questions: {
-    question: string;
-    options: string[];
-    correctAnswer: number;
-  }[] = [];
+  questions: { question: string; options: string[]; correctAnswer: number }[] = [];
 
-  newQuestion: string = '';
-  newOption1: string = '';
-  newOption2: string = '';
-  newOption3: string = '';
-  newOption4: string = '';
-  selectedAnswer: number = 0;
+  newQuestion = '';
+  newOption1 = '';
+  newOption2 = '';
+  newOption3 = '';
+  newOption4 = '';
+  selectedAnswer = 0;
 
   constructor(
     private quizService: QuizService,
@@ -38,7 +34,6 @@ export class QuizCreatorPage implements OnInit {
   }
 
   addQuestion() {
-    // Validate that the question and all options are filled
     if (
       !this.newQuestion ||
       !this.newOption1 ||
@@ -50,7 +45,6 @@ export class QuizCreatorPage implements OnInit {
       return;
     }
 
-    // Gather the four options into an array
     const options = [
       this.newOption1,
       this.newOption2,
@@ -58,14 +52,13 @@ export class QuizCreatorPage implements OnInit {
       this.newOption4,
     ];
 
-    // Add the question to the list of questions
     this.questions.push({
       question: this.newQuestion,
       options: options,
       correctAnswer: this.selectedAnswer,
     });
 
-    // Reset fields for new question entry
+    // Reset the question and options for the next entry.
     this.newQuestion = '';
     this.newOption1 = '';
     this.newOption2 = '';

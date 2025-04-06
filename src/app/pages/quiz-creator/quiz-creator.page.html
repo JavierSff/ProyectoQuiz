@@ -5,34 +5,56 @@
 </ion-header>
 
 <ion-content class="ion-padding">
+  <!-- Quiz Title Input -->
   <ion-item>
     <ion-input placeholder="Quiz title" [(ngModel)]="title"></ion-input>
   </ion-item>
 
+  <!-- Question Card -->
   <ion-card>
     <ion-card-header>
       <ion-card-title>Add a Question</ion-card-title>
     </ion-card-header>
     <ion-card-content>
+      <!-- Question Input -->
       <ion-item>
         <ion-input placeholder="Question" [(ngModel)]="newQuestion"></ion-input>
       </ion-item>
 
-      <ion-radio-group [(ngModel)]="selectedAnswer">
-        <ion-list>
-          <ion-item *ngFor="let option of newOptions; let i = index">
-            <ion-label>Option {{ i + 1 }}</ion-label>
-            <ion-radio slot="start" [value]="i"></ion-radio>
-            <ion-input placeholder="Enter option" [(ngModel)]="newOptions[i]"></ion-input>
-          </ion-item>
-        </ion-list>
-      </ion-radio-group>
-      
+      <!-- Option 1 -->
+      <ion-item>
+        <ion-label position="stacked">Option 1</ion-label>
+        <ion-input placeholder="Enter option" [(ngModel)]="newOption1"></ion-input>
+        <ion-radio slot="end" [value]="0" [(ngModel)]="selectedAnswer"></ion-radio>
+      </ion-item>
 
+      <!-- Option 2 -->
+      <ion-item>
+        <ion-label position="stacked">Option 2</ion-label>
+        <ion-input placeholder="Enter option" [(ngModel)]="newOption2"></ion-input>
+        <ion-radio slot="end" [value]="1" [(ngModel)]="selectedAnswer"></ion-radio>
+      </ion-item>
+
+      <!-- Option 3 -->
+      <ion-item>
+        <ion-label position="stacked">Option 3</ion-label>
+        <ion-input placeholder="Enter option" [(ngModel)]="newOption3"></ion-input>
+        <ion-radio slot="end" [value]="2" [(ngModel)]="selectedAnswer"></ion-radio>
+      </ion-item>
+
+      <!-- Option 4 -->
+      <ion-item>
+        <ion-label position="stacked">Option 4</ion-label>
+        <ion-input placeholder="Enter option" [(ngModel)]="newOption4"></ion-input>
+        <ion-radio slot="end" [value]="3" [(ngModel)]="selectedAnswer"></ion-radio>
+      </ion-item>
+
+      <!-- Add Question Button -->
       <ion-button expand="block" (click)="addQuestion()">Add Question</ion-button>
     </ion-card-content>
   </ion-card>
 
+  <!-- List of Added Questions -->
   <ion-list *ngIf="questions.length > 0">
     <ion-list-header>
       <ion-label>Quiz Questions</ion-label>
@@ -44,5 +66,6 @@
     </ion-item>
   </ion-list>
 
+  <!-- Save Quiz Button -->
   <ion-button color="success" expand="block" (click)="saveQuiz()">Save Quiz</ion-button>
 </ion-content>

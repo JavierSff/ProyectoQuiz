@@ -9,7 +9,6 @@ import { ToastController } from '@ionic/angular';
   templateUrl: './quiz-creator.page.html',
   styleUrls: ['./quiz-creator.page.scss'],
 })
-
 export class QuizCreatorPage implements OnInit {
   title: string = '';
   userId: string = '';
@@ -19,9 +18,12 @@ export class QuizCreatorPage implements OnInit {
     correctAnswer: number;
   }[] = [];
 
-  newQuestion = '';
-  newOptions = ['', '', '', ''];
-  selectedAnswer = 0;
+  newQuestion: string = '';
+  newOption1: string = '';
+  newOption2: string = '';
+  newOption3: string = '';
+  newOption4: string = '';
+  selectedAnswer: number = 0;
 
   constructor(
     private quizService: QuizService,
@@ -36,19 +38,39 @@ export class QuizCreatorPage implements OnInit {
   }
 
   addQuestion() {
-    if (!this.newQuestion || this.newOptions.some(opt => !opt)) {
+    // Validate that the question and all options are filled
+    if (
+      !this.newQuestion ||
+      !this.newOption1 ||
+      !this.newOption2 ||
+      !this.newOption3 ||
+      !this.newOption4
+    ) {
       this.showToast('Please fill in all question fields');
       return;
     }
 
+    // Gather the four options into an array
+    const options = [
+      this.newOption1,
+      this.newOption2,
+      this.newOption3,
+      this.newOption4,
+    ];
+
+    // Add the question to the list of questions
     this.questions.push({
       question: this.newQuestion,
-      options: [...this.newOptions],
+      options: options,
       correctAnswer: this.selectedAnswer,
     });
 
+    // Reset fields for new question entry
     this.newQuestion = '';
-    this.newOptions = ['', '', '', ''];
+    this.newOption1 = '';
+    this.newOption2 = '';
+    this.newOption3 = '';
+    this.newOption4 = '';
     this.selectedAnswer = 0;
   }
 

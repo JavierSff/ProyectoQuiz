@@ -2,7 +2,11 @@
   <ion-toolbar>
     <ion-title>My Quizzes</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="createQuiz()">
+      <!-- Toggle delete mode button -->
+      <ion-button (click)="toggleDeleteMode()">
+        <ion-icon [name]="deleteMode ? 'close-circle-outline' : 'trash-outline'" slot="icon-only"></ion-icon>
+      </ion-button>
+      <ion-button (click)="createQuiz()" *ngIf="!deleteMode">
         <ion-icon name="add-circle-outline" slot="icon-only"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -12,6 +16,11 @@
 <ion-content class="ion-padding">
   <ion-list *ngIf="quizzes.length > 0; else noQuizzes">
     <ion-item *ngFor="let quiz of quizzes" (click)="takeQuiz(quiz.id)">
+      <!-- When in delete mode, show a checkbox -->
+      <ion-checkbox slot="start" *ngIf="deleteMode"
+        (ionChange)="onSelectQuiz($event, quiz.id)"
+        [checked]="selectedQuizzes.includes(quiz.id)">
+      </ion-checkbox>
       <ion-label>
         <h2>{{ quiz.title }}</h2>
         <p>{{ quiz.questions?.length || 0 }} Questions</p>
@@ -19,6 +28,11 @@
     </ion-item>
   </ion-list>
   
+  <!-- Delete action button when in delete mode and something is selected -->
+  <ion-button expand="block" color="danger" *ngIf="deleteMode && selectedQuizzes.length > 0"
+    (click)="deleteSelectedQuizzes()">
+    Delete Selected
+  </ion-button>
 
   <ng-template #noQuizzes>
     <p>No quizzes yet. Tap + to create one!</p>

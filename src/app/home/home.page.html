@@ -1,31 +1,42 @@
 <ion-content>
+  <!-- Weather Card (Existing) -->
   <div class="weather-card-wrapper">
-  <ion-card>
-    <ion-item lines="none">
-      <p>Today's Report</p>
-      <ion-label id="date" slot="end">{{todayDate | date: "EEE dd MMM"}}</ion-label>
-    </ion-item>
+    <ion-card>
+      <ion-item lines="none">
+        <p>Today's Report</p>
+        <ion-label id="date" slot="end">{{ todayDate | date: "EEE dd MMM" }}</ion-label>
+      </ion-item>
 
-    <ion-item lines="none">
-      <span id="temp">
-      {{ (weatherTemp?.temp - 273.15).toFixed(0) }}
-    </span>
-    <span>°C</span>
-    <img slot="end" [src]="weatherIcon" class="weather-icon">
-    </ion-item>
-    <ion-item>
-      <ion-icon id="locationIcon" name="location"></ion-icon>
-      <span>{{cityName}}</span>
+      <ion-item lines="none">
+        <span id="temp">
+          {{ (weatherTemp?.temp - 273.15).toFixed(0) }}
+        </span>
+        <span>°C</span>
+        <img slot="end" [src]="weatherIcon" class="weather-icon">
+      </ion-item>
+      <ion-item>
+        <ion-icon id="locationIcon" name="location"></ion-icon>
+        <span>{{ cityName }}</span>
+      </ion-item>
+    </ion-card>
+  </div>
 
-    </ion-item>
-  </ion-card>
-</div>
-</ion-content>
+  <!-- My Quizzes Card (New) -->
+  <div class="quiz-card-wrapper">
+    <ion-card routerLink="/quiz-list">
+      <ion-item lines="none">
+        <p>My Quizzes</p>
+        <!-- Make sure this image exists in your assets folder -->
+        <img slot="end" src="assets/quiz.png" class="quiz-icon">
+      </ion-item>
+      <ion-item>
+        <ion-label>View and manage your quizzes.</ion-label>
+      </ion-item>
+    </ion-card>
+  </div>
 
-<ion-content>
+  <!-- Logout Button -->
   <div class="content">
-    <ion-button shape="round" expand="full" (click)="logout()">
-      Logout
-    </ion-button>
+    <ion-button shape="round" expand="full" (click)="logout()">Logout</ion-button>
   </div>
 </ion-content>

@@ -1,3 +1,4 @@
+/* Weather Card Styles */
 .weather-card-wrapper {
   display: flex;
   justify-content: center;
@@ -5,15 +6,17 @@
 }
 
 ion-card {
-  width: 600px; 
-  max-height: 200px; 
+  width: 600px;
+  max-height: 200px;
   padding: 4px;
   border-radius: 20px;
-  --ion-background-color: #f7ca6c;
+  --ion-background-color: #f7ca6c; // Weather card background color
+
   span {
     color: white;
     font-weight: 300;
   }
+  
   #temp {
     font-weight: 300;
     font-size: 4em;
@@ -24,9 +27,8 @@ ion-card {
     color: #f6b;
   }
   
-  /* Correct the selector to target ion-label specifically */
   #date {
-    color: white; /* Change color of the date */
+    color: white;
   }
 }
 
@@ -37,7 +39,40 @@ ion-item {
   font-size: 14px;
 }
 
-ion-item span, ion-item img {
+ion-item span,
+ion-item img {
   margin: 0 4px;
   font-size: 14px;
+}
+
+/* My Quizzes Card Styles */
+.quiz-card-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.quiz-card-wrapper ion-card {
+  width: 600px;
+  max-height: 200px;
+  padding: 4px;
+  border-radius: 20px;
+  --ion-background-color: #9f4da1; // Change this color to your desired shade for quizzes
+
+  span {
+    color: white;
+    font-weight: 300;
+  }
+}
+
+/* Style for the quiz icon image */
+.quiz-icon {
+  width: 50px;
+  height: 50px;
+  margin: 0 8px;
+}
+
+.quiz-icon {
+  width: 400px;
+  height: auto; /* or set a fixed height if needed */
 }

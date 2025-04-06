@@ -53,7 +53,11 @@ const routes: Routes = [
   {
     path: 'quiz-creator',
     loadChildren: () => import('./pages/quiz-creator/quiz-creator.module').then( m => m.QuizCreatorPageModule)
+  },  {
+    path: 'quiz-list',
+    loadChildren: () => import('./pages/quiz-list/quiz-list.module').then( m => m.QuizListPageModule)
   },
+
 
  
 ];

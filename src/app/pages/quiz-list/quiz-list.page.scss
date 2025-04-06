@@ -1,6 +1,59 @@
-ion-item {
-    --border-radius: 12px;
-    margin-bottom: 8px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-  }
-  
+:host ::ng-deep .quiz-card-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px; /* slightly more spacing between cards */
+  margin-top: 20px;
+}
+
+:host ::ng-deep ion-card {
+  width: 95%;                  /* Make card wider */
+  max-width: 450px;            /* Allow it to grow more on bigger screens */
+  min-height: 150px;           /* Bigger height for a more spacious feel */
+  padding: 32px;               /* More internal padding */
+  border-radius: 24px;
+  text-align: center;
+  transition: transform 0.2s;
+  background-image: url('/assets/fondocards.png'); /* Custom orange background */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+  color: white;
+  position: relative;
+}
+
+:host ::ng-deep ion-card:hover {
+  transform: scale(1.02);
+}
+
+/* Transparent and clean ion-item */
+:host ::ng-deep ion-item {
+  --background: transparent !important;
+  background: transparent !important;
+  --inner-border-width: 0;
+  --min-height: 60px; /* increased min-height for spacing */
+  --padding-start: 0;
+  --inner-padding-end: 0;
+  box-shadow: none;
+  border: none;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+/* White title with spacing and size */
+:host ::ng-deep ion-item h2 {
+  font-size: 26px;        /* Bigger title */
+  color: white;
+  font-weight: 600;
+  margin: 0 0 10px 0;     /* space below title */
+}
+
+/* Subtext */
+:host ::ng-deep ion-item p {
+  font-size: 18px;        /* Bigger subtitle */
+  color: white;
+  font-weight: 300;
+  margin: 0;
+}

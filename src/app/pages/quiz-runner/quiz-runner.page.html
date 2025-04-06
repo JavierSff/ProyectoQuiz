@@ -1,41 +1,63 @@
-<ion-header>
-  <ion-toolbar>
+<ion-header class="quiz-header">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button fill="clear">
+        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
     <ion-title>Quiz</ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="clear">
+        <ion-icon slot="icon-only" name="options-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
+<ion-content class="quiz-content">
   <div *ngIf="!showResult">
-    <h2 class="question">{{ questions[currentQuestionIndex].question }}</h2>
+    <!-- Progress -->
+    <div class="quiz-progress">
+      <div class="circle">
+        {{ currentQuestionIndex + 1 }}
+      </div>
+    </div>
 
+    <!-- Question Card -->
+    <div class="question-card">
+      <div class="question-count">Question {{ currentQuestionIndex + 1 }}/{{ questions.length }}</div>
+      <h2 class="question">{{ questions[currentQuestionIndex].question }}</h2>
+    </div>
+
+    <!-- Options -->
     <div class="options">
-      <ion-button
-        expand="block"
+      <button
+        class="option-button"
         *ngFor="let option of questions[currentQuestionIndex].options; let i = index"
-        [color]="
-          hasAnswered
-            ? i === questions[currentQuestionIndex].correctAnswer
-              ? 'success'
-              : i === selectedOptionIndex
-              ? 'danger'
-              : 'medium'
-            : 'light'
-        "
+        [ngClass]="{
+          'correct': hasAnswered && i === questions[currentQuestionIndex].correctAnswer,
+          'wrong': hasAnswered && i === selectedOptionIndex && i !== questions[currentQuestionIndex].correctAnswer,
+          'selected': selectedOptionIndex === i
+        }"
         (click)="selectOption(i)"
       >
         {{ option }}
-      </ion-button>
+        <ion-icon *ngIf="hasAnswered && i === questions[currentQuestionIndex].correctAnswer" name="checkmark-circle" class="right-icon"></ion-icon>
+        <ion-icon *ngIf="hasAnswered && i === selectedOptionIndex && i !== questions[currentQuestionIndex].correctAnswer" name="close-circle" class="wrong-icon"></ion-icon>
+      </button>
     </div>
 
+    <!-- Next -->
     <div class="bottom">
-      <ion-button expand="block" *ngIf="hasAnswered" (click)="nextQuestion()">
+      <ion-button shape="round" expand="block" *ngIf="hasAnswered" (click)="nextQuestion()">
         {{ currentQuestionIndex === questions.length - 1 ? 'See Results' : 'Next' }}
       </ion-button>
     </div>
   </div>
 
+  <!-- Result -->
   <div *ngIf="showResult" class="result">
     <h2>You got {{ score }} out of {{ questions.length }} correct!</h2>
-    <ion-button expand="block" (click)="restartQuiz()">Try Again</ion-button>
+    <ion-button expand="block" shape="round" (click)="restartQuiz()">Try Again</ion-button>
   </div>
 </ion-content>

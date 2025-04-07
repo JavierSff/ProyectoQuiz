@@ -24,7 +24,7 @@ export class PlannerPage implements OnInit {
     private toastCtrl: ToastController,
     private modalCtrl: ModalController,
     private cdr: ChangeDetectorRef,
-    private ngZone: NgZone
+    private ngZone: NgZone 
   ) {
     const currentDate = new Date();
     this.selectedDate = currentDate.toISOString().split('T')[0];

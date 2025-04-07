@@ -2,8 +2,8 @@
 .todo-container {
   width: 90%; /* Use width instead of max-width */
   max-width: 600px; /* Set max-width to 600px or any desired value */
-  margin: 0 auto;
-  padding: 40px 30px 30px 30px; /* Adjust padding if needed */
+  margin: 20px auto 0 auto; /* Add margin-top (20px) to create space */
+  padding: 80px 30px 30px 30px; /* Adjust padding if needed */
   border-radius: 16px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   background: linear-gradient(145deg, #f0f0f5, #e4e4e9); /* Soft iOS-like gradient */
@@ -22,6 +22,7 @@ h2 {
 /* Add Task Input and Button */
 .add-task {
   display: flex;
+  padding: 0px 0px 0px 0px;
   justify-content: space-between;
   margin-bottom: 30px;
 }

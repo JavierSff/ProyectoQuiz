@@ -1,5 +1,15 @@
 import { Injectable } from '@angular/core';
-import { Firestore, addDoc, collection, collectionData, query, where, getDocs } from '@angular/fire/firestore';
+import {
+  Firestore,
+  addDoc,
+  collection,
+  collectionData,
+  query,
+  where,
+  getDocs,
+  deleteDoc,
+  doc
+} from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -8,35 +18,52 @@ export class EventService {
   constructor(private firestore: Firestore) {}
 
   // Method to add an event to Firestore
-  addEvent(event: { title: string, date: string, createdAt: Date }) {
+  addEvent(event: { title: string, date: string, time?: string, createdAt: Date }) {
     const eventRef = collection(this.firestore, 'events');
     return addDoc(eventRef, event);
   }
 
   // Method to retrieve events from Firestore for a specific date
-  async getEventsByDate(date: string): Promise<string[]> {
+  async getEventsByDate(date: string): Promise<any[]> {
     const eventsRef = collection(this.firestore, 'events');
-    const q = query(eventsRef, where('date', '==', date));  // Filter events by the selected date
+    const q = query(eventsRef, where('date', '==', date));
 
     try {
       const querySnapshot = await getDocs(q);
-      const events = querySnapshot.docs.map(doc => doc.data()['title']);
+      const events = querySnapshot.docs.map(docSnap => ({
+        id: docSnap.id,
+        ...docSnap.data()
+      }));
       return events;
     } catch (error) {
       console.error("Error retrieving events: ", error);
       throw error;
     }
-  } 
+  }
 
-  // Method to retrieve all events (to populate datesWithEvents)
+  // Method to retrieve all events (to populate calendar highlights)
   async getAllEvents(): Promise<any[]> {
     const eventsRef = collection(this.firestore, 'events');
     try {
       const querySnapshot = await getDocs(eventsRef);
-      const events = querySnapshot.docs.map(doc => doc.data());
+      const events = querySnapshot.docs.map(docSnap => ({
+        id: docSnap.id,
+        ...docSnap.data()
+      }));
       return events;
     } catch (error) {
       console.error("Error fetching all events:", error);
+      throw error;
+    }
+  }
+
+  // ✅ Method to delete an event by document ID
+  async deleteEvent(event: { id: string }) {
+    try {
+      const eventDocRef = doc(this.firestore, `events/${event.id}`);
+      await deleteDoc(eventDocRef);
+    } catch (error) {
+      console.error("Error deleting event:", error);
       throw error;
     }
   }

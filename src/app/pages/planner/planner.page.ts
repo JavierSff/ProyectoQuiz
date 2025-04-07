@@ -1,7 +1,7 @@
-import { Component, OnInit, ChangeDetectorRef, AfterViewInit, ViewChild } from '@angular/core';
-import { ToastController } from '@ionic/angular'; 
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { ModalController, ToastController } from '@ionic/angular';
 import { EventService } from 'src/app/services/event-service.service';
-import { IonDatetime } from '@ionic/angular'; // Import IonDatetime for manual update
+import { AddEventModal } from './add-event.modal';
 
 @Component({
   selector: 'app-planner',
@@ -9,142 +9,85 @@ import { IonDatetime } from '@ionic/angular'; // Import IonDatetime for manual u
   templateUrl: 'planner.page.html',
   styleUrls: ['planner.page.scss'],
 })
-export class PlannerPage implements OnInit, AfterViewInit {
-
+export class PlannerPage implements OnInit {
   selectedDate: string;
-  eventsForSelectedDate: string[] = [];
-  newEvent: string = '';  // Variable for storing the new event entered by the user
-
-  events: { [key: string]: string[] } = {};
+  eventsForSelectedDate: any[] = [];
+  events: { [key: string]: any[] } = {};
   minDate: string;
   maxDate: string;
   highlightedDates: { [key: string]: boolean } = {};
 
-  @ViewChild(IonDatetime) datetime: IonDatetime | undefined;  // Reference to the IonDatetime component
-
   constructor(
-    private eventService: EventService,  // Inject EventService
-    private toastCtrl: ToastController,  // Inject ToastController to show success/error messages
-    private cdr: ChangeDetectorRef  // Inject ChangeDetectorRef to trigger change detection manually
+    private eventService: EventService,
+    private toastCtrl: ToastController,
+    private modalCtrl: ModalController,
+    private cdr: ChangeDetectorRef
   ) {
-    this.selectedDate = new Date().toISOString().split('T')[0]; // Default to today's date and strip time
-    
-    // Set minDate and maxDate here, e.g., 1 year before and after today's date
     const currentDate = new Date();
+    this.selectedDate = currentDate.toISOString().split('T')[0];
     this.minDate = new Date(currentDate.setFullYear(currentDate.getFullYear() - 1)).toISOString().split('T')[0];
     this.maxDate = new Date(currentDate.setFullYear(currentDate.getFullYear() + 2)).toISOString().split('T')[0];
   }
 
   ngOnInit() {
-    // Fetch all events on page load
     this.fetchAllEvents();
   }
 
-  // After view is initialized, trigger change detection manually
-  ngAfterViewInit() {
-    if (this.datetime) {
-      // Manually refresh the IonDatetime component after events are fetched
-      setTimeout(() => {
-        this.cdr.detectChanges();
-      }, 0); // Ensures that the change detection is applied after the view is fully initialized
-    }
-  }
-
-  // Fetch all events from Firestore and store them for later use
   async fetchAllEvents() {
-    try {
-      const events = await this.eventService.getAllEvents();
-      this.events = {};  // Clear previous events
-      this.highlightedDates = {};  // Clear previous highlighted dates
+    const events = await this.eventService.getAllEvents();
+    this.events = {};
+    this.highlightedDates = {};
 
-      events.forEach(event => {
-        const eventDate = event.date;  // Assuming event.date is in 'YYYY-MM-DD' format
-        if (!this.events[eventDate]) {
-          this.events[eventDate] = [];
-        }
-        this.events[eventDate].push(event.title);
-        this.highlightedDates[eventDate] = true;  // Mark this date as having events
-      });
+    events.forEach(event => {
+      const date = event.date;
+      if (!this.events[date]) this.events[date] = [];
+      this.events[date].push(event);
+      this.highlightedDates[date] = true;
+    });
 
-      // Trigger change detection manually after updating the highlighted dates
-      this.cdr.detectChanges();
-    } catch (error) {
-      console.error("Error fetching events:", error);
-      const toast = await this.toastCtrl.create({
-        message: 'Failed to load events.',
-        duration: 2000
-      });
-      toast.present();
-    }
+    this.fetchEventsForSelectedDate();
+    this.cdr.detectChanges();
   }
 
-  // Method to retrieve events for the selected date
-  async fetchEventsForSelectedDate() {
-    try {
-      console.log('Fetching events for:', this.selectedDate);  // Log to check if the correct date is being used
-      const events = await this.eventService.getEventsByDate(this.selectedDate);
-      this.eventsForSelectedDate = events;  // Store the fetched events in the array
-    } catch (error) {
-      console.error("Error fetching events:", error);
-      const toast = await this.toastCtrl.create({
-        message: 'Failed to load events.',
-        duration: 2000
-      });
-      toast.present();
-    }
+  fetchEventsForSelectedDate() {
+    this.eventsForSelectedDate = this.events[this.selectedDate] || [];
   }
 
   onDateChange(event: any) {
-    const selectedDateString = event.detail.value.split('T')[0]; // Strip the time part on date change
-    this.selectedDate = selectedDateString;  // Update the selected date
-    this.fetchEventsForSelectedDate();  // Re-fetch events for the new date
+    this.selectedDate = event.detail.value.split('T')[0];
+    this.fetchEventsForSelectedDate();
   }
 
-  // Method to add a new event to Firestore
-  async addEvent() {
-    if (this.newEvent.trim() !== '') {
-      const event = {
-        title: this.newEvent.trim(),
-        date: this.selectedDate,
-        createdAt: new Date() // Timestamp for when the event was added
-      };
+  async openAddEventModal() {
+    const modal = await this.modalCtrl.create({
+      component: AddEventModal,
+      componentProps: { selectedDate: this.selectedDate }
+    });
 
-      try {
-        // Call the addEvent method in EventService to store the event in Firebase
-        await this.eventService.addEvent(event);
-        
-        // Show success message
-        const toast = await this.toastCtrl.create({
-          message: 'Event added successfully!',
-          duration: 2000
-        });
-        toast.present();
+    modal.onDidDismiss().then(() => {
+      this.fetchAllEvents();
+    });
 
-        // Re-fetch the events after adding the new one
-        this.fetchAllEvents();
-        this.fetchEventsForSelectedDate();
-
-        // Clear the input field
-        this.newEvent = '';
-      } catch (error) {
-        // Show error message if there is a failure
-        const toast = await this.toastCtrl.create({
-          message: 'Error adding event: ' + error,
-          duration: 2000
-        });
-        toast.present();
-      }
-    }
+    await modal.present();
   }
 
-  // Highlight only dates that have events
+  async deleteEvent(eventToDelete: any) {
+    await this.eventService.deleteEvent(eventToDelete);
+    const toast = await this.toastCtrl.create({
+      message: 'Event deleted',
+      duration: 1500
+    });
+    toast.present();
+    this.fetchAllEvents();
+  }
+
   highlightedDatesFunc = (isoString: string) => {
     if (this.highlightedDates[isoString]) {
       return {
-        textColor: '#800080',  // Purple text color
-        backgroundColor: '#ffc0cb',  // Pink background
+        textColor: '#fff',
+        backgroundColor: '#ff4081',
       };
     }
-    return undefined;  // No highlight for dates without events
+    return undefined;
   };
 }

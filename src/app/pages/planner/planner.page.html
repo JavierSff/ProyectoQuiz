@@ -1,39 +1,56 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Planner</ion-title>
+  </ion-toolbar>
+</ion-header>
 
-<ion-content>
-  <ion-item>
-    <ion-label position="floating">Select Date</ion-label>
-    <ion-datetime
-  [(ngModel)]="selectedDate"
-  (ionChange)="onDateChange($event)"
-  [min]="minDate"
-  [max]="maxDate"
-  display-format="YYYY-MM-DD"
-  picker-format="YYYY-MM-DD"
-  presentation="date"
-  [highlightedDates]="highlightedDatesFunc">
-</ion-datetime>
+<ion-content [fullscreen]="true" class="planner-bg">
 
-  </ion-item>
+  <!-- Inline Calendar -->
+  <ion-card class="calendar-card">
+    <ion-card-content>
+      <ion-datetime
+        presentation="date"
+        [(ngModel)]="selectedDate"
+        (ionChange)="onDateChange($event)"
+        [min]="minDate"
+        [max]="maxDate"
+        [highlightedDates]="highlightedDatesFunc"
+        showDefaultButtons="false"
+        preferWheel="false"
+      ></ion-datetime>
+    </ion-card-content>
+  </ion-card>
 
+  <!-- Event List -->
   <div *ngIf="eventsForSelectedDate.length > 0">
-    <h3>Events for {{ selectedDate | date: 'fullDate' }}:</h3>
-    <ion-list>
-      <ion-item *ngFor="let event of eventsForSelectedDate">
+    <ion-text color="medium">
+      <h3 class="ion-padding-horizontal">Events for {{ selectedDate | date: 'fullDate' }}:</h3>
+    </ion-text>
+
+    <ion-card *ngFor="let event of eventsForSelectedDate" class="event-card">
+      <ion-item lines="none">
+        <ion-icon slot="start" name="calendar-outline"></ion-icon>
         <ion-label>
-          {{ event }}
+          <h2>{{ event.title }}</h2>
+          <p>{{ event.time || 'All Day' }}</p>
         </ion-label>
+        <ion-button fill="clear" color="danger" slot="end" (click)="deleteEvent(event)">
+          <ion-icon name="trash"></ion-icon>
+        </ion-button>
       </ion-item>
-    </ion-list>
+    </ion-card>
   </div>
-  <div *ngIf="eventsForSelectedDate.length === 0">
+
+  <div *ngIf="eventsForSelectedDate.length === 0" class="no-events">
     <p>No events for this date.</p>
   </div>
 
-  <!-- New event section -->
-  <ion-item class="event description">
-    <ion-label position="floating">New Event</ion-label>
-    <ion-input [(ngModel)]="newEvent" placeholder="Enter event details"></ion-input>
-  </ion-item>
+  <!-- Floating Add Button -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="openAddEventModal()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 
-  <ion-button shape="round" expand="full" (click)="addEvent()">Add Event</ion-button>
 </ion-content>

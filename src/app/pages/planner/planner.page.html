@@ -7,11 +7,18 @@
 <ion-content>
   <ion-item>
     <ion-label position="floating">Select Date</ion-label>
-    <ion-datetime [(ngModel)]="selectedDate" (ionChange)="onDateChange($event)"></ion-datetime>
+    <ion-datetime
+      [(ngModel)]="selectedDate"
+      (ionChange)="onDateChange($event)"
+      [min]="minDate"
+      [max]="maxDate"
+      display-format="YYYY-MM-DD"
+      picker-format="YYYY-MM-DD">
+    </ion-datetime>
   </ion-item>
 
   <div *ngIf="eventsForSelectedDate.length > 0">
-    <h3>Events for {{ selectedDate | date:'fullDate' }}:</h3>
+    <h3>Events for {{ selectedDate | date: 'fullDate' }}:</h3>
     <ion-list>
       <ion-item *ngFor="let event of eventsForSelectedDate">
         <ion-label>
@@ -24,7 +31,7 @@
     <p>No events for this date.</p>
   </div>
 
-  <!-- ------- -->
+  <!-- New event section -->
   <ion-item class="event description">
     <ion-label position="floating">New Event</ion-label>
     <ion-input [(ngModel)]="newEvent" placeholder="Enter event details"></ion-input>

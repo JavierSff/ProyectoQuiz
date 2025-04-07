@@ -15,7 +15,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'landing',
+    redirectTo: 'splash-page',
     pathMatch: 'full'
   },
   {
@@ -58,6 +58,11 @@ const routes: Routes = [
     path: 'quiz-list',
     loadChildren: () => import('./pages/quiz-list/quiz-list.module').then( m => m.QuizListPageModule)
   },
+  {
+    path: 'splash-page',
+    loadChildren: () => import('./pages/splash-page/splash-page.module').then( m => m.SplashPagePageModule)
+  },
+
 
 
  

@@ -56,8 +56,7 @@ toggleCompleted(id: number): void {
 }
 
 saveTodoList(): void {
-    // localStorage.setItem('todoList', JSON.stringify(this.todoList));
-
+   
 }
 
 

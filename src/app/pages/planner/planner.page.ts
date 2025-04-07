@@ -1,7 +1,9 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, NgZone } from '@angular/core';
 import { ModalController, ToastController } from '@ionic/angular';
 import { EventService } from 'src/app/services/event-service.service';
 import { AddEventModal } from './add-event.modal';
+
+
 
 @Component({
   selector: 'app-planner',
@@ -21,7 +23,8 @@ export class PlannerPage implements OnInit {
     private eventService: EventService,
     private toastCtrl: ToastController,
     private modalCtrl: ModalController,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private ngZone: NgZone
   ) {
     const currentDate = new Date();
     this.selectedDate = currentDate.toISOString().split('T')[0];
@@ -30,9 +33,18 @@ export class PlannerPage implements OnInit {
   }
 
   ngOnInit() {
-    this.fetchAllEvents();
+    this.fetchAllEvents().then(() => {
+      // Ensure Angular runs in the correct zone
+      this.ngZone.run(() => {
+        setTimeout(() => {
+          this.fetchEventsForSelectedDate();
+          this.cdr.markForCheck(); // Mark for change detection
+        }, 0);
+      });
+    });
   }
-
+  
+  
   async fetchAllEvents() {
     const events = await this.eventService.getAllEvents();
     this.events = {};

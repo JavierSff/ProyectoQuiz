@@ -3,18 +3,32 @@
   <ion-menu contentId="main-content">
     <ion-header>
       <ion-toolbar>
-        <ion-title>Menu Content</ion-title>
+        <ion-title>Menu</ion-title>
       </ion-toolbar>
     </ion-header>
     <ion-content class="ion-padding">
       <!-- Menu content goes here -->
       <ion-list>
-        <ion-item routerLink="/home" routerDirection="root">Home</ion-item>
-        <ion-item routerLink="/profile" routerDirection="root">Profile</ion-item>
-        <ion-item routerLink="/journals" routerDirection="root">Student Notes</ion-item>
-        <ion-item routerLink="/todo" routerDirection="root">ToDo List</ion-item>
-        <ion-item routerLink="/quiz-list" routerDirection="root">My quizzes</ion-item>
-        <ion-item routerLink="/planner" routerDirection="root">My Planner</ion-item>
+        <ion-item routerLink="/profile" routerDirection="root">
+          <ion-icon slot="start" name="person-outline"></ion-icon>
+          Profile
+        </ion-item>
+        <ion-item routerLink="/journals" routerDirection="root">
+          <ion-icon slot="start" name="book-outline"></ion-icon>
+          Student Notes
+        </ion-item>
+        <ion-item routerLink="/todo" routerDirection="root">
+          <ion-icon slot="start" name="checkmark-done-outline"></ion-icon>
+          ToDo List
+        </ion-item>
+        <ion-item routerLink="/quiz-list" routerDirection="root">
+          <ion-icon slot="start" name="bulb-outline"></ion-icon>
+          My quizzes
+        </ion-item>
+        <ion-item routerLink="/planner" routerDirection="root">
+          <ion-icon slot="start" name="calendar-outline"></ion-icon>
+          My Planner
+        </ion-item>
         <!-- Add more menu items here -->
       </ion-list>
     </ion-content>

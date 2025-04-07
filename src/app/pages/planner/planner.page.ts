@@ -14,15 +14,14 @@ export class PlannerPage implements OnInit {
   eventsForSelectedDate: string[] = [];
   newEvent: string = '';  // Variable for storing the new event entered by the user
 
-  events: { [key: string]: string[] } = {
-    '2025-04-07': ['Event 1: Meeting with John', 'Event 2: Lunch with Sarah'],
-    '2025-04-08': ['Event 1: Conference'],
-    '2025-04-09': ['Event 1: Doctor Appointment', 'Event 2: Dinner with Friends']
-  };
+  // Temporarily removing the hardcoded events object
+  events: { [key: string]: string[] } = {};
 
-  // Define the minDate and maxDate
   minDate: string;
   maxDate: string;
+
+  // Initialize highlightedDates with an empty object
+  highlightedDates: { [key: string]: boolean } = {};
 
   constructor(
     private eventService: EventService,  // Inject EventService
@@ -38,10 +37,35 @@ export class PlannerPage implements OnInit {
 
   ngOnInit() {
     // Fetch the events for the selected date when the page loads
-    this.fetchEventsForSelectedDate();
+    this.fetchAllEvents();
   }
 
-  // Method to retrieve events from Firestore for the selected date
+  // Fetch all events from Firestore and store them for later use
+  async fetchAllEvents() {
+    try {
+      const events = await this.eventService.getAllEvents();
+      this.events = {};  // Clear previous events
+      this.highlightedDates = {};  // Clear previous highlighted dates
+
+      events.forEach(event => {
+        const eventDate = event.date;  // Assuming event.date is in 'YYYY-MM-DD' format
+        if (!this.events[eventDate]) {
+          this.events[eventDate] = [];
+        }
+        this.events[eventDate].push(event.title);
+        this.highlightedDates[eventDate] = true;  // Mark this date as having events
+      });
+    } catch (error) {
+      console.error("Error fetching events:", error);
+      const toast = await this.toastCtrl.create({
+        message: 'Failed to load events.',
+        duration: 2000
+      });
+      toast.present();
+    }
+  }
+
+  // Method to retrieve events for the selected date
   async fetchEventsForSelectedDate() {
     try {
       console.log('Fetching events for:', this.selectedDate);  // Log to check if the correct date is being used
@@ -84,6 +108,7 @@ export class PlannerPage implements OnInit {
         toast.present();
 
         // Re-fetch the events after adding the new one
+        this.fetchAllEvents();
         this.fetchEventsForSelectedDate();
 
         // Clear the input field
@@ -98,4 +123,15 @@ export class PlannerPage implements OnInit {
       }
     }
   }
+
+  // Highlight only dates that have events
+  highlightedDatesFunc = (isoString: string) => {
+    if (this.highlightedDates[isoString]) {
+      return {
+        textColor: '#800080',  // Purple text color
+        backgroundColor: '#ffc0cb',  // Pink background
+      };
+    }
+    return undefined;  // No highlight for dates without events
+  };
 }

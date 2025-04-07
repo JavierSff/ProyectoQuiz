@@ -8,13 +8,16 @@
   <ion-item>
     <ion-label position="floating">Select Date</ion-label>
     <ion-datetime
-      [(ngModel)]="selectedDate"
-      (ionChange)="onDateChange($event)"
-      [min]="minDate"
-      [max]="maxDate"
-      display-format="YYYY-MM-DD"
-      picker-format="YYYY-MM-DD">
-    </ion-datetime>
+  [(ngModel)]="selectedDate"
+  (ionChange)="onDateChange($event)"
+  [min]="minDate"
+  [max]="maxDate"
+  display-format="YYYY-MM-DD"
+  picker-format="YYYY-MM-DD"
+  presentation="date"
+  [highlightedDates]="highlightedDatesFunc">
+</ion-datetime>
+
   </ion-item>
 
   <div *ngIf="eventsForSelectedDate.length > 0">

@@ -1,0 +1,45 @@
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-title>Profile</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="profile-bg">
+
+  <!-- Profile Header -->
+  <div class="profile-header">
+    <ion-avatar class="profile-avatar">
+      <img src="assets/noprofile.jpg" />
+    </ion-avatar>
+    <ion-text class="profile-name">
+      <h2>John Doe</h2>
+      <p>johndoe</p>
+    </ion-text>
+  </div>
+
+  <!-- Personal Details -->
+  <ion-card class="details-card">
+    <ion-card-header>
+      <ion-card-title>Personal Info</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item lines="none">
+        <ion-label>Full Name</ion-label>
+        <ion-text>John Doe</ion-text>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-label>Email</ion-label>
+        <ion-text>johndoe.example.com</ion-text>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-label>Phone</ion-label>
+        <ion-text>+123 456 7890</ion-text>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Action Buttons -->
+  <ion-button expand="block" shape="round" class="edit-profile-btn">Edit Profile</ion-button>
+  <ion-button expand="block" shape="round" class="logout-btn" color="secondary">Log Out</ion-button>
+
+</ion-content>

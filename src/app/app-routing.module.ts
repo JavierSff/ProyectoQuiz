@@ -65,6 +65,10 @@ const routes: Routes = [
     path: 'planner',
     loadChildren: () => import('./pages/planner/planner.module').then( m => m.PlannerPageModule)
   },
+  {
+    path: 'profile',
+    loadChildren: () => import('./pages/profile/profile.module').then( m => m.ProfilePageModule)
+  },
 
 
 

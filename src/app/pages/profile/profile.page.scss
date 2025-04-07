@@ -1,0 +1,111 @@
+/* Background */
+.profile-bg {
+    --background: #f4f4f7; /* Light gray background */
+    padding-top: 24px;
+  }
+  
+  /* Profile Header */
+  .profile-header {
+    text-align: center;
+    padding: 32px;
+  }
+  
+  .profile-avatar {
+    width: 120px;
+    height: 120px;
+    margin-bottom: 16px;
+  }
+  
+  .profile-avatar img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+  }
+  
+  .profile-name h2 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
+  }
+  
+  .profile-name p {
+    font-size: 14px;
+    color: #888;
+    margin-top: 8px;
+  }
+  
+  /* Personal Info Card */
+  .details-card {
+    margin-top: 16px;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    background-color: #ffffff;
+  }
+  
+  ion-card-header {
+    background-color: #f9f9f9;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+  }
+  
+  ion-card-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+  }
+  
+  ion-item {
+    border-bottom: 1px solid #f2f2f2;
+  }
+  
+  ion-item ion-label {
+    font-size: 14px;
+    color: #666;
+  }
+  
+  ion-item ion-text {
+    font-size: 14px;
+    color: #333;
+  }
+  
+  /* Buttons */
+  .edit-profile-btn {
+    margin-top: 24px;
+    border-radius: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  
+  .logout-btn {
+    margin-top: 16px;
+    border-radius: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .profile-name h2 {
+      font-size: 20px;
+    }
+    .profile-name p {
+      font-size: 12px;
+    }
+    .profile-header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 32px;
+      }
+      
+      .profile-avatar {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%; /* Make sure the avatar is round */
+        object-fit: cover; /* Ensure the image fits the avatar area */
+        margin-bottom: 16px;
+      }
+      
+  }
+  

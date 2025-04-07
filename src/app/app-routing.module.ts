@@ -61,7 +61,11 @@ const routes: Routes = [
   {
     path: 'splash-page',
     loadChildren: () => import('./pages/splash-page/splash-page.module').then( m => m.SplashPagePageModule)
+  },  {
+    path: 'planner',
+    loadChildren: () => import('./pages/planner/planner.module').then( m => m.PlannerPageModule)
   },
+
 
 
 

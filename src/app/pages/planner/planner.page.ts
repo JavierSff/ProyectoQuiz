@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, AfterViewInit, ViewChild } from '@angular/core';
 import { ToastController } from '@ionic/angular'; 
 import { EventService } from 'src/app/services/event-service.service';
+import { IonDatetime } from '@ionic/angular'; // Import IonDatetime for manual update
 
 @Component({
   selector: 'app-planner',
@@ -8,24 +9,23 @@ import { EventService } from 'src/app/services/event-service.service';
   templateUrl: 'planner.page.html',
   styleUrls: ['planner.page.scss'],
 })
-export class PlannerPage implements OnInit {
+export class PlannerPage implements OnInit, AfterViewInit {
 
   selectedDate: string;
   eventsForSelectedDate: string[] = [];
   newEvent: string = '';  // Variable for storing the new event entered by the user
 
-  // Temporarily removing the hardcoded events object
   events: { [key: string]: string[] } = {};
-
   minDate: string;
   maxDate: string;
-
-  // Initialize highlightedDates with an empty object
   highlightedDates: { [key: string]: boolean } = {};
+
+  @ViewChild(IonDatetime) datetime: IonDatetime | undefined;  // Reference to the IonDatetime component
 
   constructor(
     private eventService: EventService,  // Inject EventService
-    private toastCtrl: ToastController  // Inject ToastController to show success/error messages
+    private toastCtrl: ToastController,  // Inject ToastController to show success/error messages
+    private cdr: ChangeDetectorRef  // Inject ChangeDetectorRef to trigger change detection manually
   ) {
     this.selectedDate = new Date().toISOString().split('T')[0]; // Default to today's date and strip time
     
@@ -36,8 +36,18 @@ export class PlannerPage implements OnInit {
   }
 
   ngOnInit() {
-    // Fetch the events for the selected date when the page loads
+    // Fetch all events on page load
     this.fetchAllEvents();
+  }
+
+  // After view is initialized, trigger change detection manually
+  ngAfterViewInit() {
+    if (this.datetime) {
+      // Manually refresh the IonDatetime component after events are fetched
+      setTimeout(() => {
+        this.cdr.detectChanges();
+      }, 0); // Ensures that the change detection is applied after the view is fully initialized
+    }
   }
 
   // Fetch all events from Firestore and store them for later use
@@ -55,6 +65,9 @@ export class PlannerPage implements OnInit {
         this.events[eventDate].push(event.title);
         this.highlightedDates[eventDate] = true;  // Mark this date as having events
       });
+
+      // Trigger change detection manually after updating the highlighted dates
+      this.cdr.detectChanges();
     } catch (error) {
       console.error("Error fetching events:", error);
       const toast = await this.toastCtrl.create({

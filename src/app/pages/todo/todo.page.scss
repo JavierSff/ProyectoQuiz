@@ -3,12 +3,12 @@
   width: 90%; /* Use width instead of max-width */
   max-width: 600px; /* Set max-width to 600px or any desired value */
   margin: 20px auto 0 auto; /* Add margin-top (20px) to create space */
-  padding: 80px 30px 30px 30px; /* Adjust padding if needed */
+  padding: 40px 30px 30px 30px; /* Adjust padding for a more spacious feel */
   border-radius: 16px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   background: linear-gradient(145deg, #f0f0f5, #e4e4e9); /* Soft iOS-like gradient */
+  overflow: hidden; /* Prevents any overflow from elements */
 }
-
 
 /* Title */
 h2 {
@@ -22,7 +22,7 @@ h2 {
 /* Add Task Input and Button */
 .add-task {
   display: flex;
-  padding: 0px 0px 0px 0px;
+  padding: 0px;
   justify-content: space-between;
   margin-bottom: 30px;
 }
@@ -46,17 +46,17 @@ h2 {
 
 .add-task button {
   padding: 12px 18px;
-  background-color: orange; /* iOS blue color */
+  background-color: orangered; /* iOS-like color */
   color: white;
   border: none;
   border-radius: 20px;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s ease;
 }
 
 .add-task button:hover {
-  background-color: orange;
+  background-color: #ff5722; /* Slightly darker orange for hover */
 }
 
 /* Task List */
@@ -94,7 +94,7 @@ h2 {
   width: 22px;
   height: 22px;
   border-radius: 50%;
-  border: 2px solid orange;
+  border: 2px solid orangered;
   background-color: #fff;
   cursor: pointer;
   transition: background-color 0.3s, border-color 0.3s;
@@ -127,11 +127,11 @@ h2 {
 }
 
 .task-list .delete-btn:hover {
-  background-color: orange;
+  background-color: #e52d2d; /* Darker red for hover */
 }
 
 .task-list li.completed .delete-btn {
-  background-color: orangered; /* Grey delete button when completed */
+  background-color: #ccc; /* Grey delete button when completed */
   cursor: not-allowed;
 }
 

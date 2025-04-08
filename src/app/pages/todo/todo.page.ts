@@ -1,63 +1,54 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { NgClass, NgFor } from '@angular/common';
-
-
-export interface TodoItem {
-  id: number;
-  task: string;
-  completed: boolean;
-}
-
+import { FormsModule } from '@angular/forms';  // Import FormsModule for ngModel
+import { CommonModule } from '@angular/common';
+import { Component, ElementRef, ViewChild, OnInit } from '@angular/core';
+import { TodoService } from 'src/app/services/todo.service'; // Import the TodoService
 
 @Component({
-    selector: 'app-root',
-    standalone: true,
-    templateUrl: './todo.page.html',
-    styleUrl: './todo.page.scss',
-    imports: [RouterOutlet,NgFor,NgClass]
+  selector: 'app-todo',
+  standalone: true,  // Set this as standalone component
+  imports: [CommonModule, FormsModule],  // Import FormsModule for ngModel binding
+  templateUrl: './todo.page.html',
+  styleUrls: ['./todo.page.scss'],
 })
-export class TodoPage {
+export class TodoPage implements OnInit {
+  todoList: any[] = [];  // Array to store to-do items
+  newTask: string = '';  // New task text
+  userId: string = '';   // User ID for authentication (could be used for personalization)
 
-  todoList: TodoItem[] = [];
-    newTask: string = '';
-    @ViewChild('todoText') todoInputRef: ElementRef<HTMLInputElement> = null!;
+  @ViewChild('todoText') todoInputRef: ElementRef<HTMLInputElement> = null!;
 
-    ngOnInit(): void {
-      const storedTodoList = this.todoList;
-    //   if (storedTodoList) {
-    //       this.todoList = JSON.parse(storedTodoList);
-    //   }
+  constructor(private todoService: TodoService) {}
+
+  ngOnInit() {
+    this.todoService.getTodos().subscribe(todos => {
+      this.todoList = todos;  // Populate todoList with tasks from Firestore
+    });
   }
+
   addTask(text: string): void {
     if (text.trim() !== '') {
-        const newTodoItem: TodoItem = {
-            id: Date.now(),
-            task: text.trim(),
-            completed: false
-        };
-        this.todoList.push(newTodoItem);
-        this.todoInputRef.nativeElement.value = '';
-        this.saveTodoList();
+      this.todoService.addTask(text).then(() => {
+        this.todoInputRef.nativeElement.value = '';  // Clear input field
+        this.loadTodos();  // Reload the list after adding the task
+      }).catch(error => console.error('Error adding task:', error));
     }
-}
+  }
 
-deleteTask(id: number): void {
-    this.todoList = this.todoList.filter(item => item.id !== id);
-    this.saveTodoList();
-}
+  deleteTask(id: string): void {
+    this.todoService.deleteTask(id).then(() => {
+      this.loadTodos();  // Reload the list after deleting a task
+    }).catch(error => console.error('Error deleting task:', error));
+  }
 
-toggleCompleted(id: number): void {
-    const todoItem = this.todoList.find(item => item.id === id);
-    if (todoItem) {
-        todoItem.completed = !todoItem.completed;
-        this.saveTodoList();
-    }
-}
+  toggleCompleted(id: string, currentStatus: boolean): void {
+    this.todoService.toggleCompleted(id, currentStatus).then(() => {
+      this.loadTodos();  // Reload the list after toggling completion status
+    }).catch(error => console.error('Error updating task:', error));
+  }
 
-saveTodoList(): void {
-   
-}
-
-
+  loadTodos(): void {
+    this.todoService.getTodos().subscribe(todos => {
+      this.todoList = todos;  // Re-fetch the tasks from Firestore
+    });
+  }
 }

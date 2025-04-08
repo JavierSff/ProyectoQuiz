@@ -2,7 +2,7 @@
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-button fill="clear" (click)="goBack()">
-        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+        <ion-icon color="primary" slot="icon-only" name="arrow-back-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
     <ion-title>My Quizzes</ion-title>
@@ -13,14 +13,25 @@
       <ion-button routerLink="/quiz-creator" *ngIf="!deleteMode">
         <ion-icon name="add-circle-outline" slot="icon-only"></ion-icon>
       </ion-button>
+      <!-- Background change button -->
+      <ion-button (click)="toggleBackgroundMenu()" *ngIf="!deleteMode">
+        <ion-icon name="color-palette-outline" slot="icon-only"></ion-icon>
+      </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
+  <!-- Background change menu -->
+  <div *ngIf="backgroundMenuVisible" class="background-menu">
+    <ion-button *ngFor="let bgImage of availableBackgrounds" (click)="changeBackground(bgImage)">
+      <ion-img [src]="'/assets/' + bgImage" alt="background option" />
+    </ion-button>
+  </div>
+
   <div *ngIf="quizzes.length > 0; else noQuizzes">
     <div class="quiz-card-wrapper" *ngFor="let quiz of quizzes">
-      <ion-card (click)="takeQuiz(quiz.id)">
+      <ion-card (click)="takeQuiz(quiz.id)" [ngStyle]="{'background-image': 'url(' + selectedBackground + ')'}">
         <ion-item lines="none">
           <ion-checkbox
             slot="start"
@@ -29,7 +40,6 @@
             [checked]="selectedQuizzes.includes(quiz.id)">
           </ion-checkbox>
 
-          <!-- Quiz Title & Question Count -->
           <div>
             <h2>{{ quiz.title }}</h2>
             <p>{{ quiz.questions?.length || 0 }} Questions</p>
@@ -39,9 +49,7 @@
     </div>
   </div>
 
-  <!-- Delete button -->
-  <ion-button expand="block" color="danger" *ngIf="deleteMode && selectedQuizzes.length > 0"
-    (click)="deleteSelectedQuizzes()">
+  <ion-button expand="block" color="danger" *ngIf="deleteMode && selectedQuizzes.length > 0" (click)="deleteSelectedQuizzes()">
     Delete Selected
   </ion-button>
 

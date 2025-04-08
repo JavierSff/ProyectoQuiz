@@ -1,15 +1,20 @@
-/* Container with soft background & rounded corners */
 .todo-container {
-  width: 90%;
+  width: 92%;
   max-width: 600px;
   margin: 20px auto;
-  padding: 24px 20px;
-  background: #fff;
-  border-radius: 24px;
+  padding: 24px;
+  background: #ffffff;
+  border-radius: 20px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
 }
 
-/* Add task input and button */
+.todo-title {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #111;
+}
+
 .add-task {
   display: flex;
   gap: 10px;
@@ -21,131 +26,124 @@
   padding: 12px 16px;
   font-size: 16px;
   border-radius: 12px;
-  border: 1px solid #ddd;
+  border: 1px solid #ccc;
   background: #f5f5f5;
-  outline: none;
 }
 
 .add-task button {
-  padding: 0 18px;
-  border: none;
-  border-radius: 12px;
+  padding: 0 16px;
   background-color: orange;
   color: white;
-  font-weight: 600;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.add-task button:hover {
-  background-color: orange;
-}
-
-/* Task List */
-.task-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.task-list li {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 14px 16px;
-  margin-bottom: 12px;
-  background: #fdfdfd;
-  border-radius: 14px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-  transition: all 0.2s ease;
-}
-
-.task-list li:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
-}
-
-/* iOS-style checkbox */
-.task-list input[type="checkbox"] {
-  appearance: none;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  border: 2px solid orange;
-  margin-right: 12px;
-  background-color: #fff;
-  cursor: pointer;
-  position: relative;
-}
-
-.task-list input[type="checkbox"]:checked::after {
-  content: '';
-  position: absolute;
-  top: 3px;
-  left: 6px;
-  width: 5px;
-  height: 10px;
-  border: solid orange;
-  border-width: 0 2px 2px 0;
-  transform: rotate(45deg);
-}
-
-/* Task text */
-.task-list span {
-  flex: 1;
-  font-size: 16px;
-  font-weight: 500;
-  color: #222;
-}
-
-.task-list span.completed {
-  color: white;
-  text-decoration: line-through;
-}
-
-/* Delete button */
-.delete-btn {
-  background: none;
   border: none;
-  color: orangered;
-  font-weight: bold;
-  cursor: pointer;
-  padding: 6px 10px;
-  font-size: 14px;
-}
-ion-item {
-  --background: #fff;
-  --padding-start: 16px;
-  --padding-end: 16px;
   border-radius: 12px;
-  margin-bottom: 12px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-}
-
-ion-label.completed {
-  color: white;
-  text-decoration: line-through;
-}
-
-ion-item-option {
   font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
 }
+
+.completed {
+  text-decoration: line-through;
+  color: #aaa;
+}
+
 .delete-option {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 80%;
   width: 42px;
-  padding: 0;
-  margin: 2px 6px 10px; // tiny tweak: more bottom margin
+  margin: 2px 6px 10px;
   border-radius: 10px;
-  background-color: orangered !important;
+  background-color: #ff3b30 !important;
   color: white !important;
-  transform: translateY(-3px); // subtle but visible lift
-  transition: transform 0.2s ease;
+  transform: translateY(-3px);
 
   ion-icon {
     font-size: 18px;
   }
 }
+ion-checkbox {
+  --size: 22px;
+  --border-radius: 50%;
+  --border-width: 2px;
+  --border-color: #ccc;
+  --background: white;
+  --checkmark-color: white;
+  --checkbox-background-checked: #007aff; // iOS blue
+
+  margin-left: 8px;
+
+  &::part(container) {
+    border-radius: 50% !important;
+    border: 2px solid var(--border-color);
+    background: var(--background);
+  }
+
+ion-checkbox {
+  --size: 22px;
+  --border-radius: 50%;
+  --border-width: 2px;
+  --border-color: #ccc;
+  --background: white;
+  --checkmark-color: white;
+  --checkbox-background-checked: orange; /* 🟠 Orange fill when checked */
+  --border-color-checked: orange;
+  margin-left: 8px;
+
+  &::part(container) {
+    border-radius: 50% !important;
+    border: 2px solid var(--border-color);
+    background: var(--background);
+    transition: all 0.2s ease-in-out;
+  }
+
+  &.checkbox-checked::part(container) {
+    background: var(--checkbox-background-checked);
+    border-color: var(--border-color-checked);
+  }
+
+  &::part(mark) {
+    color: white; /* Checkmark color */
+    font-weight: bold;
+    font-size: 14px;
+  }
+}
+
+}
+ion-checkbox {
+  --size: 22px;
+  --border-radius: 50%;
+  --border-width: 2px;
+  --border-color: #ccc;
+  --background: white;
+  --checkmark-color: white;
+  --checkbox-background-checked: orange; /* 🟠 Orange fill when checked */
+  --border-color-checked: orange;
+  margin-left: 8px;
+
+  &::part(container) {
+    border-radius: 50% !important;
+    border: 2px solid var(--border-color);
+    background: var(--background);
+    transition: all 0.2s ease-in-out;
+  }
+
+  &.checkbox-checked::part(container) {
+    background: var(--checkbox-background-checked);
+    border-color: var(--border-color-checked);
+  }
+
+  &::part(mark) {
+    color: white; /* Checkmark color */
+    font-weight: bold;
+    font-size: 14px;
+  }
+}
+.todo-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--ion-color-primary); // uses your theme's primary color
+}
+
+
+

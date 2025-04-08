@@ -12,9 +12,10 @@
       <input type="file" (change)="onImageSelected($event)" accept="image/*" />
     </ion-item>
     
-    <ion-avatar>
+    <ion-avatar class="profile-avatar">
       <img [src]="profileImage || 'assets/noprofile.jpg'" alt="Profile Image" />
     </ion-avatar>
+    
     
     <ion-text class="profile-name">
       <h2>{{ fullName || 'John Doe' }}</h2>
@@ -29,15 +30,15 @@
       <ion-card-title>Personal Info</ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      <ion-item lines="none">
-        <ion-label>Full Name</ion-label>
+      <ion-item lines="none" class="full-name-item">
+        <ion-label>Name</ion-label>
         <ion-input [(ngModel)]="fullName" [readonly]="!isEditing"></ion-input>
-      </ion-item>
-      <ion-item lines="none">
+      </ion-item>      
+      <ion-item lines="none" class="email-item">
         <ion-label>Email</ion-label>
         <ion-input [(ngModel)]="email" [readonly]="!isEditing"></ion-input>
       </ion-item>
-      <ion-item lines="none">
+      <ion-item lines="none" class="phone-item">
         <ion-label>Phone</ion-label>
         <ion-input [(ngModel)]="phone" [readonly]="!isEditing"></ion-input>
       </ion-item>

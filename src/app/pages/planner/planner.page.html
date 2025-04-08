@@ -1,6 +1,8 @@
 
 <ion-content [fullscreen]="true" class="planner-bg">
-
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <!-- Inline Calendar -->
   <ion-card class="calendar-card">
     <ion-card-content>

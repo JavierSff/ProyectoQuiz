@@ -12,6 +12,12 @@ import { JournalPage } from '../journal/journal.page';
   styleUrls: ['./journals.page.scss'],
 })
 export class JournalsPage implements OnInit {
+  handleRefresh(event: CustomEvent) {
+    setTimeout(() => {
+      // Any calls to load data go here
+      (event.target as HTMLIonRefresherElement).complete();
+    }, 2000);
+  }
   @ViewChild(IonModal) modal: IonModal;
 
   title:string

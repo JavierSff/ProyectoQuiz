@@ -13,6 +13,12 @@ const { API_URL, API_KEY } = environment.weatherApi;
   standalone: false,
 })
 export class HomePage {
+  handleRefresh(event: CustomEvent) {
+    setTimeout(() => {
+      // Any calls to load data go here
+      (event.target as HTMLIonRefresherElement).complete();
+    }, 2000);
+  }
   weatherTemp: any
   todayDate = new Date()
   cityName: any

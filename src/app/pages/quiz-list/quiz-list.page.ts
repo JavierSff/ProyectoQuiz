@@ -11,6 +11,12 @@ import { Quiz } from 'src/app/services/quiz-service.service';
   styleUrls: ['./quiz-list.page.scss'],
 })
 export class QuizListPage implements OnInit {
+  handleRefresh(event: CustomEvent) {
+    setTimeout(() => {
+      // Any calls to load data go here
+      (event.target as HTMLIonRefresherElement).complete();
+    }, 2000);
+  }
   quizzes: Quiz[] = [];
   userId: string = '';
   deleteMode = false;

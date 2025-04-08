@@ -5,6 +5,9 @@
 </ion-header>
 
 <ion-content class="profile-bg">
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <!-- Profile Header -->
   <div class="profile-header">
     <ion-item *ngIf="isEditing">

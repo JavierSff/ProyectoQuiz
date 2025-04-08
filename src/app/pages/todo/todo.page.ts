@@ -1,16 +1,27 @@
 import { FormsModule } from '@angular/forms';  // Import FormsModule for ngModel
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, ViewChild, OnInit } from '@angular/core';
-import { TodoService } from 'src/app/services/todo.service'; // Import the TodoService
+import { TodoService } from 'src/app/services/todo.service';
+import { IonRefresher, IonRefresherContent, IonContent } from "@ionic/angular/standalone";
+
 
 @Component({
   selector: 'app-todo',
   standalone: true,  // Set this as standalone component
-  imports: [CommonModule, FormsModule],  // Import FormsModule for ngModel binding
+  imports: [
+    IonContent,
+    IonRefresher,
+    IonRefresherContent,CommonModule, FormsModule],  // Import FormsModule for ngModel binding
   templateUrl: './todo.page.html',
   styleUrls: ['./todo.page.scss'],
 })
 export class TodoPage implements OnInit {
+  handleRefresh(event: CustomEvent) {
+    setTimeout(() => {
+      // Any calls to load data go here
+      (event.target as HTMLIonRefresherElement).complete();
+    }, 2000);
+  }
   todoList: any[] = [];  // Array to store to-do items
   newTask: string = '';  // New task text
   userId: string = '';   // User ID for authentication (could be used for personalization)

@@ -12,6 +12,12 @@ import { getStorage, ref, uploadBytes, getDownloadURL } from '@angular/fire/stor
   styleUrls: ['./profile.page.scss'],
 })
 export class ProfilePage implements OnInit {
+  handleRefresh(event: CustomEvent) {
+    setTimeout(() => {
+      // Any calls to load data go here
+      (event.target as HTMLIonRefresherElement).complete();
+    }, 2000);
+  }
   fullName: string = '';
   username: string = '';
   email: string = '';

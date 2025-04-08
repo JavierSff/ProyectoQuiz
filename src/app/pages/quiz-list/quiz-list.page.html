@@ -19,6 +19,9 @@
 </ion-header>
 
 <ion-content class="ion-padding">
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <!-- List of Quizzes -->
   <div *ngFor="let quiz of quizzes">
     <ion-card (click)="takeQuiz(quiz.id)" [ngStyle]="{'background-image': 'url(' + (quiz.backgroundImage || '/assets/fondocards.png') + ')'}">

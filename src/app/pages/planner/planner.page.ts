@@ -12,6 +12,12 @@ import { AddEventModal } from './add-event.modal';
   styleUrls: ['planner.page.scss'],
 })
 export class PlannerPage implements OnInit {
+  handleRefresh(event: CustomEvent) {
+    setTimeout(() => {
+      // Any calls to load data go here
+      (event.target as HTMLIonRefresherElement).complete();
+    }, 2000);
+  }
   selectedDate: string;
   eventsForSelectedDate: any[] = [];
   events: { [key: string]: any[] } = {};

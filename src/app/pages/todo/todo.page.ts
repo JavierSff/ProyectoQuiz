@@ -20,8 +20,14 @@ export class TodoPage implements OnInit {
   constructor(private todoService: TodoService) {}
 
   ngOnInit() {
-    this.todoService.getTodos().subscribe(todos => {
-      this.todoList = todos;  // Populate todoList with tasks from Firestore
+    // Ensure that user session is retrieved and authenticated before loading todos
+    this.todoService.getUserProfile().then(user => {
+      if (user) {
+        this.userId = user.uid;  // Store userId once the user is authenticated
+        this.loadTodos();  // Fetch todos for the authenticated user
+      }
+    }).catch(error => {
+      console.error('Error getting user profile:', error);
     });
   }
 

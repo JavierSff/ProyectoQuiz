@@ -5,18 +5,16 @@
     </div>
   
     <ul class="task-list">
-      <li *ngFor="let todoItem of todoList" [ngClass]="{'completed': todoItem.completed}">
-        <!-- Checkbox to toggle completion status -->
-        <input
-          type="checkbox"
-          [(ngModel)]="todoItem.completed"
-          (change)="toggleCompleted(todoItem.id, todoItem.completed)"
-        />
-        <!-- Task description -->
-        <span [class.completed]="todoItem.completed">{{ todoItem.task }}</span>
-        <!-- Button to delete the task -->
-        <button class="delete-btn" (click)="deleteTask(todoItem.id)">Delete</button>
-      </li>
+        <li *ngFor="let todoItem of todoList" [ngClass]="{'completed': todoItem.completed}">
+            <input
+              type="checkbox"
+              [(ngModel)]="todoItem.completed"
+              (change)="toggleCompleted(todoItem.id, todoItem.completed)"
+            />
+            <span [class.completed]="todoItem.completed">{{ todoItem.task }}</span>
+            <button class="delete-btn" (click)="deleteTask(todoItem.id)">Delete</button>
+          </li>
+          
     </ul>
   </main>
   

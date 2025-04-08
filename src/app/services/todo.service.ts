@@ -35,6 +35,9 @@ export class TodoService {
     });
   }
 
+  getUserProfile(): Promise<any> {
+    return this.authService.getProfile();  // Get user profile asynchronously
+  }
   // Fetch all tasks for the logged-in user from Firestore
   getTodos(): Observable<TodoItem[]> {
     const todosRef = collection(this.firestore, 'todos');

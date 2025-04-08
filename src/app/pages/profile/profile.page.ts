@@ -14,6 +14,7 @@ import { getStorage, ref, uploadBytes, getDownloadURL } from '@angular/fire/stor
 export class ProfilePage implements OnInit {
   handleRefresh(event: CustomEvent) {
     setTimeout(() => {
+      location.reload();
       // Any calls to load data go here
       (event.target as HTMLIonRefresherElement).complete();
     }, 2000);

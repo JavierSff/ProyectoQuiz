@@ -18,6 +18,8 @@ import { IonRefresher, IonRefresherContent, IonContent } from "@ionic/angular/st
 export class TodoPage implements OnInit {
   handleRefresh(event: CustomEvent) {
     setTimeout(() => {
+      location.reload();
+
       // Any calls to load data go here
       (event.target as HTMLIonRefresherElement).complete();
     }, 2000);

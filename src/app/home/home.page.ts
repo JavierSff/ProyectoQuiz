@@ -15,6 +15,7 @@ const { API_URL, API_KEY } = environment.weatherApi;
 export class HomePage {
   handleRefresh(event: CustomEvent) {
     setTimeout(() => {
+      location.reload();
       // Any calls to load data go here
       (event.target as HTMLIonRefresherElement).complete();
     }, 2000);

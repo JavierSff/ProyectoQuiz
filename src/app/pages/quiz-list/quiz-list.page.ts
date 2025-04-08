@@ -13,6 +13,7 @@ import { Quiz } from 'src/app/services/quiz-service.service';
 export class QuizListPage implements OnInit {
   handleRefresh(event: CustomEvent) {
     setTimeout(() => {
+      location.reload();
       // Any calls to load data go here
       (event.target as HTMLIonRefresherElement).complete();
     }, 2000);

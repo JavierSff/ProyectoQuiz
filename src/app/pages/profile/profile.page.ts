@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ToastController } from '@ionic/angular';
 import { AuthenticationService } from 'src/app/authentication.service';
 import { ProfileService } from 'src/app/services/profile-service.service';
+import { getStorage, ref, uploadBytes, getDownloadURL } from '@angular/fire/storage';
+
 
 @Component({
   selector: 'app-profile',
@@ -26,6 +28,71 @@ export class ProfilePage implements OnInit {
   ngOnInit() {
     this.loadProfile();
   }
+
+  selectedImageFile: File | null = null;
+
+onImageSelected(event: any) {
+  const file = event.target.files[0];
+  if (file) {
+    this.selectedImageFile = file;
+    this.uploadImage(file);
+  }
+}
+
+onFileSelected(event: any) {
+  const file: File = event.target.files[0];
+  if (!file) return;
+
+  const formData = new FormData();
+  formData.append('file', file);
+
+  // Send the file to the backend for processing
+  fetch('http://localhost:3000/upload', {
+    method: 'POST',
+    body: formData,
+  })
+    .then(response => response.json())
+    .then(data => {
+      this.profileImage = data.imageUrl; // Set the image URL after successful upload
+      console.log('Image uploaded successfully!', data.imageUrl);
+    })
+    .catch(err => {
+      console.error('Upload failed', err);
+    });
+}
+
+
+
+async uploadImage(file: File) {
+  try {
+    const user = await this.authService.getProfile();
+    if (!user) throw new Error('User not authenticated');
+
+    const storage = getStorage();
+    const filePath = `profileImages/${user.uid}`;
+    const storageRef = ref(storage, filePath);
+
+    await uploadBytes(storageRef, file);
+
+    const downloadURL = await getDownloadURL(storageRef);
+    this.profileImage = downloadURL;
+
+    const toast = await this.toastCtrl.create({
+      message: 'Image uploaded successfully',
+      duration: 2000,
+    });
+    toast.present();
+
+  } catch (error) {
+    console.error('Image upload error:', error);
+    const toast = await this.toastCtrl.create({
+      message: 'Failed to upload image',
+      duration: 2000,
+    });
+    toast.present();
+  }
+}
+
   
   async loadProfile() {
     try {

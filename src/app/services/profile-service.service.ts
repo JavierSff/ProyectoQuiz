@@ -40,11 +40,15 @@ export class ProfileService {
 
   async getUserProfile() {
     const user = await this.authService.getProfile();
-    if (!user) return null;
-
-    const userProfileDocRef = doc(this.firestore, `profiles/${user.uid}`);
-    const userProfileDoc = await getDoc(userProfileDocRef);
-
-    return userProfileDoc.exists() ? userProfileDoc.data() : null;
+    if (user) {
+      const userProfileDocRef = doc(this.firestore, `profiles/${user.uid}`);
+      const userProfileDoc = await getDoc(userProfileDocRef);
+      if (userProfileDoc.exists()) {
+        return userProfileDoc.data(); // Return profile data
+      } else {
+        return null; // Profile doesn't exist yet
+      }
+    }
+    return null; // No user is logged in
   }
 }

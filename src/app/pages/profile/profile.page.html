@@ -7,13 +7,20 @@
 <ion-content class="profile-bg">
   <!-- Profile Header -->
   <div class="profile-header">
-    <ion-avatar class="profile-avatar">
-      <img [src]="profileImage || 'assets/noprofile.jpg'" />
+    <ion-item *ngIf="isEditing">
+      <ion-label>Profile Image</ion-label>
+      <input type="file" (change)="onImageSelected($event)" accept="image/*" />
+    </ion-item>
+    
+    <ion-avatar>
+      <img [src]="profileImage || 'assets/noprofile.jpg'" alt="Profile Image" />
     </ion-avatar>
+    
     <ion-text class="profile-name">
       <h2>{{ fullName || 'John Doe' }}</h2>
       <p>{{ username || 'johndoe' }}</p>
     </ion-text>
+
   </div>
 
   <!-- Personal Details -->

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import firebase from 'firebase/compat/app';
 import {User} from 'firebase/auth'
+import { user } from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root'
@@ -32,6 +33,7 @@ export class AuthenticationService {
       this.ngFireAuth.onAuthStateChanged(user => {
         if (user) {
           resolve(user as User);
+          console.log('Authenticated user:', user);
         } else {
           resolve(null);
         }

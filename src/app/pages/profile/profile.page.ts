@@ -26,17 +26,17 @@ export class ProfilePage implements OnInit {
   ngOnInit() {
     this.loadProfile();
   }
-
-  // Load the user's profile
+  
   async loadProfile() {
     try {
-      const userProfile = await this.profileService.getUserProfile();
+      const userProfile = await this.profileService.loadProfile(); // Fetch profile data from service
       this.fullName = userProfile?.['fullName'] || 'John Doe';
       this.username = userProfile?.['username'] || 'johndoe';
       this.email = userProfile?.['email'] || 'johndoe@example.com';
       this.phone = userProfile?.['phone'] || '+123 456 7890';
       this.profileImage = userProfile?.['profileImage'] || null;
     } catch (error) {
+      console.error('Failed to load profile data', error);  // Log the error for debugging
       const toast = await this.toastCtrl.create({
         message: 'Failed to load profile data',
         duration: 2000,
@@ -44,6 +44,7 @@ export class ProfilePage implements OnInit {
       toast.present();
     }
   }
+  
 
   // Handle the "Edit Profile" button click
   editProfile() {

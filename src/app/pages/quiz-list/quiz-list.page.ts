@@ -23,8 +23,9 @@ export class QuizListPage implements OnInit {
     'grassgreen.svg', 
     'lila.svg', 
   ];
+  selectedBackground: string = '/assets/fondocards.png'; 
   backgroundMenuVisible = false; // Controls visibility of background selection menu
-  selectedBackground = '/assets/fondocards.png'; // Default background image
+
 
   constructor(
     private quizService: QuizService,
@@ -42,16 +43,25 @@ export class QuizListPage implements OnInit {
       });
     });
   }
+  
+  // Called when the page is about to become active
+  ionViewWillEnter() {
+    const savedBackground = localStorage.getItem('selectedBackground');
+    if (savedBackground) {
+      this.selectedBackground = savedBackground;
+    }
+  }
 
+  
   // Toggle visibility of the background selection menu
   toggleBackgroundMenu() {
     this.backgroundMenuVisible = !this.backgroundMenuVisible;
   }
 
   // Method to change the background image of the quiz cards
-  changeBackground(image: string) {
-    this.selectedBackground = '/assets/' + image; // Set selected background image
-    this.backgroundMenuVisible = false; // Close the background menu
+  changeBackground(bgImage: string) {
+    this.selectedBackground = `/assets/${bgImage}`;
+    localStorage.setItem('selectedBackground', this.selectedBackground);
   }
 
   goBack() {

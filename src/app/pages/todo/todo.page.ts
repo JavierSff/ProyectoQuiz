@@ -2,16 +2,36 @@ import { FormsModule } from '@angular/forms';  // Import FormsModule for ngModel
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, ViewChild, OnInit } from '@angular/core';
 import { TodoService } from 'src/app/services/todo.service';
-import { IonRefresher, IonRefresherContent, IonContent } from "@ionic/angular/standalone";
+import { IonRefresher, IonRefresherContent, IonContent, IonIcon } from "@ionic/angular/standalone";
+import {
+  IonList,
+  IonItem,
+  IonItemSliding,
+  IonItemOptions,
+  IonItemOption,
+  IonCheckbox,
+  IonLabel
+} from '@ionic/angular/standalone';
 
 
 @Component({
   selector: 'app-todo',
   standalone: true,  // Set this as standalone component
-  imports: [
+  imports: [IonIcon, 
     IonContent,
     IonRefresher,
-    IonRefresherContent,CommonModule, FormsModule],  // Import FormsModule for ngModel binding
+    IonRefresherContent,CommonModule, FormsModule, CommonModule,
+    FormsModule,
+    IonContent,
+    IonRefresher,
+    IonRefresherContent,
+    IonList,
+    IonItem,
+    IonItemSliding,
+    IonItemOptions,
+    IonItemOption,
+    IonCheckbox,
+    IonLabel],  // Import FormsModule for ngModel binding
   templateUrl: './todo.page.html',
   styleUrls: ['./todo.page.scss'],
 })

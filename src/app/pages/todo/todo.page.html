@@ -10,17 +10,28 @@
       <button (click)="addTask(todoText.value)">Add</button>
     </div>
 
-    <ul class="task-list">
-      <li *ngFor="let todoItem of todoList" [ngClass]="{'completed': todoItem.completed}">
-        <input
-          type="checkbox"
-          [(ngModel)]="todoItem.completed"
-          (change)="toggleCompleted(todoItem.id, todoItem.completed)"
-        />
-        <span [class.completed]="todoItem.completed">{{ todoItem.task }}</span>
-        <button class="delete-btn" (click)="deleteTask(todoItem.id)">Delete</button>
-      </li>
-    </ul>
+    <ion-list>
+      <ion-item-sliding *ngFor="let todoItem of todoList">
+        <ion-item lines="none" [ngClass]="{'completed': todoItem.completed}">
+          <ion-checkbox
+            slot="start"
+            [(ngModel)]="todoItem.completed"
+            (ionChange)="toggleCompleted(todoItem.id, todoItem.completed)">
+          </ion-checkbox>
+          <ion-label [class.completed]="todoItem.completed">
+            {{ todoItem.task }}
+          </ion-label>
+        </ion-item>
+      
+        <ion-item-options side="end">
+          <ion-item-option class="delete-option" color="danger" (click)="deleteTask(todoItem.id)">
+            <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+          </ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+      
+    </ion-list>
+    
   </main>
 
 </ion-content>

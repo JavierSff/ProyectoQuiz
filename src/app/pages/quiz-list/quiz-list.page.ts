@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { QuizService, Quiz } from 'src/app/services/quiz-service.service';
-import { AuthenticationService } from 'src/app/authentication.service';
 import { NavController, ToastController } from '@ionic/angular';
+import { AuthenticationService } from 'src/app/authentication.service';
+import { QuizService } from 'src/app/services/quiz-service.service';
+import { Quiz } from 'src/app/services/quiz-service.service';
 
 @Component({
   selector: 'app-quiz-list',
@@ -10,22 +11,14 @@ import { NavController, ToastController } from '@ionic/angular';
   styleUrls: ['./quiz-list.page.scss'],
 })
 export class QuizListPage implements OnInit {
-  quizzes: Quiz[] = []; // Array to hold quizzes
-  userId: string = ''; // User ID for fetching quizzes
-  deleteMode = false; // To toggle delete mode
-  selectedQuizzes: string[] = []; // Array to hold selected quizzes for deletion
+  quizzes: Quiz[] = [];
+  userId: string = '';
+  deleteMode = false;
+  selectedQuizzes: string[] = [];
   availableBackgrounds = [
-    'fondocards.png', // Default
-    'brightgrey.svg', 
-    'brightpurple.svg', 
-    'darkgrey.svg', 
-    'darkpink.svg', 
-    'grassgreen.svg', 
-    'lila.svg', 
+    'fondocards.png', 'brightgrey.svg', 'brightpurple.svg', 
+    'darkgrey.svg', 'darkpink.svg', 'grassgreen.svg', 'lila.svg'
   ];
-  selectedBackground: string = '/assets/fondocards.png'; 
-  backgroundMenuVisible = false; // Controls visibility of background selection menu
-
 
   constructor(
     private quizService: QuizService,
@@ -35,82 +28,68 @@ export class QuizListPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    // Fetch user profile and quizzes
     this.authService.getProfile().then(user => {
-      this.userId = user?.uid || ''; // Set userId
+      this.userId = user?.uid || '';
       this.quizService.getQuizzes(this.userId).subscribe(data => {
-        this.quizzes = data; // Set quizzes fetched from the service
+        this.quizzes = data;
       });
     });
   }
-  
-  // Called when the page is about to become active
-  ionViewWillEnter() {
-    const savedBackground = localStorage.getItem('selectedBackground');
-    if (savedBackground) {
-      this.selectedBackground = savedBackground;
-    }
-  }
-
-  
-  // Toggle visibility of the background selection menu
-  toggleBackgroundMenu() {
-    this.backgroundMenuVisible = !this.backgroundMenuVisible;
-  }
-
-  // Method to change the background image of the quiz cards
-  changeBackground(bgImage: string) {
-    this.selectedBackground = `/assets/${bgImage}`;
-    localStorage.setItem('selectedBackground', this.selectedBackground);
-  }
 
   goBack() {
-    // Navigate to the home page instead of simply going back
     this.navCtrl.navigateRoot(['/home']);
   }
 
   takeQuiz(id: string) {
     if (!this.deleteMode) {
-      this.navCtrl.navigateForward(['/quiz-runner', id]); // Navigate to quiz runner
+      this.navCtrl.navigateForward(['/quiz-runner', id]);
     }
   }
 
   toggleDeleteMode() {
-    this.deleteMode = !this.deleteMode; // Toggle delete mode
+    this.deleteMode = !this.deleteMode;
     if (!this.deleteMode) {
-      this.selectedQuizzes = []; // Clear selected quizzes when exiting delete mode
+      this.selectedQuizzes = [];
     }
   }
 
-  // Method to handle selecting or deselecting quizzes in delete mode
   onSelectQuiz(event: any, id: string) {
     if (event.detail.checked) {
       if (!this.selectedQuizzes.includes(id)) {
-        this.selectedQuizzes.push(id); // Add quiz to selection
+        this.selectedQuizzes.push(id);
       }
     } else {
-      this.selectedQuizzes = this.selectedQuizzes.filter(qid => qid !== id); // Remove quiz from selection
+      this.selectedQuizzes = this.selectedQuizzes.filter(qid => qid !== id);
     }
   }
 
-  // Method to delete selected quizzes
   async deleteSelectedQuizzes() {
-    const deletePromises = this.selectedQuizzes.map(id => this.quizService.deleteQuiz(id)); // Delete selected quizzes
+    const deletePromises = this.selectedQuizzes.map(id => this.quizService.deleteQuiz(id));
     try {
-      await Promise.all(deletePromises); // Wait for all deletions to complete
+      await Promise.all(deletePromises);
       const toast = await this.toastCtrl.create({
         message: 'Successfully deleted selected quizzes!',
         duration: 2000,
       });
-      toast.present(); // Show success toast
-      this.selectedQuizzes = []; // Clear selected quizzes
-      this.deleteMode = false; // Exit delete mode
+      toast.present();
+      this.selectedQuizzes = [];
+      this.deleteMode = false;
     } catch (error) {
       const toast = await this.toastCtrl.create({
         message: 'Error deleting quizzes',
         duration: 2000,
       });
-      toast.present(); // Show error toast
+      toast.present();
     }
+  }
+
+  // Function to update the background of a quiz
+  changeBackground(selectedBackground: string, quizId: string) {
+    this.quizService.updateQuizBackground(quizId, selectedBackground).then(() => {
+      const quiz = this.quizzes.find(q => q.id === quizId);
+      if (quiz) {
+        quiz.backgroundImage = selectedBackground;
+      }
+    });
   }
 }

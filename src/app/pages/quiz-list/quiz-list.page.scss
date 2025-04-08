@@ -1,4 +1,4 @@
-/* Add styles for the background selection menu */
+/* Existing styles for the background selection menu */
 .background-menu {
   position: absolute;
   top: 60px; /* Adjust based on the header height */
@@ -24,6 +24,7 @@
   cursor: pointer;
 }
 
+/* Custom styles for quiz card and text */
 :host ::ng-deep .quiz-card-wrapper {
   display: flex;
   flex-direction: column;
@@ -59,6 +60,7 @@
   font-weight: 300;
   margin: 0;
 }
+
 :host ::ng-deep ion-card {
   width: 95%;
   max-width: 450px;
@@ -72,10 +74,35 @@
   background-position: center;
   background-repeat: no-repeat;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
-  color: white;
+  color: black;
   position: relative;
   --background: transparent; /* Ensure the background is transparent */
 }
+
 :host ::ng-deep ion-card:hover {
   transform: scale(1.02);
+}
+
+/* New styles for the ion-select dropdown to improve text visibility */
+
+/* Style for ion-select dropdown */
+:host ::ng-deep ion-select {
+  --color: #000;  /* Set text color to black */
+  --background: #fff; /* Set background color to white */
+}
+
+/* Style for ion-select-option to ensure the text color is readable */
+:host ::ng-deep ion-select-option {
+  color: #000 !important;  /* Ensure text inside options is black */
+  background-color: #fff;  /* Option background color */
+}
+
+/* Optional: Adjust the ion-select dropdown icon color */
+:host ::ng-deep ion-select .select-icon {
+  color: #000; /* Set icon color to black for better contrast */
+}
+
+/* Optional: Adjust the label color */
+:host ::ng-deep ion-label {
+  color: #000 !important; /* Set label text color to black */
 }

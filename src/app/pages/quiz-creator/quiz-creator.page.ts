@@ -21,6 +21,14 @@ export class QuizCreatorPage implements OnInit {
   newOption4 = '';
   selectedAnswer = 0;
 
+  selectedBackground: string = '/assets/fondocards.png'; // Default background
+
+  // List of available backgrounds
+  availableBackgrounds = [
+    'fondocards.png', 'brightgrey.svg', 'brightpurple.svg',
+    'darkgrey.svg', 'darkpink.svg', 'grassgreen.svg', 'lila.svg'
+  ];
+
   constructor(
     private quizService: QuizService,
     private authService: AuthenticationService,
@@ -77,6 +85,7 @@ export class QuizCreatorPage implements OnInit {
       userId: this.userId,
       title: this.title,
       questions: this.questions,
+      backgroundImage: this.selectedBackground, // Include the background image in the quiz data
       createdAt: new Date(),
     };
 
@@ -96,5 +105,11 @@ export class QuizCreatorPage implements OnInit {
       duration: 2000,
     });
     toast.present();
+  }
+
+  changeBackground(event: any) {
+    // Handle background change
+    const selectedImage = event.detail.value;
+    this.selectedBackground = selectedImage;
   }
 }

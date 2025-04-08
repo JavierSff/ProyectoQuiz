@@ -6,11 +6,11 @@
         <ion-icon color="primary" slot="icon-only" name="arrow-back-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title >Create Quiz</ion-title>
+    <ion-title>Create Quiz</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
+<ion-content class="ion-padding" scroll="true">
   <!-- Quiz Title Input -->
   <ion-item>
     <ion-input placeholder="Quiz title" [(ngModel)]="title" name="title"></ion-input>
@@ -62,18 +62,21 @@
     </ion-card-content>
   </ion-card>
 
-  <!-- List of Added Questions -->
-  <ion-list *ngIf="questions.length > 0">
-    <ion-list-header>
-      <ion-label>Quiz Questions</ion-label>
-    </ion-list-header>
-    <ion-item *ngFor="let q of questions; let idx = index">
-      <ion-label>
-        <strong>{{ idx + 1 }}.</strong> {{ q.question }}
-      </ion-label>
-    </ion-item>
-  </ion-list>
+  <!-- Background Selection -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Select Quiz Background</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label>Choose Background</ion-label>
+        <ion-select [(ngModel)]="selectedBackground" placeholder="Select Background" (ionChange)="changeBackground($event)">
+          <ion-select-option *ngFor="let bg of availableBackgrounds" [value]="'/assets/' + bg">{{ bg }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
 
   <!-- Save Quiz Button -->
-  <ion-button color="success" shape="round"  expand="block" (click)="saveQuiz()">Save Quiz</ion-button>
+  <ion-button color="success" shape="round" expand="block" (click)="saveQuiz()">Save Quiz</ion-button>
 </ion-content>

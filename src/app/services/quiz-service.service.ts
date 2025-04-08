@@ -15,6 +15,7 @@ export interface Quiz {
   title: string;
   questions: Question[];
   createdAt: any;
+  backgroundImage?: string;
 }
 
 @Injectable({
@@ -44,9 +45,9 @@ export class QuizService {
     return docData(docRef, { idField: 'id' }) as Observable<Quiz>;
   }
 
-  updateQuiz(quiz: Quiz) {
-    const docRef = doc(this.firestore, `quizzes/${quiz.id}`);
-    return updateDoc(docRef, { ...quiz });
+  updateQuizBackground(quizId: string, backgroundImage: string) {
+    const docRef = doc(this.firestore, `quizzes/${quizId}`);
+    return updateDoc(docRef, { backgroundImage });
   }
 
   deleteQuiz(id: string) {

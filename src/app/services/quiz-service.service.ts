@@ -1,7 +1,20 @@
 import { Injectable } from '@angular/core';
-import { Firestore, addDoc, collection, collectionData, doc, docData, query, updateDoc, where, deleteDoc } from '@angular/fire/firestore';
+import {
+  Firestore,
+  collection,
+  query,
+  where,
+  getDocs,
+  doc,
+  docData,
+  updateDoc,
+  deleteDoc,
+  addDoc,
+  CollectionReference,
+} from '@angular/fire/firestore';
 import { AuthenticationService } from '../authentication.service';
 import { Observable } from 'rxjs';
+import { collectionData } from '@angular/fire/firestore';
 
 export interface Question {
   question: string;
@@ -19,7 +32,7 @@ export interface Quiz {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class QuizService {
   private userId: string;
@@ -36,8 +49,22 @@ export class QuizService {
   }
 
   getQuizzes(userId: string): Observable<Quiz[]> {
-    const ref = query(collection(this.firestore, 'quizzes'), where('userId', '==', userId));
+    const ref = query(
+      collection(this.firestore, 'quizzes'),
+      where('userId', '==', userId)
+    );
     return collectionData(ref, { idField: 'id' }) as Observable<Quiz[]>;
+  }
+
+  // ✅ FIXED: One-time fetch method to get quizzes as a Promise (for use in stats page)
+  async getQuizzesOnce(uid: string): Promise<Quiz[]> {
+    const quizCollection = collection(this.firestore, 'quizzes');
+    const quizQuery = query(quizCollection, where('userId', '==', uid));
+    const snapshot = await getDocs(quizQuery);
+    return snapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data(),
+    })) as Quiz[];
   }
 
   getQuizById(id: string): Observable<Quiz> {

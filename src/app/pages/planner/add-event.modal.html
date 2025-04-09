@@ -13,18 +13,18 @@
       <ion-label position="stacked">Event Title</ion-label>
       <ion-input [(ngModel)]="title" placeholder="Enter title"></ion-input>
     </ion-item>
+    
+    <ion-datetime
+      presentation="time"
+      prefer-wheel="true"
+      [(ngModel)]="time"
+      hour-cycle="h12">
+    </ion-datetime>
+    
 
-    <ion-item lines="inset">
-      <ion-label position="stacked">Time (optional)</ion-label>
-      <ion-datetime-button datetime="timePicker"></ion-datetime-button>
-      <ion-modal [keepContentsMounted]="true">
-        <ion-datetime
-          id="timePicker"
-          presentation="time"
-          [(ngModel)]="time">
-        </ion-datetime>
-      </ion-modal>
-    </ion-item>
+    <p *ngIf="time" class="selected-time">
+      Selected Time: {{ time | date: 'shortTime' }}
+    </p>
 
     <ion-button expand="block" shape="round" color="primary" (click)="saveEvent()">
       Add Event

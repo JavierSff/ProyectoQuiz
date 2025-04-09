@@ -39,17 +39,15 @@ export class PlannerPage implements OnInit {
     this.maxDate = new Date(currentDate.setFullYear(currentDate.getFullYear() + 2)).toISOString().split('T')[0];
   }
 
-  ngOnInit() {
-    this.fetchAllEvents().then(() => {
-      // Ensure Angular runs in the correct zone
-      this.ngZone.run(() => {
-        setTimeout(() => {
-          this.fetchEventsForSelectedDate();
-          this.cdr.markForCheck(); // Mark for change detection
-        }, 0);
-      });
+  async ngOnInit() {
+    await this.fetchAllEvents();
+  
+    this.ngZone.run(() => {
+      this.fetchEventsForSelectedDate();
+      this.cdr.detectChanges();
     });
   }
+  
   
   
   async fetchAllEvents() {

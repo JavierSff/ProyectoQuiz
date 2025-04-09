@@ -12,14 +12,27 @@
       --min-height: 56px;
     }
   
+    ion-label {
+      color: #555;
+      font-size: 14px;
+    }
+  
     ion-input {
       font-size: 16px;
+      color: #000;
     }
   
     ion-button {
       font-weight: 500;
       font-size: 16px;
       margin-top: 24px;
+    }
+  
+    .selected-time {
+      text-align: center;
+      font-size: 14px;
+      color: #888;
+      margin-top: -10px;
     }
   }
   

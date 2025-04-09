@@ -25,15 +25,25 @@ export class AddEventModal {
   async saveEvent() {
     if (!this.title.trim()) return;
 
+    const formattedTime = this.time
+      ? new Date(this.time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+      : '';
+
     const event = {
       title: this.title.trim(),
       date: this.selectedDate,
-      time: this.time,
+      time: formattedTime,
       createdAt: new Date(),
     };
 
     await this.eventService.addEvent(event);
-    const toast = await this.toastCtrl.create({ message: 'Event added!', duration: 1500 });
+
+    const toast = await this.toastCtrl.create({
+      message: 'Event added!',
+      duration: 1500,
+      color: 'success'
+    });
+
     toast.present();
     this.modalCtrl.dismiss();
   }

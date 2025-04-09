@@ -1,7 +1,7 @@
 <ion-list *ngIf="stats && statsKeys.length > 0; else noStats">
   <ion-item *ngFor="let key of statsKeys">
     <ion-label>
-      <h2>{{ key }}</h2> <!-- Display quiz title -->
+      <h2>{{ key }}</h2> <!-- Display quiz title (which is the key) -->
       <p>Highest Score: {{ stats[key].highestScore }} / {{ stats[key].totalQuestions }}</p>
     </ion-label>
   </ion-item>

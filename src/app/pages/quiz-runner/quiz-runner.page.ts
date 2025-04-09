@@ -52,6 +52,7 @@ export class QuizRunnerPage implements OnInit {
     if (quizId) {
       this.quizService.getQuizById(quizId).subscribe(quiz => {
         this.questions = quiz.questions;
+        this.quizTitle = quiz.title;
       });
     }
   }

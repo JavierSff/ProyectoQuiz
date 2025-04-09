@@ -1,12 +1,25 @@
-<ion-list *ngIf="stats && statsKeys.length > 0; else noStats">
-  <ion-item *ngFor="let key of statsKeys">
-    <ion-label>
-      <h2>{{ key }}</h2> <!-- Display quiz title (which is the key) -->
-      <p>Highest Score: {{ stats[key].highestScore }} / {{ stats[key].totalQuestions }}</p>
-    </ion-label>
-  </ion-item>
-</ion-list>
+<ion-header>
+  <ion-toolbar>
+    <!-- Align the button to the right -->
+    <ion-button shape="round" color="secondary" (click)="clearStats()" slot="end">
+      <a class="clear-list-button">Clear</a>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
 
-<ng-template #noStats>
-  <p>No statistics available for this user.</p>
-</ng-template>
+<ion-content>
+
+
+  <ion-list *ngIf="stats && statsKeys.length > 0; else noStats">
+    <ion-item *ngFor="let key of statsKeys">
+      <ion-label>
+        <h2>{{ key }}</h2> <!-- Display the quiz title -->
+        <p>Highest Score: {{ stats[key].highestScore }} / {{ stats[key].totalQuestions }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ng-template #noStats>
+    <p>No statistics available for this user.</p>
+  </ng-template>
+</ion-content>

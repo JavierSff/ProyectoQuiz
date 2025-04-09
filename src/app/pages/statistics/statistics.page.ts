@@ -21,10 +21,19 @@ export class StatisticsPage implements OnInit {
     this.authService.getProfile().then(user => {
       if (user) {
         this.stats = this.statsService.getUserStatistics(user.uid); // Get statistics for the logged-in user
-        // Populate the keys of the stats object for the template
-        this.statsKeys = Object.keys(this.stats);
+        this.statsKeys = Object.keys(this.stats); // Populate the keys (quiz titles)
       }
     });
   }
-  
+
+  // Add this method to clear statistics
+  clearStats() {
+    this.authService.getProfile().then(user => {
+      if (user) {
+        this.statsService.clearUserStats(user.uid); // Clear stats for the logged-in user
+        this.stats = {}; // Reset the stats in the component
+        this.statsKeys = []; // Reset the keys
+      }
+    });
+  }
 }

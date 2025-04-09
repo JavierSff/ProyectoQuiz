@@ -61,7 +61,8 @@ const routes: Routes = [
   {
     path: 'splash-page',
     loadChildren: () => import('./pages/splash-page/splash-page.module').then( m => m.SplashPagePageModule)
-  },  {
+  },
+  {
     path: 'planner',
     loadChildren: () => import('./pages/planner/planner.module').then( m => m.PlannerPageModule)
   },
@@ -69,9 +70,10 @@ const routes: Routes = [
     path: 'profile',
     loadChildren: () => import('./pages/profile/profile.module').then( m => m.ProfilePageModule)
   },
-
-
-
+  {
+    path: 'statistics',
+    loadChildren: () => import('./pages/statistics/statistics.module').then( m => m.StatisticsPageModule)
+  },
 
  
 ];

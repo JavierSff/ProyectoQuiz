@@ -1,4 +1,39 @@
 .clear-list-button {
     color: white !important; /* Set the text color to white */
   }
- 
+  .icon-bg {
+    background: #f5f5f5;
+    border-radius: 15px;
+    padding: 10px;
+    width: 50px;
+    height: 50px;
+  }
+  
+  .habit-icon {
+    font-size: 28px;
+    color: var(--ion-color-primary);
+  }
+  
+  .progress-container {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .circle-container {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .clear-btn {
+    --background: #f57c00; 
+    --color: #ffffff;       
+    font-weight: bold;
+    padding: 0 16px;
+    text-transform: capitalize;
+  }
+  
+      

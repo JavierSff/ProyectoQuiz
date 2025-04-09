@@ -25,7 +25,35 @@ export class StatisticsPage implements OnInit {
       }
     });
   }
-
+  getIconName(quizTitle: string): string {
+    const icons: { [key: string]: string } = {
+      'Fruits': 'nutrition',
+      'Hydration': 'water',
+      'Yoga': 'accessibility',
+      // Add more as needed
+    };
+    return icons[quizTitle] || 'help-circle';
+  }
+  
+  getGoalText(quizTitle: string): string {
+    const goals: { [key: string]: string } = {
+      'Fruits': 'Watermelon every day',
+      'Hydration': '8 cups a day',
+      'Yoga': '5 exercises',
+      // Add more as needed
+    };
+    return goals[quizTitle] || 'No goal set';
+  }
+  
+  getProgress(score: number, total: number): number {
+    return total > 0 ? score / total : 0;
+  }
+  getProgressPercent(score: number, total: number): number {
+    return total > 0 ? Math.round((score / total) * 100) : 0;
+  }
+  
+  
+  
   // Add this method to clear statistics
   clearStats() {
     this.authService.getProfile().then(user => {

@@ -6,7 +6,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { StatisticsPageRoutingModule } from './statistics-routing.module';
 import { StatisticsPage } from './statistics.page';
-
+import { NgCircleProgressModule } from 'ng-circle-progress';
 
 
 @NgModule({
@@ -14,7 +14,18 @@ import { StatisticsPage } from './statistics.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    StatisticsPageRoutingModule
+    StatisticsPageRoutingModule,
+    NgCircleProgressModule.forRoot({
+      radius: 22,
+      outerStrokeWidth: 6,
+      innerStrokeWidth: 0,
+      outerStrokeColor: "#4b8df8",
+      animation: true,
+      showUnits: false,
+      showBackground: false,
+      showSubtitle: false,
+      showInnerStroke: false,
+    })
   ],
   declarations: [StatisticsPage]
 })

@@ -1,21 +1,36 @@
 <ion-header>
   <ion-toolbar>
+    <ion-title>Statistics</ion-title>
     <!-- Align the button to the right -->
-    <ion-button shape="round" color="secondary" (click)="clearStats()" slot="end">
+    <ion-button shape="round" color="primary" (click)="clearStats()" slot="end">
       <a class="clear-list-button">Clear</a>
     </ion-button>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
 
-
+<ion-content class="ion-padding">
   <ion-list *ngIf="stats && statsKeys.length > 0; else noStats">
-    <ion-item *ngFor="let key of statsKeys">
+    <ion-item lines="none" *ngFor="let key of statsKeys">
+      <ion-avatar slot="start" class="icon-bg">
+        <ion-icon [name]="getIconName(key)" class="habit-icon"></ion-icon>
+      </ion-avatar>
+      
+
       <ion-label>
-        <h2>{{ key }}</h2> <!-- Display the quiz title -->
-        <p>Highest Score: {{ stats[key].highestScore }} / {{ stats[key].totalQuestions }}</p>
+        <h2>{{ key }}</h2>
+        <p>Completed {{ stats[key].highestScore }} / {{ stats[key].totalQuestions }}</p>
       </ion-label>
+
+      <div class="circle-container" slot="end">
+        <circle-progress
+          [percent]="getProgressPercent(stats[key].highestScore, stats[key].totalQuestions)"
+          [showTitle]="false"
+          [responsive]="false"
+          [renderOnClick]="false"
+        ></circle-progress>
+      </div>
+      
     </ion-item>
   </ion-list>
 

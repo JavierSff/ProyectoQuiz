@@ -19,7 +19,7 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
       radius: 22,
       outerStrokeWidth: 6,
       innerStrokeWidth: 0,
-      outerStrokeColor: "#4b8df8",
+      outerStrokeColor: "#FFA500",// Color orange in the progress circle
       animation: true,
       showUnits: false,
       showBackground: false,

@@ -1,20 +1,25 @@
-
 <ion-content [fullscreen]="true" class="planner-bg">
+  <!-- Pull-to-refresh -->
   <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-  <!-- Inline Calendar -->
+
+  <!-- Inline Calendar Card -->
   <ion-card class="calendar-card">
+    <ion-card-header>
+      <ion-card-title>Select a Date</ion-card-title>
+    </ion-card-header>
     <ion-card-content>
       <ion-datetime
         presentation="date"
         [(ngModel)]="selectedDate"
+        [value]="selectedDate"
         (ionChange)="onDateChange($event)"
+        [highlightedDates]="highlightedDatesArray"
         [min]="minDate"
         [max]="maxDate"
-        [highlightedDates]="highlightedDatesFunc"
-        showDefaultButtons="false"
         preferWheel="false"
+        showDefaultButtons="false"
       ></ion-datetime>
     </ion-card-content>
   </ion-card>
@@ -22,7 +27,9 @@
   <!-- Event List -->
   <div *ngIf="eventsForSelectedDate.length > 0">
     <ion-text color="medium">
-      <h3 class="ion-padding-horizontal">Events for {{ selectedDate | date: 'fullDate' }}:</h3>
+      <h3 class="ion-padding-horizontal">
+        Events for {{ selectedDate | date: 'fullDate' }}:
+      </h3>
     </ion-text>
 
     <ion-card *ngFor="let event of eventsForSelectedDate" class="event-card">
@@ -39,6 +46,7 @@
     </ion-card>
   </div>
 
+  <!-- No Events Message -->
   <div *ngIf="eventsForSelectedDate.length === 0" class="no-events">
     <p>No events for this date.</p>
   </div>
@@ -49,5 +57,4 @@
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
-
 </ion-content>

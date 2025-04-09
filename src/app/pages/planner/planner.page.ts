@@ -1,37 +1,31 @@
 import { Component, OnInit, ChangeDetectorRef, NgZone, AfterViewInit } from '@angular/core';
-import { ModalController, ToastController } from '@ionic/angular';
+import { IonDatetime, IonicModule, ModalController, ToastController } from '@ionic/angular';
 import { EventService } from 'src/app/services/event-service.service';
 import { AddEventModal } from './add-event.modal';
-
-
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-planner',
-  standalone: false,
+  standalone: true,
+  imports: [IonicModule, CommonModule, FormsModule],
   templateUrl: 'planner.page.html',
   styleUrls: ['planner.page.scss'],
 })
-export class PlannerPage implements OnInit, AfterViewInit{
-  handleRefresh(event: CustomEvent) {
-    setTimeout(() => {
-      location.reload();
-      // Any calls to load data go here
-      (event.target as HTMLIonRefresherElement).complete();
-    }, 2000);
-  }
+export class PlannerPage implements OnInit, AfterViewInit {
   selectedDate: string;
   eventsForSelectedDate: any[] = [];
   events: { [key: string]: any[] } = {};
   minDate: string;
   maxDate: string;
-  highlightedDates: { [key: string]: boolean } = {};
+  highlightedDatesArray: { date: string; textColor: string; backgroundColor: string }[] = [];
 
   constructor(
     private eventService: EventService,
     private toastCtrl: ToastController,
     private modalCtrl: ModalController,
     private cdr: ChangeDetectorRef,
-    private ngZone: NgZone 
+    private ngZone: NgZone
   ) {
     const currentDate = new Date();
     this.selectedDate = currentDate.toISOString().split('T')[0];
@@ -39,31 +33,32 @@ export class PlannerPage implements OnInit, AfterViewInit{
     this.maxDate = new Date(currentDate.setFullYear(currentDate.getFullYear() + 2)).toISOString().split('T')[0];
   }
 
+  ngAfterViewInit(): void {}
 
-
-  ngAfterViewInit(): void { }
-  
   ngOnInit(): void {
     this.fetchAllEvents().then(() => {
       this.fetchEventsForSelectedDate();
       this.cdr.detectChanges();
     });
   }
-  
 
   async fetchAllEvents() {
     const events = await this.eventService.getAllEvents();
     this.events = {};
-    this.highlightedDates = {};
+    this.highlightedDatesArray = [];
 
     events.forEach(event => {
       const date = event.date;
       if (!this.events[date]) this.events[date] = [];
       this.events[date].push(event);
-      this.highlightedDates[date] = true;
+
+      this.highlightedDatesArray.push({
+        date,
+        textColor: '#ffffff',
+        backgroundColor: '#ff4081',
+      });
     });
 
-    this.fetchEventsForSelectedDate();
     this.cdr.detectChanges();
   }
 
@@ -79,7 +74,7 @@ export class PlannerPage implements OnInit, AfterViewInit{
   async openAddEventModal() {
     const modal = await this.modalCtrl.create({
       component: AddEventModal,
-      componentProps: { selectedDate: this.selectedDate }
+      componentProps: { selectedDate: this.selectedDate },
     });
 
     modal.onDidDismiss().then(() => {
@@ -88,24 +83,25 @@ export class PlannerPage implements OnInit, AfterViewInit{
 
     await modal.present();
   }
+  handleRefresh(event: CustomEvent) {
+    setTimeout(() => {
+      this.fetchAllEvents().then(() => {
+        this.fetchEventsForSelectedDate();
+        (event.target as HTMLIonRefresherElement).complete();
 
+      });
+    }, 1000); // Optional: wait 1 second for UX
+  }
+  
   async deleteEvent(eventToDelete: any) {
     await this.eventService.deleteEvent(eventToDelete);
     const toast = await this.toastCtrl.create({
       message: 'Event deleted',
-      duration: 1500
+      duration: 1500,
     });
     toast.present();
     this.fetchAllEvents();
   }
 
-  highlightedDatesFunc = (isoString: string) => {
-    if (this.highlightedDates[isoString]) {
-      return {
-        textColor: '#fff',
-        backgroundColor: '#ff4081',
-      };
-    }
-    return undefined;
-  };
+  // no longer needed: highlightedDatesFunc
 }

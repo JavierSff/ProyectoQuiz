@@ -15,6 +15,6 @@ import { PlannerPage } from './planner.page';
     IonicModule,
     PlannerPageRoutingModule
   ],
-  declarations: [PlannerPage],
+  declarations: [],
 })
 export class PlannerPageModule {}

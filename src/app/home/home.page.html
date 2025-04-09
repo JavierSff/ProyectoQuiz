@@ -24,6 +24,18 @@
     </ion-card>
   </div>
 
+  <!-- Daily tips Card -->
+  <div class="daily-card-wrapper">
+    <ion-card>
+      <ion-item lines="none">
+        <img slot="start" src="assets/tips.png" class="quiz-icon" />
+        <ion-label>
+          <h2>{{ tipOfTheDay }}</h2>
+        </ion-label>
+      </ion-item>
+    </ion-card>
+  </div>
+
   <!-- My Quizzes Card (New) -->
   <div class="quiz-card-wrapper">
     <ion-card routerLink="/quiz-list">
@@ -37,6 +49,12 @@
       </ion-item>
     </ion-card>
   </div>
+
+
+
+
+
+  
 
   <!-- Logout Button -->
   <div class="content">

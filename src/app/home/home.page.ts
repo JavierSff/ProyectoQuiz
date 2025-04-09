@@ -4,6 +4,7 @@ import { Router } from '@angular/router';  // Import Router to navigate after lo
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 
+
 const { API_URL, API_KEY } = environment.weatherApi;
 
 @Component({
@@ -13,6 +14,7 @@ const { API_URL, API_KEY } = environment.weatherApi;
   standalone: false,
 })
 export class HomePage {
+  tipOfTheDay: string = '';
   handleRefresh(event: CustomEvent) {
     setTimeout(() => {
       location.reload();
@@ -52,5 +54,13 @@ export class HomePage {
   }
   ngOnInit() {
     this.loadData();
+    this.loadDailyTip();
+  }
+  loadDailyTip() {
+    this.httpClient.get<any>('assets/student-tips.json').subscribe(data => {
+      const dayIndex = new Date().getDate() % data.tips.length;
+      this.tipOfTheDay = data.tips[dayIndex];
+    });
+    
   }
 }

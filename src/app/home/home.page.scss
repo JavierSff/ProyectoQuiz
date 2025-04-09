@@ -5,6 +5,12 @@
   margin-top: 20px;
 }
 
+.daily-tip-card {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
 ion-card {
   width: 600px;
   max-height: 200px;
@@ -65,6 +71,40 @@ ion-item img {
   }
 }
 
+.daily-card-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.daily-card-wrapper ion-card {
+  width: 800px;
+  max-height: 800px;
+  padding: 4px;
+  border-radius: 20px;
+  --ion-background-color: #67dac6; // Change this color to your desired shade for quizzes
+  ion-card-title,
+  ion-card-content,
+  ion-text,
+  span,
+  p,
+  h1, h2, h3, h4, h5, h6 {
+    color: whitesmoke; // <-- Change this to your desired color
+    font-weight: bold; 
+    font-size: 16px;
+  }
+  span {
+    color: white;
+    font-weight: 300;
+  }
+
+  img {
+    width: 190px; // or any size you prefer
+    height: auto;
+    object-fit: contain;
+  }
+}
+
 /* Style for the quiz icon image */
 .quiz-icon {
   width: 50px;
@@ -75,4 +115,10 @@ ion-item img {
 .quiz-icon {
   width: 400px;
   height: auto; /* or set a fixed height if needed */
+}
+.daily-tip-card {
+  border-left: 5px solid #0a84ff;
+  background: #f9f9f9;
+  font-size: 15px;
+  font-weight: 500;
 }

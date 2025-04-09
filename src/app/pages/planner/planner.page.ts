@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef, NgZone } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, NgZone, AfterViewInit } from '@angular/core';
 import { ModalController, ToastController } from '@ionic/angular';
 import { EventService } from 'src/app/services/event-service.service';
 import { AddEventModal } from './add-event.modal';
@@ -11,7 +11,7 @@ import { AddEventModal } from './add-event.modal';
   templateUrl: 'planner.page.html',
   styleUrls: ['planner.page.scss'],
 })
-export class PlannerPage implements OnInit {
+export class PlannerPage implements OnInit, AfterViewInit{
   handleRefresh(event: CustomEvent) {
     setTimeout(() => {
       location.reload();
@@ -39,17 +39,18 @@ export class PlannerPage implements OnInit {
     this.maxDate = new Date(currentDate.setFullYear(currentDate.getFullYear() + 2)).toISOString().split('T')[0];
   }
 
-  async ngOnInit() {
-    await this.fetchAllEvents();
+
+
+  ngAfterViewInit(): void { }
   
-    this.ngZone.run(() => {
+  ngOnInit(): void {
+    this.fetchAllEvents().then(() => {
       this.fetchEventsForSelectedDate();
       this.cdr.detectChanges();
     });
   }
   
-  
-  
+
   async fetchAllEvents() {
     const events = await this.eventService.getAllEvents();
     this.events = {};

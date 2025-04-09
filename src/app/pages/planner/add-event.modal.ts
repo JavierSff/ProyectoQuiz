@@ -9,6 +9,7 @@ import { EventService } from 'src/app/services/event-service.service';
   standalone: true,
   imports: [IonicModule, CommonModule, FormsModule],
   templateUrl: './add-event.modal.html',
+  styleUrls: ['add-event.modal.scss'],
 })
 export class AddEventModal {
   @Input() selectedDate: string = '';

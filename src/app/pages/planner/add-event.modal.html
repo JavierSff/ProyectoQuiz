@@ -1,23 +1,33 @@
 <ion-header translucent>
-    <ion-toolbar>
-      <ion-title>New Event</ion-title>
-      <ion-buttons slot="end">
-        <ion-button (click)="close()">Close</ion-button>
-      </ion-buttons>
-    </ion-toolbar>
-  </ion-header>
-  
-  <ion-content class="ion-padding">
-    <ion-item>
-      <ion-label position="floating">Event Title</ion-label>
-      <ion-input [(ngModel)]="title"></ion-input>
+  <ion-toolbar>
+    <ion-title>New Event</ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" (click)="close()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="event-form">
+    <ion-item lines="inset">
+      <ion-label position="stacked">Event Title</ion-label>
+      <ion-input [(ngModel)]="title" placeholder="Enter title"></ion-input>
     </ion-item>
-  
-    <ion-item>
-      <ion-label position="floating">Time (optional)</ion-label>
-      <ion-input type="time" [(ngModel)]="time"></ion-input>
+
+    <ion-item lines="inset">
+      <ion-label position="stacked">Time (optional)</ion-label>
+      <ion-datetime-button datetime="timePicker"></ion-datetime-button>
+      <ion-modal [keepContentsMounted]="true">
+        <ion-datetime
+          id="timePicker"
+          presentation="time"
+          [(ngModel)]="time">
+        </ion-datetime>
+      </ion-modal>
     </ion-item>
-  
-    <ion-button expand="block" (click)="saveEvent()">Add Event</ion-button>
-  </ion-content>
-  
+
+    <ion-button expand="block" shape="round" color="primary" (click)="saveEvent()">
+      Add Event
+    </ion-button>
+  </div>
+</ion-content>

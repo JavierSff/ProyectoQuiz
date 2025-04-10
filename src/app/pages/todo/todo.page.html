@@ -1,5 +1,4 @@
 <ion-content>
-
   <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
@@ -14,15 +13,12 @@
 
     <ion-list>
       <ion-item-sliding *ngFor="let todoItem of todoList">
-        <ion-item lines="none" [ngClass]="{'completed': todoItem.completed}">
-          <!-- ✅ Task label toggles completion on click -->
-          <ion-label
-            [class.completed]="todoItem.completed"
-            (click)="onToggle(todoItem)">
+        <!-- Removed Archive Option -->
+        <ion-item>
+          <ion-label [class.completed]="todoItem.completed" (click)="onToggle(todoItem)">
             {{ todoItem.task }}
           </ion-label>
 
-          <!-- ✅ Right checkbox for selection -->
           <ion-checkbox
             slot="end"
             [checked]="selectedIds.includes(todoItem.id)"
@@ -30,10 +26,10 @@
           </ion-checkbox>
         </ion-item>
 
-        <!-- Swipe to delete -->
+        <!-- Swipe options for Delete -->
         <ion-item-options side="end">
-          <ion-item-option class="delete-option" color="danger" (click)="deleteTask(todoItem.id)">
-            <ion-icon name="trash-outline"></ion-icon>
+          <ion-item-option color="danger" (click)="deleteTask(todoItem.id)">
+            <ion-icon slot="icon-only" name="trash"></ion-icon>
           </ion-item-option>
         </ion-item-options>
       </ion-item-sliding>
@@ -49,5 +45,4 @@
       Delete Selected ({{ selectedIds.length }})
     </ion-button>
   </main>
-
 </ion-content>

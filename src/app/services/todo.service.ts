@@ -61,7 +61,10 @@ export class TodoService {
     const todoDocRef = doc(this.firestore, 'todos', id);
     return deleteDoc(todoDocRef);
   }
-
+  archiveTask(id: string): Promise<void> {
+    const todoDocRef = doc(this.firestore, 'todos', id);
+    return updateDoc(todoDocRef, { archived: true });  // Set archived to true
+  }
   // Toggle the completed state of a task
   toggleCompleted(id: string, currentStatus: boolean): Promise<void> {
     const todoDocRef = doc(this.firestore, 'todos', id);

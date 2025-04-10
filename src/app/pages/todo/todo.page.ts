@@ -13,7 +13,8 @@ import {
   IonItemOption,
   IonCheckbox,
   IonLabel,
-  IonIcon, IonButton } from '@ionic/angular/standalone';
+  IonIcon, IonButton
+} from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-todo',
@@ -56,12 +57,12 @@ export class TodoPage implements OnInit {
       console.error('Error getting user profile:', error);
     });
   }
+
   loadTodos(): void {
     this.todoService.getTodos().subscribe(todos => {
       this.todoList = todos;
     });
   }
-  
 
   handleRefresh(event: CustomEvent) {
     setTimeout(() => {
@@ -83,6 +84,12 @@ export class TodoPage implements OnInit {
     this.todoService.deleteTask(id).then(() => {
       this.loadTodos();
     }).catch(error => console.error('Error deleting task:', error));
+  }
+
+  archiveTask(id: string): void {
+    this.todoService.archiveTask(id).then(() => {
+      this.loadTodos();
+    }).catch(error => console.error('Error archiving task:', error));
   }
 
   toggleCompleted(id: string, currentStatus: boolean): void {

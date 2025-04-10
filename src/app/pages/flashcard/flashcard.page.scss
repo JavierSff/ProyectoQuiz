@@ -45,13 +45,13 @@
 }
 
 .flash-card .front {
-  background-color: #f0f0f0;
+  background-color: #eee5e5;
   z-index: 2;
   transform: rotateY(0deg);
 }
 
 .flash-card .back {
-  background-color: #ecf0f1;
+  background-color: #ffcb5a;
   transform: rotateY(180deg);
   z-index: 1;
 }

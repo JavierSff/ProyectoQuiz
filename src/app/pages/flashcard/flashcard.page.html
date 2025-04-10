@@ -1,18 +1,38 @@
-<div class="flashcard-container">
-  <div class="flip-container" (click)="flip()" [class.flipped]="flipped">
-    <div class="flipper">
-      <div class="front">
-        <h3>{{ flashcard.question }}</h3>
-      </div>
-      <div class="back">
-        <h3>{{ flashcard.answer }}</h3>
-      </div>
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Flashcards</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="flashcard-container">
+    <!-- Flashcard -->
+    <ion-card *ngIf="currentCard">
+      <ion-card-content (click)="flipCard()">
+        <div class="flash-card" [ngClass]="{'flipped': flipped}">
+          <div class="flipper">
+            <div class="front">
+              <h2>{{ currentCard.question }}</h2>
+            </div>
+            <div class="back">
+              <h2>{{ currentCard.answer }}</h2>
+            </div>
+          </div>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Progress Bar -->
+    <ion-progress-bar value="{{(currentIndex + 1) / totalCards}}"></ion-progress-bar>
+
+    <!-- Navigation Buttons -->
+    <div class="navigation-buttons">
+      <ion-button (click)="previousCard()" [disabled]="currentIndex === 0">
+        Previous
+      </ion-button>
+      <ion-button (click)="nextCard()" [disabled]="currentIndex === totalCards - 1">
+        Next
+      </ion-button>
     </div>
   </div>
-</div>
-
-<!-- Navigation buttons -->
-<div class="navigation-buttons">
-  <button (click)="previousCard()">Previous</button>
-  <button (click)="nextCard()">Next</button>
-</div>
+</ion-content>

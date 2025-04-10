@@ -73,7 +73,11 @@ const routes: Routes = [
   {
     path: 'statistics',
     loadChildren: () => import('./pages/statistics/statistics.module').then( m => m.StatisticsPageModule)
+  },  {
+    path: 'flashcard',
+    loadChildren: () => import('./pages/flashcard/flashcard.module').then( m => m.FlashcardPageModule)
   },
+
 
  
 ];

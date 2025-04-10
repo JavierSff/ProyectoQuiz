@@ -1,0 +1,18 @@
+<div class="flashcard-container">
+  <div class="flip-container" (click)="flip()" [class.flipped]="flipped">
+    <div class="flipper">
+      <div class="front">
+        <h3>{{ flashcard.question }}</h3>
+      </div>
+      <div class="back">
+        <h3>{{ flashcard.answer }}</h3>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Navigation buttons -->
+<div class="navigation-buttons">
+  <button (click)="previousCard()">Previous</button>
+  <button (click)="nextCard()">Next</button>
+</div>

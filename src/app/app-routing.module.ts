@@ -77,6 +77,10 @@ const routes: Routes = [
     path: 'flashcard',
     loadChildren: () => import('./pages/flashcard/flashcard.module').then( m => m.FlashcardPageModule)
   },
+  {
+    path: 'pomodoro',
+    loadChildren: () => import('./pages/pomodoro/pomodoro.module').then( m => m.PomodoroPageModule)
+  },
 
 
  

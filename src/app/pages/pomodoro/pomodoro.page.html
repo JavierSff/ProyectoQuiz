@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Pomodoro Timer</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="pomodoro-background">
+  <div class="pomodoro-container">
+    <h2>{{ currentSessionType }}</h2>
+    <h3>{{ formatTime(timeLeft) }}</h3>
+
+    <ion-button *ngIf="!isRunning" expand="block" (click)="startTimer()">Start</ion-button>
+    <ion-button *ngIf="isRunning" expand="block" color="danger" (click)="stopTimer()">Stop</ion-button>
+
+    <ion-button expand="block" color="secondary" (click)="resetTimer()">Reset</ion-button>
+
+    <div class="session-counter">
+      <h4>Pomodoro Sessions Completed: {{ pomodoroCount }}</h4>
+    </div>
+  </div>
+</ion-content>

@@ -80,14 +80,14 @@ ion-button {
   height: 40px;
   font-size: 1rem;
   --border-radius: 20px; /* Rounded corners */
-  --background: #f0f0f0;
+  --background: orange;
   --box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
 }
 
 ion-button:hover {
-  --background: #e0e0e0; /* Slightly darker background on hover */
+  --background: orange; /* Slightly darker background on hover */
 }
 
 ion-button:active {
-  --background: #d0d0d0; /* Even darker background when clicked */
+  --background: orange; /* Even darker background when clicked */
 }

@@ -9,24 +9,26 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
-  <!-- Profile Header (Redesigned) -->
-  <div class="profile-header">
-    <div class="avatar-wrapper">
-      <div class="profile-image-wrapper">
-        <img [src]="profileImage || 'assets/noprofile.jpg'" alt="Profile Image" class="profile-image" />
-      </div>
-      <button *ngIf="isEditing" class="image-edit-btn" (click)="imageInput.click()">
-        <ion-icon name="camera"></ion-icon>
-      </button>
-      <input #imageInput type="file" (change)="onImageSelected($event)" accept="image/*" hidden />
-    </div>
-  
-    <div class="profile-name-text">
-      <h2>{{ fullName || 'John Doe' }}</h2>
-      <p>{{ '@' + (username || 'johndoe') }}</p>
-    </div>
+<!-- Profile Header: Avatar + Info + Button side by side -->
+<div class="profile-header-horizontal">
+  <div class="profile-image-wrapper">
+    <img [src]="profileImage || 'assets/noprofile.jpg'" alt="Profile Image" class="profile-image" />
+    <button *ngIf="isEditing" class="image-edit-btn" (click)="imageInput.click()">
+      <ion-icon name="camera"></ion-icon>
+    </button>
+    <input #imageInput type="file" (change)="onImageSelected($event)" accept="image/*" hidden />
   </div>
-  
+
+  <div class="profile-info-block">
+    <h2>{{ fullName || 'John Doe' }}</h2>
+    <p>{{ '@' + (username || 'johndoe') }}</p>
+
+    <button class="edit-profile-btn" (click)="editProfile()">
+      {{ isEditing ? 'Save Changes' : 'Edit Profile' }}
+    </button>
+  </div>
+</div>
+
 
 <!-- Personal Info Form -->
 <div class="profile-form">
@@ -47,8 +49,3 @@
 </div>
 
 
-  <!-- Action Buttons -->
-  <ion-button expand="block" shape="round" class="edit-profile-btn" (click)="editProfile()">
-    {{ isEditing ? 'Save Changes' : 'Edit Profile' }}
-  </ion-button>
-</ion-content>

@@ -1,19 +1,31 @@
 <ion-content>
+
+  <!-- 🔝 Encabezado con imagen de perfil -->
+  <div class="home-header">
+    <ion-item lines="none">
+      <ion-avatar slot="start">
+        <img [src]="profileImage" alt="Profile" />
+      </ion-avatar>
+      <ion-label>
+        <h2>Hello,</h2>
+        <h1>{{ fullName }}</h1>
+      </ion-label>
+    </ion-item>
+  </div>
+
   <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-  <!-- Weather Card (Existing) -->
+
+  <!-- Weather Card -->
   <div class="weather-card-wrapper">
     <ion-card>
       <ion-item lines="none">
         <p>Today's Report</p>
         <ion-label id="date" slot="end">{{ todayDate | date: "EEE dd MMM" }}</ion-label>
       </ion-item>
-
       <ion-item lines="none">
-        <span id="temp">
-          {{ (weatherTemp?.temp - 273.15).toFixed(0) }}
-        </span>
+        <span id="temp">{{ (weatherTemp?.temp - 273.15).toFixed(0) }}</span>
         <span>°C</span>
         <img slot="end" [src]="weatherIcon" class="weather-icon">
       </ion-item>
@@ -36,12 +48,11 @@
     </ion-card>
   </div>
 
-  <!-- My Quizzes Card (New) -->
+  <!-- My Quizzes Card -->
   <div class="quiz-card-wrapper">
     <ion-card routerLink="/quiz-list">
       <ion-item lines="none">
         <p>My Quizzes</p>
-        <!-- Make sure this image exists in your assets folder -->
         <img slot="end" src="assets/quiz.png" class="quiz-icon">
       </ion-item>
       <ion-item>
@@ -50,9 +61,9 @@
     </ion-card>
   </div>
 
-
-  <!-- Logout Button -->
+  <!-- Logout -->
   <div class="content">
     <ion-button shape="round" expand="full" (click)="logout()">Logout</ion-button>
   </div>
+
 </ion-content>

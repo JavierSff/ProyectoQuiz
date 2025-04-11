@@ -1,4 +1,3 @@
-// profile-service.service.ts
 import { Injectable } from '@angular/core';
 import { Firestore, doc, getDoc, setDoc, updateDoc } from '@angular/fire/firestore';
 import { AuthenticationService } from '../authentication.service';
@@ -38,17 +37,17 @@ export class ProfileService {
     return this.getUserProfile();
   }
 
-  async getUserProfile() {
+  async getProfileData() {
     const user = await this.authService.getProfile();
-    if (user) {
-      const userProfileDocRef = doc(this.firestore, `profiles/${user.uid}`);
-      const userProfileDoc = await getDoc(userProfileDocRef);
-      if (userProfileDoc.exists()) {
-        return userProfileDoc.data(); // Return profile data
-      } else {
-        return null; // Profile doesn't exist yet
-      }
-    }
-    return null; // No user is logged in
+    if (!user) return null;
+
+    const userProfileDocRef = doc(this.firestore, `profiles/${user.uid}`);
+    const userProfileDoc = await getDoc(userProfileDocRef);
+
+    return userProfileDoc.exists() ? userProfileDoc.data() : null;
+  }
+
+  async getUserProfile() {
+    return this.getProfileData();
   }
 }

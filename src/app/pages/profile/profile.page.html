@@ -8,49 +8,47 @@
   <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-  <!-- Profile Header -->
-  <div class="profile-header">
-    <ion-item *ngIf="isEditing">
-      <ion-label>Profile Image</ion-label>
-      <input type="file" (change)="onImageSelected($event)" accept="image/*" />
-    </ion-item>
-    
-    <ion-avatar class="profile-avatar">
-      <img [src]="profileImage || 'assets/noprofile.jpg'" alt="Profile Image" />
-    </ion-avatar>
-    
-    
-    <ion-text class="profile-name">
-      <h2>{{ fullName || 'John Doe' }}</h2>
-      <p>{{ username || 'johndoe' }}</p>
-    </ion-text>
 
+  <!-- Profile Header (Redesigned) -->
+  <div class="profile-header">
+    <div class="avatar-wrapper">
+      <div class="profile-image-wrapper">
+        <img [src]="profileImage || 'assets/noprofile.jpg'" alt="Profile Image" class="profile-image" />
+      </div>
+      <button *ngIf="isEditing" class="image-edit-btn" (click)="imageInput.click()">
+        <ion-icon name="camera"></ion-icon>
+      </button>
+      <input #imageInput type="file" (change)="onImageSelected($event)" accept="image/*" hidden />
+    </div>
+  
+    <div class="profile-name-text">
+      <h2>{{ fullName || 'John Doe' }}</h2>
+      <p>{{ '@' + (username || 'johndoe') }}</p>
+    </div>
+  </div>
+  
+
+<!-- Personal Info Form -->
+<div class="profile-form">
+  <div class="form-group">
+    <label>Name</label>
+    <input type="text" [(ngModel)]="fullName" [readonly]="!isEditing" />
   </div>
 
-  <!-- Personal Details -->
-  <ion-card class="details-card">
-    <ion-card-header>
-      <ion-card-title>Personal Info</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <ion-item lines="none" class="full-name-item">
-        <ion-label>Name</ion-label>
-        <ion-input [(ngModel)]="fullName" [readonly]="!isEditing"></ion-input>
-      </ion-item>      
-      <ion-item lines="none" class="email-item">
-        <ion-label>Email</ion-label>
-        <ion-input [(ngModel)]="email" [readonly]="!isEditing"></ion-input>
-      </ion-item>
-      <ion-item lines="none" class="phone-item">
-        <ion-label>Phone</ion-label>
-        <ion-input [(ngModel)]="phone" [readonly]="!isEditing"></ion-input>
-      </ion-item>
-    </ion-card-content>
-  </ion-card>
+  <div class="form-group">
+    <label>Email address</label>
+    <input type="email" [(ngModel)]="email" [readonly]="!isEditing" />
+  </div>
+
+  <div class="form-group">
+    <label>Phone</label>
+    <input type="tel" [(ngModel)]="phone" [readonly]="!isEditing" />
+  </div>
+</div>
+
 
   <!-- Action Buttons -->
   <ion-button expand="block" shape="round" class="edit-profile-btn" (click)="editProfile()">
     {{ isEditing ? 'Save Changes' : 'Edit Profile' }}
   </ion-button>
-
 </ion-content>

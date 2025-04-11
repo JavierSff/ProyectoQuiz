@@ -1,141 +1,106 @@
-/* Background */
-.profile-bg {
-    --background: #f4f4f7; /* Light gray background */
-    padding-top: 44px;
-  }
-  
-  /* Profile Header */
-  .profile-header {
-    text-align: center;
-    padding: 32px;
-  }
-  
-/* Profile Avatar */
-.profile-avatar {
-  width: 120px;  /* Set desired size for the avatar */
-  height: 120px; /* Same as width for a round shape */
-  margin-bottom: 16px;
+.profile-header {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-}
+  margin: 24px 0;
 
-.profile-avatar img {
-  width: 100%;  /* Make the image fill the container */
-  height: 100%; /* Keep it proportional */
-  border-radius: 50%;  /* Round the image */
-  object-fit: cover;  /* Ensures the image doesn't stretch, but fills the container */
-}
-
-
-  
-  .profile-name h2 {
-    font-size: 24px;
-    font-weight: 600;
-    color: #333;
+  // Wraps the image and camera button cleanly
+  .avatar-wrapper {
+    position: relative;
+    display: inline-block;
   }
-  
-  .profile-name p {
-    font-size: 14px;
-    color: #888;
-    margin-top: 8px;
+
+  .profile-image-wrapper {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   }
-  
-  /* Personal Info Card */
-  .details-card {
-    margin-top: 16px;
-    border-radius: 16px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+
+  .profile-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+
+  .image-edit-btn {
+    position: absolute;
+    bottom: -8px; // ⬅ Places it just outside the circle
+    right: -8px;
     background-color: #ffffff;
-  }
-  
-  ion-card-header {
-    background-color: #f9f9f9;
-    border-top-left-radius: 16px;
-    border-top-right-radius: 16px;
-  }
-  
-  ion-card-title {
-    font-size: 18px;
-    font-weight: 600;
-    color: #333;
-  }
-  
-  ion-item {
-    border-bottom: 1px solid #f2f2f2;
-  }
-  
-  ion-item ion-label {
-    font-size: 14px;
-    color: #666;
-  }
-  
-  ion-item ion-text {
-    font-size: 14px;
-    color: #333;
-  }
-  
-  /* Buttons */
-  .edit-profile-btn {
-    margin-top: 24px;
-    border-radius: 12px;
-    font-weight: bold;
-    text-transform: uppercase;
-  }
-  
-  .logout-btn {
-    margin-top: 16px;
-    border-radius: 12px;
-    font-weight: bold;
-    text-transform: uppercase;
-  }
-  
-/* Specific spacing for Full Name field */
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+    z-index: 2;
 
-ion-item.full-name-item ion-label {
-  font-size: 14px;
-  color: #666;
-  margin-right: 10px; /* Adds extra space between the label and the input field */
-  display: block;
-}
-ion-item.email-item ion-label {
-  font-size: 14px;
-  color: #666;
-  margin-right: 10px; /* Adds extra space between the label and the input field */
-  display: block;
-}
-ion-item.phone-item ion-label {
-  font-size: 14px;
-  color: #666;
-  margin-right: 10px; /* Adds extra space between the label and the input field */
-  display: block;
-}
-
-
-
-  /* Responsive Design */
-  @media (max-width: 768px) {
-    .profile-name h2 {
+    ion-icon {
       font-size: 20px;
+      color: #333;
     }
-    .profile-name p {
-      font-size: 12px;
+  }
+
+  .image-edit-btn:hover {
+    background-color: #f0f0f0;
+  }
+
+  .profile-name-text {
+    margin-top: 12px;
+    text-align: center;
+
+    h2 {
+      margin: 0;
+      font-size: 1.4rem;
+      font-weight: 600;
     }
-    .profile-header {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        padding: 32px;
-      }
-      
-      .profile-avatar {
-        width: 100px;
-        height: 100px;
-        border-radius: 50%; /* Make sure the avatar is round */
-        object-fit: cover; /* Ensure the image fits the avatar area */
-        margin-bottom: 16px;
-      }
-      
+
+    p {
+      margin: 4px 0 0;
+      color: #666;
+      font-size: 0.9rem;
+    }
   }
   
+}
+.profile-form {
+  width: 90%;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 16px;
+
+  .form-group {
+    margin-bottom: 20px;
+
+    label {
+      display: block;
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-bottom: 8px;
+      color: #222;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: 12px;
+      border: none;
+      background-color: #f5f5f5;
+      font-size: 0.95rem;
+      color: #333;
+      outline: none;
+      transition: box-shadow 0.3s ease;
+    }
+
+    input[readonly] {
+      background-color: #f0f0f0;
+      color: #888;
+    }
+
+    input:focus {
+      box-shadow: 0 0 0 2px #007aff3f;
+    }
+  }
+}

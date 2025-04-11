@@ -38,13 +38,13 @@ export class ProfilePage implements OnInit {
 
   selectedImageFile: File | null = null;
 
-onImageSelected(event: any) {
-  const file = event.target.files[0];
-  if (file) {
-    this.selectedImageFile = file;
-    this.uploadImage(file);
+  onImageSelected(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      // Upload logic or preview logic
+    }
   }
-}
+  
 
 onFileSelected(event: any) {
   const file: File = event.target.files[0];

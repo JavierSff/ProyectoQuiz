@@ -1,12 +1,8 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Pomodoro Timer</ion-title>
-  </ion-toolbar>
-</ion-header>
+
 
 <ion-content class="pomodoro-background">
   <div class="tomato-circle-wrapper">
-
+    <img src="assets/pomodoro.png" class="tomato-center-image" />
     <!-- Timer Circle -->
     <div class="tomato-timer">
       <svg viewBox="0 0 100 100" class="progress-ring">
@@ -22,6 +18,7 @@
       </svg>
       <div class="timer-text">
         {{ formatTime(timeLeft) }}
+        <div class="session-type">{{ sessionType }}</div>
       </div>
     </div>
 

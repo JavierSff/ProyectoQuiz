@@ -59,3 +59,53 @@ ion-icon {
   font-size: 2rem;
   color: white;
 }
+.timer-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+
+  .session-type {
+    font-size: 0.8rem;
+    font-weight: normal;
+    margin-top: 4px;
+    opacity: 0.8;
+  }
+}
+
+.pomodoro-background {
+  --background: #e74c3c; // this stays as the solid red background
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.tomato-center-image {
+  position: absolute;
+  max-width: 90%;  // adapts to screen size
+  height: auto;
+  opacity: 1;
+  z-index: 1;
+  top: 35%;
+  left: 54%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+
+
+
+.tomato-circle-wrapper {
+  position: relative;
+  z-index: 2; // ensure timer content stays above the image
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}

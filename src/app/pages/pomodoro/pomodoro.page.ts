@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 @Component({
   selector: 'app-pomodoro',
@@ -6,61 +6,71 @@ import { Component } from '@angular/core';
   templateUrl: './pomodoro.page.html',
   styleUrls: ['./pomodoro.page.scss'],
 })
-export class PomodoroPage {
-  workDuration: number = 25 * 60; // 25 minutes in seconds
-  shortBreakDuration: number = 5 * 60; // 5 minutes in seconds
-  longBreakDuration: number = 15 * 60; // 15 minutes in seconds
-  timeLeft: number = this.workDuration; // Current session time
-  isRunning: boolean = false;
-  currentSessionType: string = 'Work Session'; // Type of current session
-  pomodoroCount: number = 0; // Pomodoro cycle counter
-  timer: any; // Timer reference for clearing
+export class PomodoroPage implements OnInit, OnDestroy {
+  timeLeft = 25 * 60; // 25 minutes in seconds
+  totalTime = 25 * 60;
+  interval: any;
+  isRunning = false;
+
+  radius = 45;
+  circumference = 2 * Math.PI * this.radius;
+  progressOffset = this.circumference;
+
+  ngOnInit() {
+    this.updateProgressRing(0);
+  }
+
+  ngOnDestroy() {
+    this.clearTimer();
+  }
+
+  toggleTimer() {
+    if (this.isRunning) {
+      this.stopTimer();
+    } else {
+      this.startTimer();
+    }
+  }
 
   startTimer() {
+    if (this.isRunning) return;
+
     this.isRunning = true;
-
-    // Start countdown
-    this.timer = setInterval(() => {
-      this.timeLeft--;
-
-      if (this.timeLeft <= 0) {
-        this.handleSessionEnd();
+    this.interval = setInterval(() => {
+      if (this.timeLeft > 0) {
+        this.timeLeft--;
+        this.updateProgressRing((this.timeLeft / this.totalTime) * 100);
+      } else {
+        this.stopTimer();
       }
     }, 1000);
   }
 
   stopTimer() {
-    clearInterval(this.timer); // Stop the timer
-    this.isRunning = false;
+    this.clearTimer();
   }
 
   resetTimer() {
-    clearInterval(this.timer); // Stop the timer
+    this.clearTimer();
+    this.timeLeft = this.totalTime;
+    this.updateProgressRing(100);
+  }
+
+  clearTimer() {
+    clearInterval(this.interval);
     this.isRunning = false;
-    this.pomodoroCount = 0; // Reset Pomodoro count
-    this.timeLeft = this.workDuration; // Reset to work session
-    this.currentSessionType = 'Work Session'; // Reset session type
   }
 
-  handleSessionEnd() {
-    if (this.currentSessionType === 'Work Session') {
-      this.pomodoroCount++; // Increment the Pomodoro cycle
-      if (this.pomodoroCount % 4 === 0) {
-        this.currentSessionType = 'Long Break';
-        this.timeLeft = this.longBreakDuration;
-      } else {
-        this.currentSessionType = 'Short Break';
-        this.timeLeft = this.shortBreakDuration;
-      }
-    } else {
-      this.currentSessionType = 'Work Session';
-      this.timeLeft = this.workDuration;
-    }
+  formatTime(time: number): string {
+    const minutes = Math.floor(time / 60)
+      .toString()
+      .padStart(2, '0');
+    const seconds = (time % 60).toString().padStart(2, '0');
+    return `${minutes}:${seconds}`;
   }
 
-  formatTime(seconds: number): string {
-    const minutes = Math.floor(seconds / 60);
-    const remainingSeconds = seconds % 60;
-    return `${String(minutes).padStart(2, '0')}:${String(remainingSeconds).padStart(2, '0')}`;
+  updateProgressRing(percent: number) {
+    const offset = this.circumference - (percent / 100) * this.circumference;
+    this.progressOffset = offset;
   }
 }

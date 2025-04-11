@@ -1,18 +1,61 @@
-.pomodoro-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    padding: 20px;
-  }
-  
-  h3 {
-    font-size: 3em;
-    margin: 10px;
-  }
-  
-  .session-counter {
-    margin-top: 20px;
-  }
- 
+.pomodoro-background {
+  --background: #e74c3c;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tomato-circle-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.tomato-timer {
+  position: relative;
+  width: 200px;
+  height: 200px;
+}
+
+.progress-ring {
+  transform: rotate(-90deg);
+  width: 100%;
+  height: 100%;
+}
+
+.background-ring {
+  stroke: rgba(255, 255, 255, 0.2);
+  stroke-width: 10;
+  fill: none;
+}
+
+.progress-ring-circle {
+  stroke: white;
+  stroke-width: 10;
+  fill: none;
+  transition: stroke-dashoffset 0.35s;
+  transform-origin: 50% 50%;
+}
+
+.timer-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.icon-buttons {
+  margin-top: 20px;
+  display: flex;
+  gap: 20px;
+}
+
+ion-icon {
+  font-size: 2rem;
+  color: white;
+}

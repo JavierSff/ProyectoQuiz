@@ -5,17 +5,35 @@
 </ion-header>
 
 <ion-content class="pomodoro-background">
-  <div class="pomodoro-container">
-    <h2>{{ currentSessionType }}</h2>
-    <h3>{{ formatTime(timeLeft) }}</h3>
+  <div class="tomato-circle-wrapper">
 
-    <ion-button *ngIf="!isRunning" expand="block" (click)="startTimer()">Start</ion-button>
-    <ion-button *ngIf="isRunning" expand="block" color="danger" (click)="stopTimer()">Stop</ion-button>
-
-    <ion-button expand="block" color="secondary" (click)="resetTimer()">Reset</ion-button>
-
-    <div class="session-counter">
-      <h4>Pomodoro Sessions Completed: {{ pomodoroCount }}</h4>
+    <!-- Timer Circle -->
+    <div class="tomato-timer">
+      <svg viewBox="0 0 100 100" class="progress-ring">
+        <circle class="background-ring" cx="50" cy="50" r="45" />
+        <circle
+          class="progress-ring-circle"
+          [attr.stroke-dasharray]="circumference"
+          [attr.stroke-dashoffset]="progressOffset"
+          cx="50"
+          cy="50"
+          r="45"
+        />
+      </svg>
+      <div class="timer-text">
+        {{ formatTime(timeLeft) }}
+      </div>
     </div>
+
+    <!-- Buttons -->
+    <div class="icon-buttons">
+      <ion-button fill="clear" size="small" (click)="toggleTimer()">
+        <ion-icon [name]="isRunning ? 'pause' : 'play'" slot="icon-only"></ion-icon>
+      </ion-button>
+      <ion-button fill="clear" size="small" color="danger" (click)="resetTimer()">
+        <ion-icon name="stop" slot="icon-only"></ion-icon>
+      </ion-button>
+    </div>
+
   </div>
 </ion-content>

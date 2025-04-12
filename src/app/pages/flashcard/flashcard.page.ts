@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common'; // ✅ This one!
+
+import { Flashcard, FlashcardSet } from '../../models/flashcard.model';
+import { FlashcardService } from 'src/app/services/flashcard.service';
 
 @Component({
   selector: 'app-flashcard',
@@ -8,36 +13,45 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FlashcardPage implements OnInit {
   currentIndex = 0;
-  totalCards = 5;  // Example total card count
-  flipped = false; // Track the flipped state of the card
+  flipped = false;
+  flashcards: Flashcard[] = [];
 
-  flashcards = [
-    { question: 'Who created Helvetica?', answer: 'Max Miedinger' },
-    { question: 'What is the capital of France?', answer: 'Paris' },
-    { question: 'What is 2 + 2?', answer: '4' },
-    { question: 'What is the largest planet in our solar system?', answer: 'Jupiter' },
-    { question: 'Who painted the Mona Lisa?', answer: 'Leonardo da Vinci' }
-  ];
+  constructor(
+    private route: ActivatedRoute,
+    private flashcardService: FlashcardService,
+    private location: Location
+  ) {}
 
+  goBack() {
+    this.location.back();
+  }
   get currentCard() {
     return this.flashcards[this.currentIndex];
   }
 
   flipCard() {
-    this.flipped = !this.flipped; // Toggle the flipped state
+    this.flipped = !this.flipped;
   }
 
   nextCard() {
     this.currentIndex = (this.currentIndex + 1) % this.flashcards.length;
-    this.flipped = false; // Reset flip state when moving to the next card
+    this.flipped = false;
   }
 
   previousCard() {
     this.currentIndex = (this.currentIndex - 1 + this.flashcards.length) % this.flashcards.length;
-    this.flipped = false; // Reset flip state when moving to the previous card
+    this.flipped = false;
   }
 
-  constructor() {}
-
-  ngOnInit() {}
+  ngOnInit() {
+    const setId = this.route.snapshot.paramMap.get('id');
+    if (setId) {
+      this.flashcardService.getFlashcardSets().subscribe((sets) => {
+        const foundSet = sets.find(set => set.id === setId);
+        if (foundSet) {
+          this.flashcards = foundSet.cards || [];
+        }
+      });
+    }
+  }
 }

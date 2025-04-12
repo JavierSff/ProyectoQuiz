@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button fill="clear" (click)="goBack()">
+        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Create Flashcard Set</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-item>
+    <ion-input placeholder="Set title" [(ngModel)]="title"></ion-input>
+  </ion-item>
+
+  <ion-card>
+    <ion-card-header><ion-card-title>Add a Flashcard</ion-card-title></ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-input placeholder="Question" [(ngModel)]="newQuestion"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input placeholder="Answer" [(ngModel)]="newAnswer"></ion-input>
+      </ion-item>
+      <ion-button expand="block" (click)="addCard()">Add Card</ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-button expand="block" color="success" (click)="saveSet()">Save Flashcard Set</ion-button>
+</ion-content>

@@ -73,7 +73,8 @@ const routes: Routes = [
   {
     path: 'statistics',
     loadChildren: () => import('./pages/statistics/statistics.module').then( m => m.StatisticsPageModule)
-  },  {
+  },
+  {
     path: 'flashcard',
     loadChildren: () => import('./pages/flashcard/flashcard.module').then( m => m.FlashcardPageModule)
   },
@@ -81,9 +82,19 @@ const routes: Routes = [
     path: 'pomodoro',
     loadChildren: () => import('./pages/pomodoro/pomodoro.module').then( m => m.PomodoroPageModule)
   },
+  {
+    path: 'flashcard-list',
+    loadChildren: () => import('./pages/flashcard-list/flashcard-list.module').then(m => m.FlashcardListPageModule)
+  },
+  {
+    path: 'flashcard-creator',
+    loadChildren: () => import('./pages/flashcard-creator/flashcard-creator.module').then(m => m.FlashcardCreatorPageModule)
+  },
+  {
+    path: 'flashcard/:id',
+    loadChildren: () => import('./pages/flashcard/flashcard.module').then(m => m.FlashcardPageModule)
+  }
 
-
- 
 ];
 
 @NgModule({

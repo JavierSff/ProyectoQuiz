@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>My Flashcards</ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/flashcard-creator">
+        <ion-icon name="add-circle-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ng-container *ngIf="flashcardSets.length > 0; else noFlashcards">
+  <ion-card *ngFor="let set of flashcardSets" (click)="viewSet(set.id)">
+    <ion-item lines="none">
+      <ion-label>
+        <h2>{{ set.title || 'Untitled Set' }}</h2>
+        <p>{{ set.cards?.length || 0 }} card(s)</p>
+      </ion-label>
+    </ion-item>
+  </ion-card>
+</ng-container>
+
+<ng-template #noFlashcards>
+  <ion-text color="medium">
+    <p class="ion-padding">No flashcard sets found. Tap + to create one!</p>
+  </ion-text>
+</ng-template>

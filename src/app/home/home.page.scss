@@ -163,3 +163,97 @@ ion-item img {
     color: #222;
   }
 }
+/* Shared Card Layout */
+
+.flash-card-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 16px;
+
+  ion-card {
+    width: 600px;
+    border-radius: 20px;
+    padding: 16px;
+    --ion-background-color: white; // ✅ uses Ionic styling system
+
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  }
+
+  .card-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .card-text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .card-text h2 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #222;
+    margin: 0;
+  }
+
+  .card-text p {
+    font-size: 14px;
+    color: #666;
+    margin: 0;
+  }
+
+  .card-image {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    margin-left: 12px;
+  }
+}
+.pomo-card-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 16px;
+
+  ion-card {
+    width: 600px;
+    border-radius: 20px;
+    padding: 16px;
+    --ion-background-color: rgb(58, 58, 165); // ✅ uses Ionic styling system
+
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  }
+
+  .card-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .card-text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .card-text h2 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #222;
+    margin: 0;
+  }
+
+  .card-text p {
+    font-size: 14px;
+    color: #666;
+    margin: 0;
+  }
+
+  .card-image {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    margin-left: 12px;
+  }
+}

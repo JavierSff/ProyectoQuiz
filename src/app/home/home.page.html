@@ -61,6 +61,36 @@
     </ion-card>
   </div>
 
+    <!-- to Pomodoro -->
+    <div class="flash-card-wrapper">
+      <ion-card routerLink="/pomodoro">
+        <ion-item lines="none">
+          <p>Pomodoro</p>
+          <img slot="end" src="assets/pomo.svg" class="quiz-icon">
+        </ion-item>
+        <ion-item>
+          <ion-label>Set your pomodoro timer now.</ion-label>
+        </ion-item>
+      </ion-card>
+    </div>
+    
+    
+
+      <!-- Flashcards-->
+      <div class="pomo-card-wrapper"> 
+        <ion-card routerLink="/flashcard-list">
+          <ion-item lines="none">
+            <p>My Flashcards</p>
+            <img slot="end" src="assets/flash.png" class="quiz-icon">
+          </ion-item>
+          <ion-item>
+            <ion-label>View and manage your flashcards.</ion-label>
+          </ion-item>
+        </ion-card>
+      </div>
+      
+      
+
   <!-- Logout -->
   <div class="content">
     <ion-button shape="round" expand="full" (click)="logout()">Logout</ion-button>

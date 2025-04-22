@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { NavController } from '@ionic/angular';
 
 // logic for the Pomodoro timer
 // The timer automatically switches between:
@@ -33,6 +34,11 @@ export class PomodoroPage implements OnInit, OnDestroy {
   radius = 45;
   circumference = 2 * Math.PI * this.radius;
   progressOffset = this.circumference;
+  
+  constructor(
+   
+    private navCtrl: NavController,
+  ) {}
 
   ngOnInit() {
     this.updateProgressRing(100);
@@ -46,6 +52,9 @@ export class PomodoroPage implements OnInit, OnDestroy {
     this.isRunning ? this.stopTimer() : this.startTimer();
   }
 
+  goBack() {
+    this.navCtrl.navigateRoot(['/home']);
+  }
   startTimer() {
     if (this.isRunning) return;
 

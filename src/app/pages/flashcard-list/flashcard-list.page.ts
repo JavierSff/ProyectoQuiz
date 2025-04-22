@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FlashcardSet } from '../../models/flashcard.model';
 import { FlashcardService } from '../../services/flashcard.service';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-flashcard-list',
@@ -15,7 +16,8 @@ export class FlashcardListPage implements OnInit {
 
   constructor(
     private flashcardService: FlashcardService,
-    private router: Router
+    private router: Router,
+    private navCtrl: NavController,
   ) {}
 
   ngOnInit() {
@@ -43,6 +45,9 @@ export class FlashcardListPage implements OnInit {
     }
   }
 
+  goBack() {
+    this.navCtrl.navigateRoot(['/home']);
+  }
   deleteSelectedSets() {
     const selected = this.flashcardSets.filter(set => set.selected);
     selected.forEach(set => {

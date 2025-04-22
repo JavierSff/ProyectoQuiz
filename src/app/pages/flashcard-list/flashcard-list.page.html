@@ -1,12 +1,20 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons>
+      <!-- Back Button -->
+     <ion-button fill="clear" (click)="goBack()">
+      <ion-icon color="primary" slot="icon-only" name="arrow-back-outline"></ion-icon>
+    </ion-button>
     <ion-title>My Flashcards</ion-title>
+  </ion-buttons>
+  
+ 
     <ion-buttons slot="end">
       <!-- Toggle Delete Mode -->
       <ion-button (click)="toggleDeleteMode()">
         <ion-icon [name]="deleteMode ? 'close-circle-outline' : 'trash-outline'" slot="icon-only"></ion-icon>
       </ion-button>
-
+   
       <!-- Add New Set (Only if not deleting) -->
       <ion-button *ngIf="!deleteMode" routerLink="/flashcard-creator">
         <ion-icon name="add-circle-outline" slot="icon-only"></ion-icon>

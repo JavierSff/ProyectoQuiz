@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { HomePage } from './home.page';
 
 import { HomePageRoutingModule } from './home-routing.module';
+import { StudyGoalsWidgetComponent } from '../components/study-goals-widget/study-goals-widget.component'; // Path to your widget component
 
 
 @NgModule({
@@ -12,8 +13,9 @@ import { HomePageRoutingModule } from './home-routing.module';
     CommonModule,
     FormsModule,
     IonicModule,
-    HomePageRoutingModule
-  ],
-  declarations: [HomePage]
+    HomePageRoutingModule,
+    IonicModule,  
+],
+  declarations: [HomePage, StudyGoalsWidgetComponent]
 })
 export class HomePageModule {}

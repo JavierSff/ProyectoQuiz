@@ -1,0 +1,43 @@
+<ion-card>
+  <ion-item lines="none">
+    <ion-label>
+      <h2>Study Goals</h2>
+    </ion-label>
+    <ion-label slot="end">{{ daysCompleted }}/7 days</ion-label>
+  </ion-item>
+
+  <div class="goal-circle-wrapper">
+    <svg class="progress-ring" [attr.width]="2 * radius + stroke" [attr.height]="2 * radius + stroke">
+      <circle
+        class="background-ring"
+        [attr.r]="radius"
+        [attr.cx]="radius + stroke / 2"
+        [attr.cy]="radius + stroke / 2">
+      </circle>
+      <circle
+        class="progress-ring-circle"
+        [attr.r]="radius"
+        [attr.cx]="radius + stroke / 2"
+        [attr.cy]="radius + stroke / 2"
+        [attr.stroke-dasharray]="circumference"
+        [attr.stroke-dashoffset]="strokeDashOffset">
+      </circle>
+    </svg>
+    <div class="circle-label">
+      {{ progressPercent.toFixed(0) }}%
+    </div>
+  </div>
+
+  <ion-item lines="none">
+    <ion-label>{{ progressMessage }}</ion-label>
+  </ion-item>
+
+  <ion-button
+    expand="block"
+    color="success"
+    (click)="markTodayAsComplete()"
+    [disabled]="hasCompletedToday()"
+  >
+    {{ hasCompletedToday() ? 'Completed Today ✅' : 'Mark Today as Complete' }}
+  </ion-button>
+</ion-card>

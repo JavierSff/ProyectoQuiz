@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { ProfileService } from '../services/profile-service.service';
+import { StudyGoalsWidgetComponent } from '../components/study-goals-widget/study-goals-widget.component';
+
 
 const { API_URL, API_KEY } = environment.weatherApi;
 

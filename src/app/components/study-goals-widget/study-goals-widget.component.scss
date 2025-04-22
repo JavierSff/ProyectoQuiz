@@ -1,0 +1,38 @@
+.goal-circle-wrapper {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+  
+    .progress-ring {
+      width: 100px;
+      height: 100px;
+  
+      .background-ring {
+        fill: none;
+        stroke: #e0e0e0;
+        stroke-width: 8;
+      }
+  
+      .progress-ring-circle {
+        fill: none;
+        stroke: #10dc60;
+        stroke-width: 8;
+        stroke-linecap: round;
+        transform: rotate(-90deg);
+        transform-origin: 50% 50%;
+        transition: stroke-dashoffset 0.35s;
+      }
+    }
+  
+    .circle-label {
+      position: absolute;
+      top: 35px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+  }
+  

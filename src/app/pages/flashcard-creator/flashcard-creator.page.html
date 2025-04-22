@@ -27,5 +27,20 @@
     </ion-card-content>
   </ion-card>
 
+  <!-- Background Selection -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Select Quiz Background</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label>Choose Background</ion-label>
+        <ion-select [(ngModel)]="selectedBackground" placeholder="Select Background" (ionChange)="changeBackground($event)">
+          <ion-select-option *ngFor="let bg of availableBackgrounds" [value]="'/assets/' + bg">{{ bg }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+
   <ion-button expand="block" color="success" (click)="saveSet()">Save Flashcard Set</ion-button>
 </ion-content>

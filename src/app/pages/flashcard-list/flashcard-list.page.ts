@@ -11,6 +11,13 @@ import { NavController } from '@ionic/angular';
   styleUrls: ['./flashcard-list.page.scss'],
 })
 export class FlashcardListPage implements OnInit {
+  handleRefresh(event: CustomEvent) {
+    setTimeout(() => {
+      location.reload();
+      // Any calls to load data go here
+      (event.target as HTMLIonRefresherElement).complete();
+    }, 2000);
+  }
   flashcardSets: (FlashcardSet & { selected?: boolean })[] = [];
   deleteMode = false;
 

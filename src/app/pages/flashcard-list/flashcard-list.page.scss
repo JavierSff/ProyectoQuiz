@@ -1,0 +1,109 @@
+/* Existing styles for the background selection menu */
+.background-menu {
+    position: absolute;
+    top: 60px; /* Adjust based on the header height */
+    right: 10px;
+    background-color: white;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+  }
+  
+  .background-menu ion-button {
+    display: inline-block;
+    margin: 5px;
+    padding: 5px;
+  }
+  
+  .background-menu ion-img {
+    width: 60px; /* Adjust size of the image thumbnails */
+    height: 60px;
+    object-fit: cover;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  /* Custom styles for quiz card and text */
+  :host ::ng-deep .quiz-card-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    margin-top: 20px;
+  }
+  
+  :host ::ng-deep ion-item {
+    --background: transparent !important; /* Ensure the background is transparent */
+    background: transparent !important; /* Override any default background */
+    --inner-border-width: 0;
+    --min-height: 60px;
+    --padding-start: 0;
+    --inner-padding-end: 0;
+    box-shadow: none;
+    border: none;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  :host ::ng-deep ion-item h2 {
+    font-size: 26px;
+    color: white;
+    font-weight: 600;
+    margin: 0 0 10px 0;
+  }
+  
+  :host ::ng-deep ion-item p {
+    font-size: 18px;
+    color: white;
+    font-weight: 300;
+    margin: 0;
+  }
+  
+  :host ::ng-deep ion-card {
+    width: 95%;
+    max-width: 450px;
+    min-height: 150px;
+    padding: 32px;
+    border-radius: 24px;
+    text-align: center;
+    transition: transform 0.2s;
+    background-image: url('/assets/fondocards.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+    color: black;
+    position: relative;
+    --background: transparent; /* Ensure the background is transparent */
+  }
+  
+  :host ::ng-deep ion-card:hover {
+    transform: scale(1.02);
+  }
+  
+  /* New styles for the ion-select dropdown to improve text visibility */
+  
+  /* Style for ion-select dropdown */
+  :host ::ng-deep ion-select {
+    --color: #000;  /* Set text color to black */
+    --background: #fff; /* Set background color to white */
+  }
+  
+  /* Style for ion-select-option to ensure the text color is readable */
+  :host ::ng-deep ion-select-option {
+    color: #000 !important;  /* Ensure text inside options is black */
+    background-color: #fff;  /* Option background color */
+  }
+  
+  /* Optional: Adjust the ion-select dropdown icon color */
+  :host ::ng-deep ion-select .select-icon {
+    color: #000; /* Set icon color to black for better contrast */
+  }
+  
+  /* Optional: Adjust the label color */
+  :host ::ng-deep ion-label {
+    color: #000 !important; /* Set label text color to black */
+  }
+  

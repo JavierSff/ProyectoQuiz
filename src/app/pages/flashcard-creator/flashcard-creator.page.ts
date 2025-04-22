@@ -16,8 +16,11 @@ export class FlashcardCreatorPage {
   newQuestion = '';
   newAnswer = '';
   cards: Flashcard[] = [];
-  selectedBackground = '';
-  availableBackgrounds = ['bg1.png', 'bg2.png'];
+  selectedBackground: string = '/assets/fondocards.png'; // Default background
+  availableBackgrounds = [
+    'fondocards.png', 'brightgrey.svg', 'brightpurple.svg',
+    'darkgrey.svg', 'darkpink.svg', 'grassgreen.svg', 'lila.svg'
+  ];
 
   constructor(
     private flashcardService: FlashcardService,
@@ -46,6 +49,11 @@ export class FlashcardCreatorPage {
 
     await this.flashcardService.addFlashcardSet(set);
     this.router.navigate(['/flashcard-list']);
+  }
+  changeBackground(event: any) {
+    // Handle background change
+    const selectedImage = event.detail.value;
+    this.selectedBackground = selectedImage;
   }
 
   goBack() {

@@ -24,10 +24,16 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <!-- Flashcard Set List -->
   <ng-container *ngIf="flashcardSets.length > 0; else noFlashcards">
-    <ion-card *ngFor="let set of flashcardSets" (click)="viewSet(set.id)">
+    <ion-card 
+  *ngFor="let set of flashcardSets" 
+  (click)="viewSet(set.id)"
+  [ngStyle]="{'background-image': 'url(' + set.backgroundImage + ')', 'background-size': 'cover'}">
+
       <ion-item lines="none">
         <!-- Checkbox in Delete Mode -->
         <ion-checkbox

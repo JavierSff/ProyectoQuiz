@@ -9,5 +9,12 @@ export const routes: Routes = [
     path: '',
     redirectTo: 'landing',
     pathMatch: 'full',
+  },
+  {
+    path: 'flashcard/:id/edit',
+    loadChildren: () =>
+      import('./pages/flashcard-edit/flashcard-edit.module').then(m => m.FlashcardEditPageModule)
   }
+  
+  
 ];

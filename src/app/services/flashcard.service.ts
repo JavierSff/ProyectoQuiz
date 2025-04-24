@@ -3,6 +3,8 @@ import { Firestore, collection, collectionData, addDoc, deleteDoc, doc } from '@
 
 import { Observable } from 'rxjs';
 import { FlashcardSet } from '../models/flashcard.model';
+import { docData } from '@angular/fire/firestore';
+
 
 @Injectable({ providedIn: 'root' })
 export class FlashcardService {
@@ -22,5 +24,9 @@ export class FlashcardService {
   deleteFlashcardSet(id: string) {
     const docRef = doc(this.firestore, `flashcards/${id}`);
     return deleteDoc(docRef);
+  }
+  getFlashcardSetById(id: string): Observable<FlashcardSet> {
+    const ref = doc(this.firestore, `flashcards/${id}`);
+    return docData(ref, { idField: 'id' }) as Observable<FlashcardSet>;
   }
 }

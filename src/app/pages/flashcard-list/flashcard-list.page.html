@@ -1,20 +1,20 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons>
+    <ion-buttons slot="start">
       <!-- Back Button -->
-     <ion-button fill="clear" (click)="goBack()">
-      <ion-icon color="primary" slot="icon-only" name="arrow-back-outline"></ion-icon>
-    </ion-button>
+      <ion-button fill="clear" (click)="goBack()">
+        <ion-icon color="primary" slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
     <ion-title>My Flashcards</ion-title>
-  </ion-buttons>
-  
- 
+
     <ion-buttons slot="end">
       <!-- Toggle Delete Mode -->
       <ion-button (click)="toggleDeleteMode()">
         <ion-icon [name]="deleteMode ? 'close-circle-outline' : 'trash-outline'" slot="icon-only"></ion-icon>
       </ion-button>
-   
+
       <!-- Add New Set (Only if not deleting) -->
       <ion-button *ngIf="!deleteMode" routerLink="/flashcard-creator">
         <ion-icon name="add-circle-outline" slot="icon-only"></ion-icon>
@@ -27,12 +27,13 @@
   <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
+
   <!-- Flashcard Set List -->
   <ng-container *ngIf="flashcardSets.length > 0; else noFlashcards">
     <ion-card 
-  *ngFor="let set of flashcardSets" 
-  (click)="viewSet(set.id)"
-  [ngStyle]="{'background-image': 'url(' + set.backgroundImage + ')', 'background-size': 'cover'}">
+      *ngFor="let set of flashcardSets" 
+      (click)="viewSet(set.id)"
+      [ngStyle]="{'background-image': 'url(' + set.backgroundImage + ')', 'background-size': 'cover'}">
 
       <ion-item lines="none">
         <!-- Checkbox in Delete Mode -->
@@ -47,20 +48,28 @@
           <h2>{{ set.title || 'Untitled Set' }}</h2>
           <p>{{ set.cards?.length || 0 }} card(s)</p>
         </ion-label>
+
+        <!-- Edit Button -->
+        <ion-button
+          fill="clear"
+          size="small"
+          slot="end"
+          (click)="editSet(set.id); $event.stopPropagation()">
+          <ion-icon name="create-outline" slot="icon-only"></ion-icon>
+        </ion-button>
       </ion-item>
     </ion-card>
   </ng-container>
 
-  <!-- Delete Button (shows only if one or more sets are selected) -->
+  <!-- Delete Button (only visible when one or more are selected) -->
   <ion-button
-  expand="block"
-  color="danger"
-  shape="round"
-  *ngIf="deleteMode && hasSelectedSets()"
-  (click)="deleteSelectedSets()">
-  Delete Selected
-</ion-button>
-
+    expand="block"
+    color="danger"
+    shape="round"
+    *ngIf="deleteMode && hasSelectedSets()"
+    (click)="deleteSelectedSets()">
+    Delete Selected
+  </ion-button>
 
   <!-- No Flashcards Template -->
   <ng-template #noFlashcards>

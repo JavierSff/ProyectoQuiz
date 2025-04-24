@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { FlashcardSet } from '../../models/flashcard.model';
 import { FlashcardService } from '../../services/flashcard.service';
 import { NavController } from '@ionic/angular';
+import { IonHeader, IonCheckbox } from "@ionic/angular/standalone";
 
 @Component({
   selector: 'app-flashcard-list',
@@ -30,7 +31,10 @@ export class FlashcardListPage implements OnInit {
   ngOnInit() {
     this.loadFlashcardSets();
   }
-
+  editSet(id: string) {
+    this.router.navigate([`/flashcard/${id}/edit`]);
+  }
+  
   loadFlashcardSets() {
     this.flashcardService.getFlashcardSets().subscribe(data => {
       this.flashcardSets = data.map(set => ({ ...set, selected: false }));

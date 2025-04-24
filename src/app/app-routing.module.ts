@@ -93,7 +93,17 @@ const routes: Routes = [
   {
     path: 'flashcard/:id',
     loadChildren: () => import('./pages/flashcard/flashcard.module').then(m => m.FlashcardPageModule)
+  },
+  {
+    path: 'flashcard-edit',
+    loadChildren: () => import('./pages/flashcard-edit/flashcard-edit.module').then( m => m.FlashcardEditPageModule)
+  },
+  {
+    path: 'flashcard/:id/edit',
+    loadChildren: () =>
+      import('./pages/flashcard-edit/flashcard-edit.module').then(m => m.FlashcardEditPageModule)
   }
+
 
 ];
 

@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()">
+        <ion-icon name="arrow-back-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Edit Flashcards</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-card *ngFor="let card of flashcardSet?.cards; let i = index">
+    <ion-card-content>
+      <h3 *ngIf="card.question">{{ card.question }}</h3>
+      <img *ngIf="card.questionImageUrl" [src]="card.questionImageUrl" />
+      <p *ngIf="card.answer">{{ card.answer }}</p>
+      <img *ngIf="card.answerImageUrl" [src]="card.answerImageUrl" />
+
+      <ion-button expand="block" (click)="editCard(i)">Edit</ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <div *ngIf="currentEditIndex !== null">
+    <ion-card>
+      <ion-card-header><ion-card-title>Edit Card</ion-card-title></ion-card-header>
+      <ion-card-content>
+        <ion-item>
+          <ion-input placeholder="Question" [(ngModel)]="editQuestion"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input placeholder="Answer" [(ngModel)]="editAnswer"></ion-input>
+        </ion-item>
+
+        <ion-button color="success" expand="block" (click)="saveEditedCard()">Save Changes</ion-button>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

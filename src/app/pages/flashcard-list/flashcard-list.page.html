@@ -51,12 +51,19 @@
 
         <!-- Edit Button -->
         <ion-button
-          fill="clear"
-          size="small"
-          slot="end"
-          (click)="editSet(set.id); $event.stopPropagation()">
-          <ion-icon name="create-outline" slot="icon-only"></ion-icon>
-        </ion-button>
+        class="edit-flashcard-btn"
+        fill="solid"
+        size="default"
+        color="light"
+        shape="round"
+        slot="end"
+        (click)="editSet(set.id); $event.stopPropagation()">
+        <ion-icon name="create-outline" slot="start"></ion-icon>
+
+      </ion-button>
+      
+      
+      
       </ion-item>
     </ion-card>
   </ng-container>

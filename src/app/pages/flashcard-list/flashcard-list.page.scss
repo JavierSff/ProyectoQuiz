@@ -106,4 +106,10 @@
   :host ::ng-deep ion-label {
     color: #000 !important; /* Set label text color to black */
   }
+  .edit-flashcard-btn {
+    font-size: 0.7rem;
+    --padding-start: 16px;
+    --padding-end: 16px;
+    --border-radius: 10px;
+  }
   

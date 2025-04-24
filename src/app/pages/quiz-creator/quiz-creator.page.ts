@@ -33,7 +33,8 @@ export class QuizCreatorPage implements OnInit {
     private quizService: QuizService,
     private authService: AuthenticationService,
     private toastCtrl: ToastController,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    private auth: AuthenticationService 
   ) {}
 
   ngOnInit() {
@@ -46,6 +47,38 @@ export class QuizCreatorPage implements OnInit {
     this.navCtrl.back();
   }
 
+  onFileSelected(event: any) {
+    const file = event.target.files[0];
+    if (!file) return;
+  
+    const reader = new FileReader();
+    reader.onload = async () => {
+      try {
+        const quizData = JSON.parse(reader.result as string);
+  
+        const user = await this.auth.getProfile();
+        if (!user) {
+          console.error('User not logged in');
+          return;
+        }
+  
+        const quizWithUser = {
+          ...quizData,
+          userId: user.uid,
+          createdAt: new Date()
+        };
+  
+        this.quizService.addQuiz(quizWithUser).then(() => {
+          console.log('Quiz imported and saved!');
+        });
+  
+      } catch (error) {
+        console.error('Invalid JSON file', error);
+      }
+    };
+    reader.readAsText(file);
+  }
+  
   addQuestion() {
     if (
       !this.newQuestion ||

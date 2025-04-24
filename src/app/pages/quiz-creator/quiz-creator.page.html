@@ -9,6 +9,10 @@
     <ion-title>Create Quiz</ion-title>
   </ion-toolbar>
 </ion-header>
+<ion-item>
+  <ion-label>Upload Quiz JSON</ion-label>
+  <input type="file" accept=".json" (change)="onFileSelected($event)" />
+</ion-item>
 
 <ion-content class="ion-padding" scroll="true">
   <!-- Quiz Title Input -->

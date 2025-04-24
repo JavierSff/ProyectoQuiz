@@ -40,6 +40,7 @@ export class QuizService {
   constructor(private firestore: Firestore, private auth: AuthenticationService) {
     this.auth.getProfile().then(user => this.userId = user?.uid || '');
   }
+  
 
   addQuiz(quiz: Quiz) {
     quiz.userId = this.userId;
@@ -56,7 +57,7 @@ export class QuizService {
     return collectionData(ref, { idField: 'id' }) as Observable<Quiz[]>;
   }
 
-  // ✅ FIXED: One-time fetch method to get quizzes as a Promise (for use in stats page)
+  // One-time fetch method to get quizzes as a Promise 
   async getQuizzesOnce(uid: string): Promise<Quiz[]> {
     const quizCollection = collection(this.firestore, 'quizzes');
     const quizQuery = query(quizCollection, where('userId', '==', uid));
@@ -66,6 +67,8 @@ export class QuizService {
       ...doc.data(),
     })) as Quiz[];
   }
+
+  
 
   getQuizById(id: string): Observable<Quiz> {
     const docRef = doc(this.firestore, `quizzes/${id}`);

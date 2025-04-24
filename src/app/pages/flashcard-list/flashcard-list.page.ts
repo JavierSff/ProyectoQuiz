@@ -10,6 +10,7 @@ import { IonHeader, IonCheckbox } from "@ionic/angular/standalone";
   standalone: false,
   templateUrl: './flashcard-list.page.html',
   styleUrls: ['./flashcard-list.page.scss'],
+  
 })
 export class FlashcardListPage implements OnInit {
   handleRefresh(event: CustomEvent) {
@@ -21,6 +22,9 @@ export class FlashcardListPage implements OnInit {
   }
   flashcardSets: (FlashcardSet & { selected?: boolean })[] = [];
   deleteMode = false;
+  newQuestion = '';
+  newAnswer = '';
+
 
   constructor(
     private flashcardService: FlashcardService,
@@ -43,7 +47,7 @@ export class FlashcardListPage implements OnInit {
   hasSelectedSets(): boolean {
     return this.flashcardSets.some(set => set.selected);
   }
-  
+
   viewSet(id: string) {
     if (this.deleteMode) return; // block navigation in delete mode
     this.router.navigate(['/flashcard', id]);

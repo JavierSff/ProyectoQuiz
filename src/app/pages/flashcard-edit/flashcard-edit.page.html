@@ -20,7 +20,21 @@
       <ion-button expand="block" (click)="editCard(i)">Edit</ion-button>
     </ion-card-content>
   </ion-card>
-
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Add New Flashcard</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-input placeholder="New Question" [(ngModel)]="newQuestion"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input placeholder="New Answer" [(ngModel)]="newAnswer"></ion-input>
+      </ion-item>
+      <ion-button expand="block" (click)="addNewCard()">Add Flashcard</ion-button>
+    </ion-card-content>
+  </ion-card>
+  
   <div *ngIf="currentEditIndex !== null">
     <ion-card>
       <ion-card-header><ion-card-title>Edit Card</ion-card-title></ion-card-header>

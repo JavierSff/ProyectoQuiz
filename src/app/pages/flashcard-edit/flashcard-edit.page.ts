@@ -21,6 +21,9 @@ export class FlashcardEditPage implements OnInit {
   editAnswer = '';
   editQuestionImageUrl: string | null = null;
   editAnswerImageUrl: string | null = null;
+  newQuestion = '';
+  newAnswer = '';
+
 
   constructor(
     private route: ActivatedRoute,
@@ -39,6 +42,32 @@ export class FlashcardEditPage implements OnInit {
     }
   }
 
+  async addNewCard() {
+    if (!this.flashcardSet) return;
+  
+    const newCard: Flashcard = {
+      question: this.newQuestion.trim(),
+      answer: this.newAnswer.trim(),
+    };
+  
+    // Add to the array
+    this.flashcardSet.cards.push(newCard);
+  
+    // Update Firestore
+    const ref = doc(this.firestore, `flashcards/${this.flashcardSet.id}`);
+    await updateDoc(ref, { cards: this.flashcardSet.cards });
+  
+    // Reset input fields
+    this.newQuestion = '';
+    this.newAnswer = '';
+  
+    const toast = await this.toastCtrl.create({
+      message: 'New card added!',
+      duration: 2000,
+      color: 'success',
+    });
+    await toast.present();
+  }
   
   editCard(index: number) {
     const card = this.flashcardSet?.cards[index];

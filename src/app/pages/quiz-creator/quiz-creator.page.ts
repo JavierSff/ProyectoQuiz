@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { QuizService } from 'src/app/services/quiz-service.service';
 import { AuthenticationService } from 'src/app/authentication.service';
 import { ToastController, NavController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-quiz-creator',
@@ -34,7 +35,9 @@ export class QuizCreatorPage implements OnInit {
     private authService: AuthenticationService,
     private toastCtrl: ToastController,
     private navCtrl: NavController,
-    private auth: AuthenticationService 
+    private auth: AuthenticationService,
+    private toastController: ToastController, 
+  private router: Router    
   ) {}
 
   ngOnInit() {
@@ -47,7 +50,7 @@ export class QuizCreatorPage implements OnInit {
     this.navCtrl.back();
   }
 
-  onFileSelected(event: any) {
+  async onFileSelected(event: any) {
     const file = event.target.files[0];
     if (!file) return;
   
@@ -68,16 +71,32 @@ export class QuizCreatorPage implements OnInit {
           createdAt: new Date()
         };
   
-        this.quizService.addQuiz(quizWithUser).then(() => {
-          console.log('Quiz imported and saved!');
+        await this.quizService.addQuiz(quizWithUser);
+  
+        // ✅ Toast success
+        const toast = await this.toastController.create({
+          message: 'Quiz imported successfully!',
+          duration: 2000,
+          color: 'success'
         });
+        await toast.present();
+  
+        // ✅ Navigate back to quiz list
+        this.router.navigate(['/quiz-list']);
   
       } catch (error) {
         console.error('Invalid JSON file', error);
+        const toast = await this.toastController.create({
+          message: 'Error importing quiz: Invalid file',
+          duration: 3000,
+          color: 'danger'
+        });
+        await toast.present();
       }
     };
     reader.readAsText(file);
   }
+  
   
   addQuestion() {
     if (

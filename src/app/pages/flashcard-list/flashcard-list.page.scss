@@ -108,8 +108,13 @@
   }
   .edit-flashcard-btn {
     font-size: 0.7rem;
+    --border-radius: 999px;        // fully rounded pill shape
     --padding-start: 16px;
     --padding-end: 16px;
-    --border-radius: 10px;
+    
+    --background: var(--ion-color-primary); // or any other color
+    --color: white;
+    font-weight: 500;
+    font-size: 0.9rem;
   }
   

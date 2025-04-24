@@ -24,7 +24,7 @@ export class QuizListPage implements OnInit {
   selectedQuizzes: string[] = [];
   availableBackgrounds = [
     'lightorange.png', 'brightgrey.svg', 'brightpurple.svg', 
-    'darkgrey.svg', 'darkpink.svg', 'grassgreen.svg', 'lila.svg', , 'green.png', 'mustard.png', 'palegreen.png', 'turquoise.png','violet.png', 'wine.png'
+    'darkgrey.svg', 'darkpink.svg', 'grassgreen.svg', 'lila.svg', 'green.png', 'mustard.png', 'palegreen.png', 'turquoise.png','violet.png', 'wine.png'
   ];
 
   constructor(

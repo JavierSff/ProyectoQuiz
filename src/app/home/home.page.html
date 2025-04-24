@@ -16,29 +16,26 @@
   <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
+  <!-- Weather Card -->
+ 
+
+  <div class="weather-card">
+    <img [src]="weatherIcon" alt="Weather icon" class="weather-icon" />
+    <div class="weather-info">
+      <div class="temp">{{ weatherTemp?.temp }}°C</div>
+      <div class="city">{{ cityName }}</div>
+      <div class="description">{{ weatherDetails?.description }}</div>
+    </div>
+  </div>
+
  <!-- Study Goals Card -->
  <div class="">
   <app-study-goals-widget></app-study-goals-widget>
 </div>
 
-  <!-- Weather Card -->
-  <div class="weather-card-wrapper">
-    <ion-card>
-      <ion-item lines="none">
-        <p>Today's Report</p>
-        <ion-label id="date" slot="end">{{ todayDate | date: "EEE dd MMM" }}</ion-label>
-      </ion-item>
-      <ion-item lines="none">
-        <span id="temp">{{ (weatherTemp?.temp - 273.15).toFixed(0) }}</span>
-        <span>°C</span>
-        <img slot="end" [src]="weatherIcon" class="weather-icon">
-      </ion-item>
-      <ion-item>
-        <ion-icon id="locationIcon" name="location"></ion-icon>
-        <span>{{ cityName }}</span>
-      </ion-item>
-    </ion-card>
-  </div>
+
+
+  
 
   <!-- Daily tips Card -->
   <div class="daily-card-wrapper">

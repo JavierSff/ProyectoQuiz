@@ -1,14 +1,34 @@
 /* Weather Card Styles */
-.weather-card-wrapper {
+.weather-card {
   display: flex;
-  justify-content: center;
-  margin-top: 20px;
+  align-items: center;
+  background: #f0f4f8;
+  border-radius: 12px;
+  padding: 16px;
+  margin: 16px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
-.daily-tip-card {
+.weather-icon {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  margin-right: 16px;
+}
+
+.weather-info {
   display: flex;
-  justify-content: center;
-  margin-top: 20px;
+  flex-direction: column;
+}
+
+.temp {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.city {
+  font-size: 16px;
+  color: #666;
 }
 
 ion-card {

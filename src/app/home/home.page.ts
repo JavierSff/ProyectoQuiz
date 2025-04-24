@@ -4,10 +4,29 @@ import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { ProfileService } from '../services/profile-service.service';
-import { StudyGoalsWidgetComponent } from '../components/study-goals-widget/study-goals-widget.component';
-
 
 const { API_URL, API_KEY } = environment.weatherApi;
+
+const weatherIconMap = {
+  '01d': 'sunny.svg',
+  '02d': 'partly-cloudy.svg',
+  '03d': 'cloudy.svg',
+  '04d': 'broken-clouds.svg',
+  '09d': 'shower-rain.svg',
+  '10d': 'rainy.svg',
+  '11d': 'thunderstorm.svg',
+  '13d': 'snowy.svg',
+  '50d': 'mist.svg',
+  '01n': 'clear-night.svg',
+  '02n': 'partly-cloudy-night.svg',
+  '03n': 'cloudy-night.svg',
+  '04n': 'broken-clouds-night.svg',
+  '09n': 'shower-rain-night.svg',
+  '10n': 'rainy-night.svg',
+  '11n': 'thunderstorm-night.svg',
+  '13n': 'snowy-night.svg',
+  '50n': 'mist-night.svg',
+};
 
 @Component({
   selector: 'app-home',
@@ -18,7 +37,6 @@ const { API_URL, API_KEY } = environment.weatherApi;
 export class HomePage implements OnInit {
   profileImage: string = '';
   fullName: string = '';
-
   tipOfTheDay: string = '';
   weatherTemp: any;
   todayDate = new Date();
@@ -43,17 +61,17 @@ export class HomePage implements OnInit {
     const profileData = await this.profileService.getProfileData();
     this.profileImage = profileData?.['profileImage'] || 'assets/noprofile.jpg';
     this.fullName = profileData?.['fullName'] || 'Your Name';
-    
   }
 
   loadData() {
     this.httpClient
-      .get(`${API_URL}/weather?q=Madrid&appid=${API_KEY}`)
+      .get(`${API_URL}/weather?q=Madrid&appid=${API_KEY}&units=metric`)
       .subscribe((results: any) => {
         this.weatherTemp = results['main'];
         this.cityName = results['name'];
         this.weatherDetails = results['weather'][0];
-        this.weatherIcon = `https://openweathermap.org/img/wn/${this.weatherDetails.icon}@4x.png`;
+        const iconCode = this.weatherDetails.icon;
+        this.weatherIcon = `assets/weather-icons/${weatherIconMap[iconCode] || 'default.svg'}`;
       });
   }
 

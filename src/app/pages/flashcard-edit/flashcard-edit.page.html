@@ -10,31 +10,19 @@
 </ion-header>
 
 <ion-content class="ion-padding">
+
+  <!-- Existing Cards List -->
   <ion-card *ngFor="let card of flashcardSet?.cards; let i = index">
     <ion-card-content>
       <h3 *ngIf="card.question">{{ card.question }}</h3>
       <img *ngIf="card.questionImageUrl" [src]="card.questionImageUrl" />
       <p *ngIf="card.answer">{{ card.answer }}</p>
       <img *ngIf="card.answerImageUrl" [src]="card.answerImageUrl" />
-
       <ion-button expand="block" (click)="editCard(i)">Edit</ion-button>
     </ion-card-content>
   </ion-card>
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>Add New Flashcard</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <ion-item>
-        <ion-input placeholder="New Question" [(ngModel)]="newQuestion"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-input placeholder="New Answer" [(ngModel)]="newAnswer"></ion-input>
-      </ion-item>
-      <ion-button expand="block" (click)="addNewCard()">Add Flashcard</ion-button>
-    </ion-card-content>
-  </ion-card>
-  
+
+  <!-- Edit Mode -->
   <div *ngIf="currentEditIndex !== null">
     <ion-card>
       <ion-card-header><ion-card-title>Edit Card</ion-card-title></ion-card-header>
@@ -45,9 +33,101 @@
         <ion-item>
           <ion-input placeholder="Answer" [(ngModel)]="editAnswer"></ion-input>
         </ion-item>
-
         <ion-button color="success" expand="block" (click)="saveEditedCard()">Save Changes</ion-button>
       </ion-card-content>
     </ion-card>
   </div>
+
+  <!-- Add New Card -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Add New Flashcard</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+
+      <!-- Question Text -->
+      <ion-item>
+        <ion-input
+          placeholder="Question"
+          [(ngModel)]="newQuestion"
+          [disabled]="newQuestionImageUploaded"
+          (ionInput)="newQuestionImageUploaded = false"
+        ></ion-input>
+      </ion-item>
+
+      <!-- Question Image Upload -->
+      <ion-item>
+        <ion-label position="stacked">Question Image (optional)</ion-label>
+        <ion-button
+          expand="block"
+          (click)="newQuestionImageInput.click()"
+          [disabled]="newQuestion?.trim()?.length > 0"
+        >
+          Upload Question Image
+        </ion-button>
+        <input
+          type="file"
+          accept="image/*"
+          hidden
+          #newQuestionImageInput
+          (change)="uploadNewImage($event, 'question')"
+        />
+      </ion-item>
+
+      <!-- Question Image Preview -->
+      <img
+        *ngIf="newQuestionImageUrl"
+        [src]="newQuestionImageUrl"
+        class="flashcard-image-preview"
+      />
+
+      <!-- Answer Text -->
+      <ion-item>
+        <ion-input
+          placeholder="Answer"
+          [(ngModel)]="newAnswer"
+          [disabled]="newAnswerImageUploaded"
+          (ionInput)="newAnswerImageUploaded = false"
+        ></ion-input>
+      </ion-item>
+
+      <!-- Answer Image Upload -->
+      <ion-item>
+        <ion-label position="stacked">Answer Image (optional)</ion-label>
+        <ion-button
+          expand="block"
+          (click)="newAnswerImageInput.click()"
+          [disabled]="newAnswer?.trim()?.length > 0"
+        >
+          Upload Answer Image
+        </ion-button>
+        <input
+          type="file"
+          accept="image/*"
+          hidden
+          #newAnswerImageInput
+          (change)="uploadNewImage($event, 'answer')"
+        />
+      </ion-item>
+
+      <!-- Answer Image Preview -->
+      <img
+        *ngIf="newAnswerImageUrl"
+        [src]="newAnswerImageUrl"
+        class="flashcard-image-preview"
+      />
+
+      <ion-button expand="block" color="primary" (click)="addNewCard()">Add Flashcard</ion-button>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
+
+<style>
+.flashcard-image-preview {
+  width: 100%;
+  max-height: 200px;
+  object-fit: contain;
+  margin-top: 10px;
+  border-radius: 8px;
+}
+</style>

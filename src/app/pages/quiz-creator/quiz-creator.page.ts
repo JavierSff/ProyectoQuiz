@@ -21,12 +21,12 @@ export class QuizCreatorPage implements OnInit {
   newOption4 = '';
   selectedAnswer = 0;
 
-  selectedBackground: string = '/assets/fondocards.png'; // Default background
+  selectedBackground: string = '/assets/lightorange.png'; // Default background
 
   // List of available backgrounds
   availableBackgrounds = [
-    'fondocards.png', 'brightgrey.svg', 'brightpurple.svg',
-    'darkgrey.svg', 'darkpink.svg', 'grassgreen.svg', 'lila.svg'
+    'lightorange.png', 'brightgrey.svg', 'brightpurple.svg',
+    'darkgrey.svg', 'darkpink.svg', 'grassgreen.svg', 'lila.svg' , 'green.png', 'mustard.png', 'palegreen.png', 'turquoise.png','violet.png', 'wine.png'
   ];
 
   constructor(

@@ -64,14 +64,20 @@ export class StatisticsPage implements OnInit {
 
   getIconByBackground(bgPath: string): string {
     const iconMap: { [key: string]: string } = {
-      '/assets/fondocards.png': 'american-football-outline',
+      '/assets/lightorange.png': 'american-football-outline',
       '/assets/brightgrey.svg': 'calculator',
       '/assets/brightpink.svg': 'globe',
       '/assets/brightpurple.svg': 'library',
       '/assets/darkgrey.svg': 'cafe-outline',
       '/assets/darkpink.svg': 'extension-puzzle-outline',
       '/assets/grassgreen.svg': 'leaf-outline',
-      '/assets/lila.svg': 'bug-outline',
+      '/assets/lila.svg': 'color-palette-outline',
+      '/assets/green.png': 'bug-outline',
+      '/assets/mustard.png': 'earth-outline',
+      '/assets/palegreen.png': 'desktop-outline',
+      '/assets/turquoise.png': 'flask-outline',
+      '/assets/violet.png': 'language-outline',
+      '/assets/wine.png': 'podium-outline',
 
     };
     return iconMap[bgPath] || 'help-circle';

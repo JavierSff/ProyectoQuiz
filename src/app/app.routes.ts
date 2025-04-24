@@ -14,7 +14,13 @@ export const routes: Routes = [
     path: 'flashcard/:id/edit',
     loadChildren: () =>
       import('./pages/flashcard-edit/flashcard-edit.module').then(m => m.FlashcardEditPageModule)
+  },
+  {
+    path: 'quiz/:id/edit',
+    loadChildren: () =>
+      import('./pages/quiz-edit/quiz-edit.module').then(m => m.QuizEditPageModule)
   }
+  
   
   
 ];

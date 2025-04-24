@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="router.navigate(['/quiz-list'])">
+        <ion-icon name="arrow-back-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Edit Quiz</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding" *ngIf="quiz">
+  <ion-item>
+    <ion-label position="stacked">Quiz Title</ion-label>
+    <ion-input [(ngModel)]="quiz.title"></ion-input>
+  </ion-item>
+
+  <ion-list>
+    <ion-item-group *ngFor="let question of quiz.questions; let i = index">
+      <ion-item-divider color="light">
+        <ion-label>Question {{ i + 1 }}</ion-label>
+      </ion-item-divider>
+      <ion-item>
+        <ion-input [(ngModel)]="question.question" placeholder="Edit question..."></ion-input>
+      </ion-item>
+      <ion-item *ngFor="let option of question.options; let j = index">
+        <ion-label slot="start">Option {{ j + 1 }}</ion-label>
+        <ion-input [(ngModel)]="question.options[j]"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Correct Answer Index</ion-label>
+        <ion-input type="number" [(ngModel)]="question.correctAnswer"></ion-input>
+      </ion-item>
+    </ion-item-group>
+  </ion-list>
+
+  <ion-button expand="block" color="success" (click)="saveChanges()">Save Changes</ion-button>
+</ion-content>

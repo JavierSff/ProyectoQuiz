@@ -22,33 +22,50 @@
   <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
+
   <!-- List of Quizzes -->
   <div *ngFor="let quiz of quizzes">
-    <ion-card (click)="takeQuiz(quiz.id)" [ngStyle]="{'background-image': 'url(' + (quiz.backgroundImage || '/assets/fondocards.png') + ')'}">
-      <ion-item lines="none">
+    <ion-card [ngStyle]="{'background-image': 'url(' + (quiz.backgroundImage || '/assets/fondocards.png') + ')'}">
+      
+      <!-- Main Click Area -->
+      <ion-item lines="none" (click)="takeQuiz(quiz.id)">
         <ion-checkbox
           slot="start"
           *ngIf="deleteMode"
           (ionChange)="onSelectQuiz($event, quiz.id)"
           [checked]="selectedQuizzes.includes(quiz.id)">
         </ion-checkbox>
-        
-        <ion-item lines="none">
-          <ion-label class="card-label">
-            <div class="card-header">
-              <h2>{{ quiz.title || 'Untitled Set' }}</h2>
-              <p>{{ quiz.questions?.length || 0 }} Questions</p>
-            </div>
-          </ion-label>
-        </ion-item>
-        
 
-        <!-- Removed Background Selection Option -->
+        <ion-label class="card-label">
+          <div class="card-header">
+            <h2>{{ quiz.title || 'Untitled Set' }}</h2>
+            <p>{{ quiz.questions?.length || 0 }} Questions</p>
+          </div>
+        </ion-label>
       </ion-item>
+
+      <!-- ✅ Edit Button Below -->
+      <div class="edit-quiz-btn-wrapper">
+        <ion-button
+          class="edit-quiz-btn"
+          fill="solid"
+          color="light"
+          size="small"
+          shape="round"
+          (click)="editQuiz(quiz.id); $event.stopPropagation()">
+          <ion-icon name="create-outline" slot="start"></ion-icon>
+     
+        </ion-button>
+      </div>
     </ion-card>
   </div>
 
-  <ion-button expand="block" shape="round" color="danger" *ngIf="deleteMode && selectedQuizzes.length > 0" (click)="deleteSelectedQuizzes()">
+  <ion-button
+    expand="block"
+    shape="round"
+    color="danger"
+    *ngIf="deleteMode && selectedQuizzes.length > 0"
+    (click)="deleteSelectedQuizzes()">
     Delete Selected
   </ion-button>
 

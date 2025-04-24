@@ -129,3 +129,16 @@
     color: WHITE;
   }
 }
+.edit-quiz-btn-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 16px 16px;
+}
+
+.edit-quiz-btn {
+  font-size: 0.75rem;
+  --padding-start: 16px;
+  --padding-end: 16px;
+  --border-radius: 10px;
+}
+

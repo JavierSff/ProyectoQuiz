@@ -3,6 +3,8 @@ import { NavController, ToastController } from '@ionic/angular';
 import { AuthenticationService } from 'src/app/authentication.service';
 import { QuizService } from 'src/app/services/quiz-service.service';
 import { Quiz } from 'src/app/services/quiz-service.service';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-quiz-list',
@@ -31,7 +33,8 @@ export class QuizListPage implements OnInit {
     private quizService: QuizService,
     private authService: AuthenticationService,
     private navCtrl: NavController,
-    private toastCtrl: ToastController
+    private toastCtrl: ToastController,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -53,6 +56,10 @@ export class QuizListPage implements OnInit {
     }
   }
 
+  editQuiz(id: string) {
+    this.router.navigate([`/quiz/${id}/edit`]);
+  }
+  
   toggleDeleteMode() {
     this.deleteMode = !this.deleteMode;
     if (!this.deleteMode) {

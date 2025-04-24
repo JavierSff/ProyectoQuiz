@@ -11,9 +11,10 @@ export class FlashcardService {
   constructor(private firestore: Firestore) {}
 
   addFlashcardSet(set: FlashcardSet) {
-    return addDoc(this.flashcardCollection, set);
+    const ref = collection(this.firestore, 'flashcards');
+    return addDoc(ref, set);
   }
-
+  
   getFlashcardSets(): Observable<FlashcardSet[]> {
     return collectionData(this.flashcardCollection, { idField: 'id' }) as Observable<FlashcardSet[]>;
   }

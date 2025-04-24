@@ -11,18 +11,70 @@
 
 <ion-content class="ion-padding">
   <ion-item>
-    <ion-input placeholder="Set title" [(ngModel)]="title"></ion-input>
+    <ion-input type="text" placeholder="Set title" [(ngModel)]="title"></ion-input>
   </ion-item>
+
+  <!-- Question image upload button -->
+  <ion-button
+    (click)="questionFileInputRef.click()"
+    [disabled]="questionImageUploaded || (newQuestion?.trim()?.length > 0)"
+    expand="block"
+  >
+    Upload Question Image
+  </ion-button>
+  <input
+    type="file"
+    accept="image/*"
+    hidden
+    #questionFileInputRef
+    (change)="uploadImage($event, 'question')"
+  />
+
+  <!-- Answer image upload button -->
+  <ion-button
+    (click)="answerFileInputRef.click()"
+    [disabled]="answerImageUploaded || (newAnswer?.trim()?.length > 0)"
+    expand="block"
+  >
+    Upload Answer Image
+  </ion-button>
+  <input
+    type="file"
+    accept="image/*"
+    hidden
+    #answerFileInputRef
+    (change)="uploadImage($event, 'answer')"
+  />
+
+  <!-- Question preview -->
+  <img *ngIf="questionImageUrl" [src]="questionImageUrl" class="flashcard-image-preview" />
+
+  <!-- Answer preview -->
+  <img *ngIf="answerImageUrl" [src]="answerImageUrl" class="flashcard-image-preview" />
 
   <ion-card>
     <ion-card-header><ion-card-title>Add a Flashcard</ion-card-title></ion-card-header>
     <ion-card-content>
+      <!-- Question text input -->
       <ion-item>
-        <ion-input placeholder="Question" [(ngModel)]="newQuestion"></ion-input>
+        <ion-input
+          type="text"
+          placeholder="Question"
+          [(ngModel)]="newQuestion"
+          [disabled]="questionImageUploaded"
+        ></ion-input>
       </ion-item>
+
+      <!-- Answer text input -->
       <ion-item>
-        <ion-input placeholder="Answer" [(ngModel)]="newAnswer"></ion-input>
+        <ion-input
+          type="text"
+          placeholder="Answer"
+          [(ngModel)]="newAnswer"
+          [disabled]="answerImageUploaded"
+        ></ion-input>
       </ion-item>
+
       <ion-button expand="block" (click)="addCard()">Add Card</ion-button>
     </ion-card-content>
   </ion-card>
@@ -44,3 +96,13 @@
 
   <ion-button expand="block" color="success" (click)="saveSet()">Save Flashcard Set</ion-button>
 </ion-content>
+
+<style>
+.flashcard-image-preview {
+  width: 100%;
+  max-height: 200px;
+  object-fit: contain;
+  margin-top: 10px;
+  border-radius: 8px;
+}
+</style>

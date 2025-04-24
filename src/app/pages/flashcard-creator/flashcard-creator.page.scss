@@ -6,4 +6,11 @@ ion-card-title {
     height: 100%;
     overflow: auto;
   }
+  .flashcard-image-preview {
+    width: 100%;
+    max-height: 200px;
+    object-fit: contain;
+    margin-top: 10px;
+    border-radius: 8px;
+  }
   

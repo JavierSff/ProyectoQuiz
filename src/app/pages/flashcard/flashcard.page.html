@@ -18,11 +18,15 @@
         <div class="flash-card" [ngClass]="{'flipped': flipped}">
           <div class="flipper">
             <div class="front">
-              <h2>{{ currentCard.question }}</h2>
+              <img *ngIf="currentCard.questionImageUrl" [src]="currentCard.questionImageUrl" class="flashcard-image" />
+              <h2 *ngIf="currentCard.question">{{ currentCard.question }}</h2>
             </div>
+            
             <div class="back">
-              <h2>{{ currentCard.answer }}</h2>
+              <img *ngIf="currentCard.answerImageUrl" [src]="currentCard.answerImageUrl" class="flashcard-image" />
+              <h2 *ngIf="currentCard.answer">{{ currentCard.answer }}</h2>
             </div>
+            
           </div>
         </div>
       </ion-card-content>

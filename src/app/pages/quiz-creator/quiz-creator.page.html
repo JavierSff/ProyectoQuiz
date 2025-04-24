@@ -10,8 +10,17 @@
   </ion-toolbar>
 </ion-header>
 <ion-item>
-  <ion-label>Upload Quiz JSON</ion-label>
-  <input type="file" accept=".json" (change)="onFileSelected($event)" />
+  <ion-button (click)="fileInput.click()">
+    Upload quiz Json File
+  </ion-button>
+  
+  <input
+    #fileInput
+    type="file"
+    accept=".json"
+    (change)="onFileSelected($event)"
+    hidden
+  />
 </ion-item>
 
 <ion-content class="ion-padding" scroll="true">

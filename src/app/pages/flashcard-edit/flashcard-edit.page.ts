@@ -132,6 +132,27 @@ export class FlashcardEditPage implements OnInit {
     });
     await toast.present();
   }
+  async saveTitleAndCards() {
+    if (!this.flashcardSet) return;
+  
+    const ref = doc(this.firestore, `flashcards/${this.flashcardSet.id}`);
+    await updateDoc(ref, {
+      title: this.flashcardSet.title,
+      cards: this.flashcardSet.cards
+    });
+  
+    const toast = await this.toastCtrl.create({
+      message: 'Title and cards saved!',
+      duration: 2000,
+      color: 'success'
+    });
+    await toast.present();
+  
+    // ✅ Navigate back to the flashcard list
+    this.router.navigate(['/flashcard-list']);
+  }
+  
+  
   
 
   editCard(index: number) {

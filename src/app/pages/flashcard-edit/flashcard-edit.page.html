@@ -10,6 +10,18 @@
 </ion-header>
 
 <ion-content class="ion-padding">
+<!-- Flashcard Set Title -->
+<ng-container *ngIf="flashcardSet">
+  <ion-item>
+    <ion-label position="stacked">Set Title</ion-label>
+    <ion-input [(ngModel)]="flashcardSet.title" placeholder="Edit title..."></ion-input>
+  </ion-item>
+</ng-container>
+
+<ion-button expand="block" color="success" (click)="saveTitleAndCards()">
+  Save changes
+</ion-button>
+
 
   <!-- Existing Cards List -->
   <ion-card *ngFor="let card of flashcardSet?.cards; let i = index">
@@ -120,6 +132,8 @@
       <ion-button expand="block" color="primary" (click)="addNewCard()">Add Flashcard</ion-button>
     </ion-card-content>
   </ion-card>
+
+  
 </ion-content>
 
 <style>

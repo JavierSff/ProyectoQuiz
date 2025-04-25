@@ -44,19 +44,21 @@
         </ion-label>
       </ion-item>
 
-      <!-- ✅ Edit Button Below -->
+      <!--Edit Button-->
       <div class="edit-quiz-btn-wrapper">
         <ion-button
-          class="edit-quiz-btn"
-          fill="solid"
-          color="light"
-          size="small"
-          shape="round"
-          (click)="editQuiz(quiz.id); $event.stopPropagation()">
-          <ion-icon name="create-outline" slot="start"></ion-icon>
-     
-        </ion-button>
+        class="edit-quiz-btn"
+        fill="solid"
+        size="default"
+        color="none"
+        (click)="editQuiz(quiz.id); $event.stopPropagation()">
+      
+        <ion-icon name="create-outline" slot="start"></ion-icon>
+          Edit
+      </ion-button>
+
       </div>
+      
     </ion-card>
   </div>
 

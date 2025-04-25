@@ -133,12 +133,19 @@
   display: flex;
   justify-content: flex-end;
   padding: 0 16px 16px;
+  width: 100%;
 }
 
 .edit-quiz-btn {
-  font-size: 0.75rem;
+  --border-radius: 9999px !important;
   --padding-start: 16px;
   --padding-end: 16px;
-  --border-radius: 10px;
+  --background: var(--ion-color-primary);
+  --color: white;
+  font-weight: 500;
+  font-size: 0.9rem;
+  height: 36px;
+  text-transform: none;
+  border-radius: 9999px !important; // fallback if --border-radius fails
 }
 

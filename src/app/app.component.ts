@@ -28,7 +28,7 @@ export class AppComponent {
   handleMenuVisibility() {
     const hiddenRoutes = [
       '/landing',
-      '/splash',
+      '/splash-page',
       '/login',
       '/signup',
       '/forgot-password'

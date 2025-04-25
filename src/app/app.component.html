@@ -59,8 +59,16 @@
           <ion-menu-button></ion-menu-button>
         </ion-buttons>
         <ion-title>OrangeQuiz</ion-title>
-      </ion-toolbar>
-    </ion-header>
+
+        <!-- Home button -->
+    <ion-buttons slot="end">
+      <ion-button routerLink="/home" fill="clear" color="primary">
+        <ion-icon slot="icon-only" name="home-sharp"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
 
     <!-- Router outlet to display the different pages -->
     <ion-content class="ion-padding">

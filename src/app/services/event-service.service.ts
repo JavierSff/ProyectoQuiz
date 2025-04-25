@@ -10,6 +10,8 @@ import {
   deleteDoc,
   doc
 } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'
@@ -39,6 +41,12 @@ export class EventService {
       console.error("Error retrieving events: ", error);
       throw error;
     }
+  }
+  // event-service.service.ts
+  getTodayEvents(): Promise<any[]> {
+    const today = new Date();
+    const yyyyMMdd = today.toISOString().split('T')[0];
+    return this.getEventsByDate(yyyyMMdd); // ✅ this is already a Promise
   }
 
   // Method to retrieve all events (to populate calendar highlights)

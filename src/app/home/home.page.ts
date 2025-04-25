@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { ProfileService } from '../services/profile-service.service';
+import { EventService } from '../services/event-service.service';
 
 const { API_URL, API_KEY } = environment.weatherApi;
 
@@ -43,18 +44,22 @@ export class HomePage implements OnInit {
   cityName: any;
   weatherIcon: any;
   weatherDetails: any;
+  todayEvents: any[] = []; // You can change 'any' to your proper event model if defined
+
 
   constructor(
     private authService: AuthenticationService,
     private router: Router,
     public httpClient: HttpClient,
-    private profileService: ProfileService
+    private profileService: ProfileService,
+    private eventService: EventService
   ) {}
 
   ngOnInit() {
     this.loadData();
     this.loadDailyTip();
     this.loadProfileInfo();
+    this.loadTodayEvents();
   }
 
   async loadProfileInfo() {
@@ -62,7 +67,11 @@ export class HomePage implements OnInit {
     this.profileImage = profileData?.['profileImage'] || 'assets/noprofile.jpg';
     this.fullName = profileData?.['fullName'] || 'Your Name';
   }
-
+  loadTodayEvents() {
+    this.eventService.getTodayEvents().then(events => {
+      this.todayEvents = events;
+    });
+  }
   loadData() {
     this.httpClient
       .get(`${API_URL}/weather?q=Madrid&appid=${API_KEY}&units=metric`)

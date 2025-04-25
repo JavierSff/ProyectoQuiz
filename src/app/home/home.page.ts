@@ -83,7 +83,12 @@ export class HomePage implements OnInit {
         this.weatherIcon = `assets/weather-icons/${weatherIconMap[iconCode] || 'default.svg'}`;
       });
   }
+  activeTab: string = 'main';
 
+  selectTab(tab: string) {
+    this.activeTab = tab;
+  }
+  
   loadDailyTip() {
     this.httpClient.get<any>('assets/student-tips.json').subscribe((data) => {
       const dayIndex = new Date().getDate() % data.tips.length;

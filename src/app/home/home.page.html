@@ -1,8 +1,9 @@
 <ion-content>
 
-  <!-- 🔝 Encabezado con imagen de perfil -->
-  <div class="home-header">
-    <ion-item lines="none">
+  <!-- Encabezado con imagen de perfil -->
+
+  <div class="home-header-orange">
+    <ion-item lines="none" class="profile-header">
       <ion-avatar slot="start">
         <img [src]="profileImage" alt="Profile" />
       </ion-avatar>
@@ -11,12 +12,16 @@
         <h1>{{ fullName }}</h1>
       </ion-label>
     </ion-item>
-  </div>
 
-  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
-    <ion-refresher-content></ion-refresher-content>
-  </ion-refresher>
-  <!-- Weather Card -->
+    <div class="tabs">
+      <span class="tab" [class.active]="activeTab === 'main'" (click)="selectTab('main')">Main</span>
+      <span class="tab" [class.active]="activeTab === 'tools'" (click)="selectTab('tools')">Tools</span>
+    </div>
+
+    <!-- Content for each tab -------------------->
+     <!-- This is the content for the Tools tab -->
+    <div *ngIf="activeTab === 'main'">
+      <!-- Weather Card -->
  
 
   <div class="weather-card">
@@ -66,8 +71,17 @@
   </ion-card>
 </div>
 
+ <!-- Logout -->
+ <div class="content">
+  <ion-button shape="round" expand="full" (click)="logout()">Logout</ion-button>
+</div>
 
-  <!-- My Quizzes Card -->
+
+<!-- This is the content for the Tools tab -->
+    </div>
+
+    <div *ngIf="activeTab === 'tools'">
+     <!-- My Quizzes Card -->
   <div class="quiz-card-wrapper">
     <ion-card routerLink="/quiz-list">
       <ion-item lines="none">
@@ -108,11 +122,25 @@
         </ion-item>
       </ion-card>
     </div>
-
-
-  <!-- Logout -->
+     <!-- Logout -->
   <div class="content">
     <ion-button shape="round" expand="full" (click)="logout()">Logout</ion-button>
   </div>
 
+
+    </div>
+
+    </div> <!-- ✅ This closes .home-header-orange properly -->
+
+    <!--Refresher----->
+
+    <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+      <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+
+
+  
+  
+
+ 
 </ion-content>

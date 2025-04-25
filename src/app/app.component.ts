@@ -11,6 +11,7 @@ import { filter } from 'rxjs/operators';
   standalone: false,
 })
 export class AppComponent {
+  public showHomeButton = true;
   constructor(
     private platform: Platform,
     private router: Router,
@@ -27,19 +28,21 @@ export class AppComponent {
   handleMenuVisibility() {
     const hiddenRoutes = [
       '/landing',
-      '/splash-page',
+      '/splash',
       '/login',
       '/signup',
       '/forgot-password'
     ];
-
+  
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe((event: NavigationEnd) => {
         const currentUrl = event.urlAfterRedirects;
-        const shouldDisable = hiddenRoutes.includes(currentUrl);
-        this.menuCtrl.enable(!shouldDisable);
+        const shouldHide = hiddenRoutes.includes(currentUrl);
+        this.menuCtrl.enable(!shouldHide);
+        this.showHomeButton = !shouldHide; // 🔑 control home button too
       });
   }
+  
 }
 

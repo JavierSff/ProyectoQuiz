@@ -278,14 +278,30 @@ ion-item img {
   }
 }
 .planner-card-wrapper {
+  display: flex;
+  justify-content: center;
   margin: 16px 0;
 
   ion-card {
+    width: 95%;
+    max-width: 450px;
     border-radius: 16px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    color:#ececec; // ✅ change text color globally for this card
   }
 
   ion-item {
     --background: transparent;
+    color: #ffffff; // ✅ text inside ion-item
+  }
+
+  ion-label h3 {
+    font-weight: 600;
+    color: #ffffff; // title color
+  }
+
+  ion-label p {
+    color: #ffffff; // time color
+    font-size: 1.2rem;
   }
 }

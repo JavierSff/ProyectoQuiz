@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { v4 as uuidv4 } from 'uuid';
 import {
   Firestore,
   collection,
@@ -45,6 +46,7 @@ export class QuizService {
   addQuiz(quiz: Quiz) {
     quiz.userId = this.userId;
     quiz.createdAt = new Date();
+    quiz.id = uuidv4();
     const ref = collection(this.firestore, 'quizzes');
     return addDoc(ref, quiz);
   }

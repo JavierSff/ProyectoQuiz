@@ -60,7 +60,7 @@ generateQuizFromTopic() {
 Generate a JSON array of 5 multiple-choice quiz questions about "${this.topic}".
 Each question must have:
 {
-  "label": "Question?",
+  "question": "Question?",
   "options": ["Option A", "Option B", "Option C", "Option D"],
   "correctAnswer": 2
 }
@@ -108,6 +108,7 @@ importGeneratedQuiz() {
   this.topic = '';
   this.title = this.title || 'AI Quiz';
 }
+
 
 
 /** allows moving to previous page */
@@ -192,29 +193,24 @@ importGeneratedQuiz() {
     this.selectedAnswer = 0;
   }
 
-  async saveQuiz() {
-    if (!this.title || this.questions.length === 0) {
-      this.showToast('Please add a title and at least one question');
-      return;
-    }
+saveQuiz() {
+  const quiz = {
+    title: this.title,
+    createdAt: new Date().toISOString(),
+    backgroundImage: this.selectedBackground || '/assets/default.svg',
+    userId: this.userId, // make sure you retrieve/set this from auth
+    questions: this.questions
+  };
 
-    const quiz = {
-      userId: this.userId,
-      title: this.title,
-      questions: this.questions,
-      backgroundImage: this.selectedBackground, // Include the background image in the quiz data
-      createdAt: new Date(),
-    };
+  console.log('Saving quiz:', quiz);
+  this.quizService.addQuiz(quiz).then(() => {
+    alert('✅ Quiz saved!');
+  }).catch((err) => {
+    console.error('❌ Error saving quiz:', err);
+    alert('Failed to save quiz.');
+  });
+}
 
-    try {
-      await this.quizService.addQuiz(quiz);
-      this.title = '';
-      this.questions = [];
-      this.showToast('Quiz saved successfully!');
-    } catch (err) {
-      this.showToast('Error saving quiz');
-    }
-  }
 
   async showToast(message: string) {
     const toast = await this.toastCtrl.create({

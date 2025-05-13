@@ -147,7 +147,7 @@ ion-item img {
   background: #ffffff;
   border-radius: 0 0 20px 20px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px; // ✅ separa el header de las cards
+  margin-bottom: 20px; // separa el header de las cards
 
   ion-item {
     --background: transparent;
@@ -194,7 +194,7 @@ ion-item img {
     width: 600px;
     border-radius: 20px;
     padding: 16px;
-    --ion-background-color: white; // ✅ uses Ionic styling system
+    --ion-background-color: white; // uses Ionic styling system
 
     box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
   }
@@ -240,7 +240,7 @@ ion-item img {
     width: 600px;
     border-radius: 20px;
     padding: 16px;
-    --ion-background-color: #f79fd5; // ✅ uses Ionic styling system
+    --ion-background-color: #f79fd5; // uses Ionic styling system
 
     box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
   }
@@ -287,12 +287,12 @@ ion-item img {
     max-width: 450px;
     border-radius: 16px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    color:#ececec; // ✅ change text color globally for this card
+    color:#ececec; // change text color globally for this card
   }
 
   ion-item {
     --background: transparent;
-    color: #ffffff; // ✅ text inside ion-item
+    color: #ffffff; // text inside ion-item
   }
 
   ion-label h3 {

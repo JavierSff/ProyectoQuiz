@@ -50,39 +50,66 @@ export class QuizCreatorPage implements OnInit {
       this.userId = user?.uid || '';
     });
   }
+generateQuizFromTopic() {
+  if (this.loading) return;
 
-  generateQuizFromTopic() {
-    if (this.loading) return;
-  
-    this.loading = true;
-  
-    this.openaiService.getGPTResponse(this.topic).subscribe({
-      next: (res) => {
-        try {
-          const content = res.choices[0].message.content;
-          this.generatedQuiz = JSON.parse(content);
-        } catch {
-          alert('Error parsing GPT response');
-        }
-        this.loading = false;
-      },
-      error: (err) => {
-        if (err.status === 429) {
-          alert('Too many requests — please wait a few seconds and try again.');
-        } else {
-          alert('Error generating quiz');
-        }
-        this.loading = false;
+  this.loading = true;
+
+  // Updated prompt to ensure GPT responds with ONLY JSON
+  const prompt = `
+Generate a JSON array of 5 multiple-choice quiz questions about "${this.topic}".
+Each question must have:
+{
+  "label": "Question?",
+  "options": ["Option A", "Option B", "Option C", "Option D"],
+  "correctAnswer": 2
+}
+Return ONLY the raw JSON array. No explanation, no introduction, no formatting.
+  `.trim();
+
+  this.openaiService.getGPTResponse(prompt).subscribe({
+    next: (res) => {
+      let content = res.choices[0].message.content;
+
+      // Clean out markdown/code block formatting
+      content = content
+        .trim()
+        .replace(/^```json/, '')
+        .replace(/^```/, '')
+        .replace(/```$/, '');
+
+      try {
+        const parsed = JSON.parse(content);
+        this.generatedQuiz = parsed;
+      } catch (err) {
+        console.error('GPT response:', content);
+        alert('⚠️ Error parsing GPT response. Please try again or check your topic.');
       }
-    });
-  }
-  
+
+      this.loading = false;
+    },
+    error: (err) => {
+      if (err.status === 429) {
+        alert('⚠️ Too many requests — please wait a few seconds and try again.');
+      } else {
+        alert('❌ Error generating quiz');
+      }
+      this.loading = false;
+    }
+  });
+}
 
 importGeneratedQuiz() {
+  console.log('Importing generated quiz...');
+  console.log(this.generatedQuiz);
+
   this.questions = this.generatedQuiz;
   this.generatedQuiz = [];
   this.topic = '';
+  this.title = this.title || 'AI Quiz';
 }
+
+
 /** allows moving to previous page */
   goBack() {
     this.navCtrl.back();

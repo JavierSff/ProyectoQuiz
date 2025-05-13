@@ -23,7 +23,7 @@
         <ion-input class="ion-padding-top" [(ngModel)]="topic" placeholder="e.g. Domestic animals"></ion-input>
       </ion-item>      
 
-      <ion-button expand="block" (click)="generateQuizFromTopic()" [disabled]="loading || !topic">
+      <ion-button expand="block" shape="round" (click)="generateQuizFromTopic()" [disabled]="loading || !topic">
         {{ loading ? 'Generating...' : 'Generate Quiz' }}
       </ion-button>
       
@@ -48,7 +48,7 @@
 
   <!-- Upload JSON Button (below AI Generator) -->
   <ion-item lines="none">
-    <ion-button expand="block" color="warning" (click)="fileInput.click()">
+    <ion-button expand="block" color="primary" (click)="fileInput.click()">
       Upload Quiz JSON File
     </ion-button>
     <input

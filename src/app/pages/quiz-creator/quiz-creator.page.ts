@@ -3,6 +3,7 @@ import { QuizService } from 'src/app/services/quiz-service.service';
 import { AuthenticationService } from 'src/app/authentication.service';
 import { ToastController, NavController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { OpenaiService } from 'src/app/services/openai.service';
 
 @Component({
   selector: 'app-quiz-creator',
@@ -21,6 +22,9 @@ export class QuizCreatorPage implements OnInit {
   newOption3 = '';
   newOption4 = '';
   selectedAnswer = 0;
+  topic = '';
+  loading = false;
+  generatedQuiz: any[] = [];
 
   selectedBackground: string = '/assets/lightorange.png'; // Default background
 
@@ -37,6 +41,7 @@ export class QuizCreatorPage implements OnInit {
     private navCtrl: NavController,
     private auth: AuthenticationService,
     private toastController: ToastController, 
+    private openaiService: OpenaiService, 
   private router: Router    
   ) {}
 /** preloads page content */
@@ -45,6 +50,39 @@ export class QuizCreatorPage implements OnInit {
       this.userId = user?.uid || '';
     });
   }
+
+  generateQuizFromTopic() {
+    if (this.loading) return;
+  
+    this.loading = true;
+  
+    this.openaiService.getGPTResponse(this.topic).subscribe({
+      next: (res) => {
+        try {
+          const content = res.choices[0].message.content;
+          this.generatedQuiz = JSON.parse(content);
+        } catch {
+          alert('Error parsing GPT response');
+        }
+        this.loading = false;
+      },
+      error: (err) => {
+        if (err.status === 429) {
+          alert('Too many requests — please wait a few seconds and try again.');
+        } else {
+          alert('Error generating quiz');
+        }
+        this.loading = false;
+      }
+    });
+  }
+  
+
+importGeneratedQuiz() {
+  this.questions = this.generatedQuiz;
+  this.generatedQuiz = [];
+  this.topic = '';
+}
 /** allows moving to previous page */
   goBack() {
     this.navCtrl.back();

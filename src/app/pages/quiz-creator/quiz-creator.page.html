@@ -9,21 +9,57 @@
     <ion-title>Create Quiz</ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-item>
-  <ion-button (click)="fileInput.click()">
-    Upload quiz Json File
-  </ion-button>
-  
-  <input
-    #fileInput
-    type="file"
-    accept=".json"
-    (change)="onFileSelected($event)"
-    hidden
-  />
-</ion-item>
 
 <ion-content class="ion-padding" scroll="true">
+
+  <!-- AI Quiz Generator -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Generate Quiz with AI</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item >
+        <ion-label position="floating">Enter a topic</ion-label>
+        <ion-input class="ion-padding-top" [(ngModel)]="topic" placeholder="e.g. Domestic animals"></ion-input>
+      </ion-item>      
+
+      <ion-button expand="block" (click)="generateQuizFromTopic()" [disabled]="loading || !topic">
+        {{ loading ? 'Generating...' : 'Generate Quiz' }}
+      </ion-button>
+      
+
+      <ion-list *ngIf="generatedQuiz.length > 0">
+        <ion-item *ngFor="let q of generatedQuiz; index as i">
+          <ion-label>
+            <h3>{{ i + 1 }}. {{ q.label }}</h3>
+            <p *ngFor="let option of q.options; let j = index">
+              {{ 'ABCD'[j] }}. {{ option }}
+            </p>
+            <strong>Answer:</strong> {{ q.options[q.correctAnswer] }}
+          </ion-label>
+        </ion-item>
+      </ion-list>
+
+      <ion-button color="success" expand="block" (click)="importGeneratedQuiz()" *ngIf="generatedQuiz.length > 0">
+        Use This Quiz
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Upload JSON Button (below AI Generator) -->
+  <ion-item lines="none">
+    <ion-button expand="block" color="warning" (click)="fileInput.click()">
+      Upload Quiz JSON File
+    </ion-button>
+    <input
+      #fileInput
+      type="file"
+      accept=".json"
+      (change)="onFileSelected($event)"
+      hidden
+    />
+  </ion-item>
+
   <!-- Quiz Title Input -->
   <ion-item>
     <ion-input placeholder="Quiz title" [(ngModel)]="title" name="title"></ion-input>
@@ -35,6 +71,7 @@
       <ion-card-title>Add a Question</ion-card-title>
     </ion-card-header>
     <ion-card-content>
+
       <!-- Question Input -->
       <ion-item>
         <ion-input placeholder="Question" [(ngModel)]="newQuestion" name="newQuestion"></ion-input>
@@ -43,25 +80,24 @@
       <!-- Options with Radio Group -->
       <ion-radio-group [(ngModel)]="selectedAnswer" name="selectedAnswer">
         <ion-list>
-          <!-- Option 1 -->
           <ion-item>
             <ion-label position="stacked">Option 1</ion-label>
             <ion-input placeholder="Enter option" [(ngModel)]="newOption1" name="newOption1"></ion-input>
             <ion-radio slot="end" [value]="0"></ion-radio>
           </ion-item>
-          <!-- Option 2 -->
+
           <ion-item>
             <ion-label position="stacked">Option 2</ion-label>
             <ion-input placeholder="Enter option" [(ngModel)]="newOption2" name="newOption2"></ion-input>
             <ion-radio slot="end" [value]="1"></ion-radio>
           </ion-item>
-          <!-- Option 3 -->
+
           <ion-item>
             <ion-label position="stacked">Option 3</ion-label>
             <ion-input placeholder="Enter option" [(ngModel)]="newOption3" name="newOption3"></ion-input>
             <ion-radio slot="end" [value]="2"></ion-radio>
           </ion-item>
-          <!-- Option 4 -->
+
           <ion-item>
             <ion-label position="stacked">Option 4</ion-label>
             <ion-input placeholder="Enter option" [(ngModel)]="newOption4" name="newOption4"></ion-input>
@@ -70,7 +106,6 @@
         </ion-list>
       </ion-radio-group>
 
-      <!-- Add Question Button -->
       <ion-button expand="block" shape="round" (click)="addQuestion()">Add Question</ion-button>
     </ion-card-content>
   </ion-card>
@@ -92,4 +127,5 @@
 
   <!-- Save Quiz Button -->
   <ion-button color="success" shape="round" expand="block" (click)="saveQuiz()">Save Quiz</ion-button>
+
 </ion-content>

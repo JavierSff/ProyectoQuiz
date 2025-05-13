@@ -4,6 +4,7 @@
 
 export const environment = {
   production: false,
+  
   firebaseConfig: {  
     apiKey: "AIzaSyDZUvNqyUh16OMi5eE6lwT1hayfPk0a5D4",
     authDomain: "miapp-92693.firebaseapp.com",
@@ -15,7 +16,8 @@ export const environment = {
   weatherApi: {
     API_KEY: 'd4e4dc67c4c8bc8649cc849525c59371',
     API_URL: 'https://api.openweathermap.org/data/2.5'
-  }
+  },
+  
 };
 
 

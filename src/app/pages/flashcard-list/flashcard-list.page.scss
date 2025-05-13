@@ -1,7 +1,7 @@
-/* Existing styles for the background selection menu */
+/* Styles for the background selection menu */
 .background-menu {
     position: absolute;
-    top: 60px; /* Adjust based on the header height */
+    top: 60px; /* Adjusts based on the header height */
     right: 10px;
     background-color: white;
     padding: 10px;
@@ -17,7 +17,7 @@
   }
   
   .background-menu ion-img {
-    width: 60px; /* Adjust size of the image thumbnails */
+    width: 60px; /* Adjusts size of the image thumbnails */
     height: 60px;
     object-fit: cover;
     border-radius: 4px;
@@ -34,8 +34,8 @@
   }
   
   :host ::ng-deep ion-item {
-    --background: transparent !important; /* Ensure the background is transparent */
-    background: transparent !important; /* Override any default background */
+    --background: transparent !important; /* Ensures the background is transparent */
+    background: transparent !important; /* Overrides any default background */
     --inner-border-width: 0;
     --min-height: 60px;
     --padding-start: 0;
@@ -76,7 +76,7 @@
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
     color: black;
     position: relative;
-    --background: transparent; /* Ensure the background is transparent */
+    --background: transparent; /* Ensures the background is transparent */
   }
   
   :host ::ng-deep ion-card:hover {
@@ -85,34 +85,34 @@
   
   /* New styles for the ion-select dropdown to improve text visibility */
   
-  /* Style for ion-select dropdown */
+  /* Styles for ion-select dropdown */
   :host ::ng-deep ion-select {
     --color: #000;  /* Set text color to black */
     --background: #fff; /* Set background color to white */
   }
   
-  /* Style for ion-select-option to ensure the text color is readable */
+  /* Styles for ion-select-option to ensure the text color is readable */
   :host ::ng-deep ion-select-option {
     color: #000 !important;  /* Ensure text inside options is black */
     background-color: #fff;  /* Option background color */
   }
   
-  /* Optional: Adjust the ion-select dropdown icon color */
+  /* Adjusts the ion-select dropdown icon color */
   :host ::ng-deep ion-select .select-icon {
     color: #000; /* Set icon color to black for better contrast */
   }
   
-  /* Optional: Adjust the label color */
+  /* Adjusts the label color */
   :host ::ng-deep ion-label {
-    color: #000 !important; /* Set label text color to black */
+    color: #000 !important; /* Sets label text color to black */
   }
   .edit-flashcard-btn {
     font-size: 0.7rem;
-    --border-radius: 999px;        // fully rounded pill shape
+    --border-radius: 999px;     
     --padding-start: 16px;
     --padding-end: 16px;
     
-    --background: var(--ion-color-primary); // or any other color
+    --background: var(--ion-color-primary);
     --color: white;
     font-weight: 500;
     font-size: 0.9rem;

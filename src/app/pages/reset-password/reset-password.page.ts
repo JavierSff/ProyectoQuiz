@@ -16,7 +16,7 @@ export class ResetPasswordPage {
     private authService: AuthenticationService,  // Inject AuthenticationService
     private toastController: ToastController      // Inject ToastController
   ) {}
-
+/** Reset users passwords of the entered email */
   async reset() {
     if (this.email.trim() === '') {
       // Show a toast if the email is empty

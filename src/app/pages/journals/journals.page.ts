@@ -15,7 +15,7 @@ export class JournalsPage implements OnInit {
   handleRefresh(event: CustomEvent) {
     setTimeout(() => {
       location.reload();
-      // Any calls to load data go here
+      // Handles every call to load data
       (event.target as HTMLIonRefresherElement).complete();
     }, 2000);
   }
@@ -35,7 +35,7 @@ export class JournalsPage implements OnInit {
   constructor(private modalCtrl: ModalController,private toastCtrl: ToastController,private loadingController: LoadingController,private journalServive:JournalServiceService,private authService:AuthenticationService) {
    }
 
-
+/** Allows adding new journals */
   addJournal(){
        
       this.journalServive.addJournal(
@@ -58,7 +58,7 @@ export class JournalsPage implements OnInit {
       })
     
   }
- 
+ /** Dismisses actions */
   cancel() {
     this.modal.dismiss(null, 'cancel');
   }
@@ -69,12 +69,12 @@ export class JournalsPage implements OnInit {
       console.log(ev.detail.data);
     }
   }
-
+/** Confirms changes */
   confirm() {
     this.modal.dismiss('confirm');
     this.addJournal()
   }
-
+/** retrieves profile data */
   ngOnInit() {
     this.authService.getProfile().then(user => {
       this.userId = user?.uid;
@@ -88,7 +88,7 @@ export class JournalsPage implements OnInit {
       console.error('Error getting user profile:', error);
     });
   }
-
+/** Opens journal data */
   async openJournal(journal:Journal){
     const modal = await this.modalCtrl.create({
       component:JournalPage,

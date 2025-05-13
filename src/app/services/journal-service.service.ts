@@ -47,7 +47,7 @@ export class JournalServiceService {
     });
   }
 
-
+/** adds new journal */
    addJournal(journal:Journal){
     journal.userId = this.userId;
     console.log(journal);
@@ -56,7 +56,7 @@ export class JournalServiceService {
     
     return addDoc(jouralRef,journal)
   }
-
+/** retrieves every journal the user has */
   getJournals(userId:any): Observable<Journal[]> {
     
     const jouralRef = collection(this.firestore, 'notes')
@@ -74,17 +74,17 @@ export class JournalServiceService {
    return this.userId
   }
 
-
+/** retrieves journals by id */
   getJournalById(id:any) : Observable<Journal>{
       const journalRef = doc(this.firestore,`notes/${id}`)
       return docData(journalRef,{ idField: 'id'}) as Observable<Journal>
   }
-  
+  /**removes a selected journal */
   removeJournal(id:any){
     const journalRef = doc(this.firestore, `notes/${id}`)
     return deleteDoc(journalRef)
   }
-
+/** updates a selected journal */
   updateJournal(journal:Journal){
     const journalRef = doc(this.firestore,`notes/${journal.id}`)
     return updateDoc(journalRef,{title:journal.title,content:journal.content})

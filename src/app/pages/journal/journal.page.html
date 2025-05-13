@@ -1,13 +1,13 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
 
-
+  <!-- Updates journal shown-->
     <ion-buttons slot="start">
       <ion-button (click)="updateJournal()">
         <ion-icon color="primary" size="large" slot="icon-only" name="save-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
-
+  <!-- Deletes selected journal-->
     <ion-buttons slot="end">
       <ion-button (click)="deleteJournal()">
         <ion-icon color="danger" size="large" slot="icon-only" name="trash-outline"></ion-icon>
@@ -16,7 +16,7 @@
 
   </ion-toolbar>
 </ion-header>
-
+  <!-- Screen header-->
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>

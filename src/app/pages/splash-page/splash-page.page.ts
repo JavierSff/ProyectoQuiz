@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 export class SplashPagePage implements OnInit {
 
   constructor(private router: Router) { }
-
+/** Timeout for loading screen */
   ngOnInit() {
       setTimeout(()=> {
       this.router.navigate(['landing']);

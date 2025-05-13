@@ -36,7 +36,7 @@ export class QuizListPage implements OnInit {
     private toastCtrl: ToastController,
     private router: Router
   ) {}
-
+/** preloads profile data when opening screen */
   ngOnInit() {
     this.authService.getProfile().then(user => {
       this.userId = user?.uid || '';
@@ -45,28 +45,28 @@ export class QuizListPage implements OnInit {
       });
     });
   }
-
+/** Allows going back to the previous screem */
   goBack() {
     this.navCtrl.navigateRoot(['/home']);
   }
-
+/** Navigates to the quiz runner */
   takeQuiz(id: string) {
     if (!this.deleteMode) {
       this.navCtrl.navigateForward(['/quiz-runner', id]);
     }
   }
-
+/** Allows editing quizzes */
   editQuiz(id: string) {
     this.router.navigate([`/quiz/${id}/edit`]);
   }
-  
+  /** toggles the option to delete quizzes from the list */
   toggleDeleteMode() {
     this.deleteMode = !this.deleteMode;
     if (!this.deleteMode) {
       this.selectedQuizzes = [];
     }
   }
-
+/** performs actions on selected quizzes */
   onSelectQuiz(event: any, id: string) {
     if (event.detail.checked) {
       if (!this.selectedQuizzes.includes(id)) {
@@ -76,7 +76,7 @@ export class QuizListPage implements OnInit {
       this.selectedQuizzes = this.selectedQuizzes.filter(qid => qid !== id);
     }
   }
-
+/** allows deleting selected quizzes */
   async deleteSelectedQuizzes() {
     const deletePromises = this.selectedQuizzes.map(id => this.quizService.deleteQuiz(id));
     try {

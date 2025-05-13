@@ -1,3 +1,4 @@
+  <!-- Header data-->
 <ion-content [fullscreen]="true">
   <div class="header">
     <ion-title class="title" size="large">Welcome Back</ion-title>
@@ -14,7 +15,7 @@
     
       <div style="padding-top: -26px;padding-bottom: 16px;"
      *ngIf="ionicForm.controls?.['email'].touched && ionicForm.controls?.['email'].invalid">
-     
+     <!-- Email fields-->
     <ion-text *ngIf="errorControl['email']?.errors?.['required']" class="errorInput" color="danger">
         Email is required.
     </ion-text>
@@ -31,7 +32,7 @@
     
     <div style="padding-top: -26px; padding-bottom: 16px;" 
          *ngIf="ionicForm.controls?.['password'].touched && ionicForm.controls?.['password'].invalid">
-         
+         <!-- password fields-->
         <ion-text *ngIf="errorControl['password']?.errors?.['required']" class="errorInput" color="danger">
             Password is required.
         </ion-text>
@@ -41,12 +42,13 @@
         </ion-text>
     </div>
     
-    
+      <!-- forgot password button-->
       <div class="forgotpassword">
         <a [routerLink]="['/forgot-password']" style="color: #FFC33F">Forgot Password?</a>
       </div>
 
     </div>
+    <!-- signup button-->
     <div class="signupLink">
       <p class="p">New memember? <a [routerLink]="['/signup']" style="color: #FFC33F">SignUp now</a></p>
     </div>

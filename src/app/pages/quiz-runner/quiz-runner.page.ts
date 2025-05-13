@@ -38,15 +38,15 @@ export class QuizRunnerPage implements OnInit {
     private authService: AuthenticationService 
   ) {}
   
-
+/** allows user to go out of the quiz runner */
   goBack() {
     this.navCtrl.navigateBack('/quiz-list');
   }
-
+/** toggles delete for quizzes */
   toggleDeleteMode() {
     this.deleteMode = !this.deleteMode; // 🔁 alternar modo eliminar
   }
-
+/** preloads page info */
   ngOnInit() {
     const quizId = this.route.snapshot.paramMap.get('id');
     if (quizId) {
@@ -56,7 +56,7 @@ export class QuizRunnerPage implements OnInit {
       });
     }
   }
-
+/** allows selection */
   selectOption(index: number) {
     if (this.hasAnswered) return;
 
@@ -67,7 +67,7 @@ export class QuizRunnerPage implements OnInit {
       this.score++;
     }
   }
-
+/** allows user to go to the following screen */
   nextQuestion() {
     this.selectedOptionIndex = null;
     this.hasAnswered = false;
@@ -91,8 +91,7 @@ export class QuizRunnerPage implements OnInit {
     }
   }
   
-  
-
+  /** Restarts quiz */
   restartQuiz() {
     this.currentQuestionIndex = 0;
     this.score = 0;

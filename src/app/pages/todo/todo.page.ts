@@ -46,7 +46,7 @@ export class TodoPage implements OnInit {
   @ViewChild('todoText') todoInputRef: ElementRef<HTMLInputElement> = null!;
 
   constructor(private todoService: TodoService) {}
-
+/** preloads page */
   ngOnInit() {
     this.todoService.getUserProfile().then(user => {
       if (user) {
@@ -57,20 +57,20 @@ export class TodoPage implements OnInit {
       console.error('Error getting user profile:', error);
     });
   }
-
+/** Loads every todo found in the logged user */
   loadTodos(): void {
     this.todoService.getTodos().subscribe(todos => {
       this.todoList = todos;
     });
   }
-
+/** allows refreshing page */
   handleRefresh(event: CustomEvent) {
     setTimeout(() => {
       this.loadTodos();
       (event.target as HTMLIonRefresherElement).complete();
     }, 1000);
   }
-
+/** Allows adding new tasks */
   addTask(text: string): void {
     if (text.trim() !== '') {
       this.todoService.addTask(text).then(() => {
@@ -79,25 +79,25 @@ export class TodoPage implements OnInit {
       }).catch(error => console.error('Error adding task:', error));
     }
   }
-
+/** Allow deleting tasks */
   deleteTask(id: string): void {
     this.todoService.deleteTask(id).then(() => {
       this.loadTodos();
     }).catch(error => console.error('Error deleting task:', error));
   }
-
+/** Allow archiving taks */
   archiveTask(id: string): void {
     this.todoService.archiveTask(id).then(() => {
       this.loadTodos();
     }).catch(error => console.error('Error archiving task:', error));
   }
-
+/** toggles completed for finished tasks */
   toggleCompleted(id: string, currentStatus: boolean): void {
     this.todoService.toggleCompleted(id, currentStatus).then(() => {
       this.loadTodos();
     }).catch(error => console.error('Error updating task:', error));
   }
-
+/** allows toggle for tasks */
   onToggle(todoItem: any) {
     this.toggleCompleted(todoItem.id, todoItem.completed);
   }
@@ -110,7 +110,7 @@ export class TodoPage implements OnInit {
       this.selectedIds.push(id);
     }
   }
-
+/** allows deleting selected tasks */
   deleteSelected() {
     Promise.all(this.selectedIds.map(id => this.todoService.deleteTask(id)))
       .then(() => {

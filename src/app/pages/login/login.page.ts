@@ -19,7 +19,7 @@ export class LoginPage implements OnInit {
   // contact:any
 
   constructor(private toastController: ToastController, private alertController: AlertController, private loadingController: LoadingController, private authService: AuthenticationService, private router: Router, public formBuilder: FormBuilder) { }
-
+/** loads screen */
   ngOnInit() {
     this.ionicForm = this.formBuilder.group({
       email: [
@@ -36,7 +36,7 @@ export class LoginPage implements OnInit {
       ],
     });
   }
-
+/** Handles login button actions */
   async login() {
     const loading = await this.loadingController.create();
     await loading.present();
@@ -63,7 +63,7 @@ export class LoginPage implements OnInit {
   get errorControl() {
     return this.ionicForm.controls;
   }
-
+/** toast message */
   async presentToast(message: undefined) {
     console.log(message);
 

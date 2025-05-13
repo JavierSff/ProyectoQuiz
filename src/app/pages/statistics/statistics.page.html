@@ -1,3 +1,4 @@
+<!-- Screen header-->
 <ion-header>
   <ion-toolbar>
     <ion-title>Statistics</ion-title>
@@ -6,7 +7,7 @@
     </ion-button>
   </ion-toolbar>
 </ion-header>
-
+<!-- Retrieves the icon and backgorund of each quiz-->
 <ion-content class="ion-padding">
   <ion-list *ngIf="stats && statsKeys.length > 0; else noStats">
     <ion-item lines="none" *ngFor="let key of statsKeys">
@@ -17,7 +18,7 @@
         ></ion-icon>
       </ion-avatar>
       
-
+<!-- Shows completed percentage-->
       <ion-label>
         <h2>{{ key }}</h2>
         <p>Completed {{ stats[key].highestScore }} / {{ stats[key].totalQuestions }}</p>
@@ -33,7 +34,7 @@
       </div>
     </ion-item>
   </ion-list>
-
+<!-- Default message for no results of statistics saved-->
   <ng-template #noStats>
     <p>No statistics available for this user.</p>
   </ng-template>

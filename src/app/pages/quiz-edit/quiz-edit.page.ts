@@ -21,14 +21,14 @@ export class QuizEditPage implements OnInit {
     private toastCtrl: ToastController,
     public router: Router
   ) {}
-
+/** Loads quizes when starting the page */
   ngOnInit() {
     this.quizId = this.route.snapshot.paramMap.get('id')!;
     this.quizService.getQuizById(this.quizId).subscribe(q => {
       this.quiz = { ...q };
     });
   }
-
+/** Saves changes made on quizzes */
   async saveChanges() {
     if (!this.quiz) return;
 

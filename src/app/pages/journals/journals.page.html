@@ -1,9 +1,10 @@
+  <!-- Header with title -->
 <ion-header [translucent]="true" class="ion-no-border">
   <ion-toolbar>
     <ion-title>Notes</ion-title>
   </ion-toolbar>
 </ion-header>
-
+  <!-- event for refreshing screen-->
 <ion-content [fullscreen]="true">
   <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
@@ -25,7 +26,7 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-
+  <!-- Buttons for canceling and confirming-->
   <ion-modal  #modal [initialBreakpoint]="0.5" [breakpoints]="[0, 0.25, 0.5, 0.75]" trigger="open-modal" (willDismiss)="onWillDismiss($event)">
     <ng-template>
       <ion-header>

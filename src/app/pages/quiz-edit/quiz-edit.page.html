@@ -1,3 +1,4 @@
+<!-- Editing quiz action button-->
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
@@ -8,13 +9,13 @@
     <ion-title>Edit Quiz</ion-title>
   </ion-toolbar>
 </ion-header>
-
+<!-- Setting title-->
 <ion-content class="ion-padding" *ngIf="quiz">
   <ion-item>
     <ion-label position="stacked">Quiz Title</ion-label>
     <ion-input [(ngModel)]="quiz.title"></ion-input>
   </ion-item>
-
+<!-- Setting questions and answers-->
   <ion-list>
     <ion-item-group *ngFor="let question of quiz.questions; let i = index">
       <ion-item-divider color="light">

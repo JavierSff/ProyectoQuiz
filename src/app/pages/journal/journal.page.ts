@@ -16,13 +16,14 @@ journal : Journal
   constructor(private journalService:JournalServiceService,private toastCtrl:ToastController, private modalCtrl: ModalController) {
   
    }
-
+/** retrieves journals by id when loading screen */
   ngOnInit() {
     console.log(this.id);
     this.journalService.getJournalById(this.id).subscribe(res =>{
       this.journal = res
     })
   }
+  /** updates journal when there are changes */
   async updateJournal(){
     this.journalService.updateJournal(this.journal)
     const toast = await this.toastCtrl.create({
@@ -32,7 +33,7 @@ journal : Journal
     toast.present()
     this.modalCtrl.dismiss()
   }
-
+  /** allows deleting journals */
   async deleteJournal(){
     this.journalService.removeJournal(this.id)
     const toast = await this.toastCtrl.create({

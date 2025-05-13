@@ -1,3 +1,4 @@
+<!-- Header for the quiz runner-->
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
@@ -16,7 +17,7 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
-
+<!-- Shows the selected quiz content-->
 <ion-content class="quiz-content" *ngIf="questions && questions.length > 0; else loading">
 
   <div class="question-top-section">
@@ -30,7 +31,7 @@
     </div>
   </div>
 
-  <!-- ✅ Opciones -->
+  <!--Opciones -->
   <div class="options">
     <button
       class="option-button"
@@ -48,14 +49,14 @@
     </button>
   </div>
 
-  <!-- ✅ Botón siguiente -->
+  <!-- Button to following page -->
   <div class="bottom">
     <ion-button shape="round" expand="block" *ngIf="hasAnswered" (click)="nextQuestion()">
       {{ currentQuestionIndex === questions.length - 1 ? 'See Results' : 'Next' }}
     </ion-button>
   </div>
 
-  <!-- ✅ Resultado -->
+  <!-- Show results -->
   <div *ngIf="showResult" class="result">
     <h2>You got {{ score }} out of {{ questions.length }} correct!</h2>
     <ion-button expand="block" shape="round" (click)="restartQuiz()">Try Again</ion-button>

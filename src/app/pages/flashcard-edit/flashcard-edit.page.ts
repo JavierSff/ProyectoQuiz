@@ -38,7 +38,7 @@ export class FlashcardEditPage implements OnInit {
     private auth: Auth
     
   ) {}
-
+/** uploads flashcard info when opening the page */
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
@@ -47,7 +47,7 @@ export class FlashcardEditPage implements OnInit {
       });
     }
   }
-
+/** uploads a new image to the flashcard */
   async uploadNewImage(event: any, side: 'question' | 'answer') {
     const file = event.target.files[0];
     if (!file) return;
@@ -64,10 +64,10 @@ export class FlashcardEditPage implements OnInit {
   
     if (side === 'question') {
       this.newQuestionImageUrl = url;
-      this.newQuestionImageUploaded = true; // ✅ disable question input
+      this.newQuestionImageUploaded = true; // disable question input
     } else {
       this.newAnswerImageUrl = url;
-      this.newAnswerImageUploaded = true; // ✅ disable answer input
+      this.newAnswerImageUploaded = true; // disable answer input
     }
   }
   
@@ -152,9 +152,7 @@ export class FlashcardEditPage implements OnInit {
     this.router.navigate(['/flashcard-list']);
   }
   
-  
-  
-
+/**Allows card editing */
   editCard(index: number) {
     const card = this.flashcardSet?.cards[index];
     if (card) {
@@ -165,7 +163,7 @@ export class FlashcardEditPage implements OnInit {
       this.editAnswerImageUrl = card.answerImageUrl || null;
     }
   }
-
+/** saves changes after editing the card */
   async saveEditedCard() {
     if (
       this.flashcardSet &&

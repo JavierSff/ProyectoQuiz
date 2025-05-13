@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common'; // ✅ This one!
+import { Location } from '@angular/common'; 
 
 import { Flashcard, FlashcardSet } from '../../models/flashcard.model';
 import { FlashcardService } from 'src/app/services/flashcard.service';
@@ -22,6 +22,7 @@ export class FlashcardPage implements OnInit {
     private location: Location
   ) {}
 
+   /** handles button to go back to previous screen */
   goBack() {
     this.location.back();
   }
@@ -29,20 +30,21 @@ export class FlashcardPage implements OnInit {
     return this.flashcards[this.currentIndex];
   }
 
+/** handles the action to flip a flashcard */
   flipCard() {
     this.flipped = !this.flipped;
   }
-
+/** handles button to show the following card */
   nextCard() {
     this.currentIndex = (this.currentIndex + 1) % this.flashcards.length;
     this.flipped = false;
   }
-
+/** handles button to show the previous card */
   previousCard() {
     this.currentIndex = (this.currentIndex - 1 + this.flashcards.length) % this.flashcards.length;
     this.flipped = false;
   }
-
+/** allows flashcards to be loaded at the start of the app*/
   ngOnInit() {
     const setId = this.route.snapshot.paramMap.get('id');
     if (setId) {

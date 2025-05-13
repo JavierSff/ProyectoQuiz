@@ -65,7 +65,7 @@ export class EventService {
     }
   }
 
-  // ✅ Method to delete an event by document ID
+  // Method to delete an event by document ID
   async deleteEvent(event: { id: string }) {
     try {
       const eventDocRef = doc(this.firestore, `events/${event.id}`);

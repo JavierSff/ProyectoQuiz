@@ -32,37 +32,41 @@ export class FlashcardListPage implements OnInit {
     private navCtrl: NavController,
   ) {}
 
+  /**loads flashcards when opening the page */
   ngOnInit() {
     this.loadFlashcardSets();
   }
+  /** Allows editing flashcard sets */
   editSet(id: string) {
     this.router.navigate([`/flashcard/${id}/edit`]);
   }
-  
+  /** Loads flashcard sets */
   loadFlashcardSets() {
     this.flashcardService.getFlashcardSets().subscribe(data => {
       this.flashcardSets = data.map(set => ({ ...set, selected: false }));
     });
   }
+  /** Shows selected sets */
   hasSelectedSets(): boolean {
     return this.flashcardSets.some(set => set.selected);
   }
-
+/** Allows set viewing */
   viewSet(id: string) {
     if (this.deleteMode) return; // block navigation in delete mode
     this.router.navigate(['/flashcard', id]);
   }
-
+/** little toggle for allowinf delete */
   toggleDeleteMode() {
     this.deleteMode = !this.deleteMode;
     if (!this.deleteMode) {
       this.flashcardSets.forEach(set => (set.selected = false));
     }
   }
-
+/** Returns to previous screen */
   goBack() {
     this.navCtrl.navigateRoot(['/home']);
   }
+  /** Deletes selections */
   deleteSelectedSets() {
     const selected = this.flashcardSets.filter(set => set.selected);
     selected.forEach(set => {

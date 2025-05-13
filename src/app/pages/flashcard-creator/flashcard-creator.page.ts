@@ -33,6 +33,7 @@ export class FlashcardCreatorPage {
     private firestore: Firestore
   ) {}
 
+  /** option for uploading images for the flashcards */
   async uploadImage(event: any, side: 'question' | 'answer') {
     const file = event.target.files[0];
     if (!file) return;
@@ -80,7 +81,7 @@ export class FlashcardCreatorPage {
       console.error(error);
     }
   }
-
+/** Adds new flashcards */
   addCard() {
     if (!this.newQuestion && !this.questionImageUrl) {
       console.warn('Please enter a question or upload an image.');
@@ -107,7 +108,7 @@ export class FlashcardCreatorPage {
     this.questionImageUploaded = false;
     this.answerImageUploaded = false;
   }
-
+/** Saves set of flashcards */
   async saveSet() {
     const user = await this.auth.currentUser;
     if (!user) {
@@ -161,11 +162,11 @@ export class FlashcardCreatorPage {
       await toast.present();
     }
   }
-
+/** Allows background change for cards */
   changeBackground(event: any) {
     this.selectedBackground = event.detail.value;
   }
-
+/**button to go back */
   goBack() {
     this.router.navigate(['/home']);
   }

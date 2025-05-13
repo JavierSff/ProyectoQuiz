@@ -20,7 +20,7 @@ export class SignupPage implements OnInit {
     private router: Router,
     public formBuilder: FormBuilder
   ) {}
-
+/** preloading of screen */
   ngOnInit() {
     // Initialize the form with validation rules
     this.ionicForm = this.formBuilder.group({
@@ -55,7 +55,7 @@ export class SignupPage implements OnInit {
   get errorControl() {
     return this.ionicForm.controls;
   }
-
+/** sign up action */
   async signUP() {
     const loading = await this.loadingController.create();
     await loading.present();
@@ -83,7 +83,7 @@ export class SignupPage implements OnInit {
       console.log('Form is invalid!');
     }
   }
-
+/** response message for actions */
   async presentToast(message: string) {
     const toast = await this.toastController.create({
       message: message,

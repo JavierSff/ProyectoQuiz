@@ -39,13 +39,13 @@ export class QuizCreatorPage implements OnInit {
     private toastController: ToastController, 
   private router: Router    
   ) {}
-
+/** preloads page content */
   ngOnInit() {
     this.authService.getProfile().then(user => {
       this.userId = user?.uid || '';
     });
   }
-
+/** allows moving to previous page */
   goBack() {
     this.navCtrl.back();
   }
@@ -73,7 +73,7 @@ export class QuizCreatorPage implements OnInit {
   
         await this.quizService.addQuiz(quizWithUser);
   
-        // ✅ Toast success
+        // Toast success
         const toast = await this.toastController.create({
           message: 'Quiz imported successfully!',
           duration: 2000,
@@ -81,7 +81,7 @@ export class QuizCreatorPage implements OnInit {
         });
         await toast.present();
   
-        // ✅ Navigate back to quiz list
+        // Navigate back to quiz list
         this.router.navigate(['/quiz-list']);
   
       } catch (error) {
@@ -97,7 +97,7 @@ export class QuizCreatorPage implements OnInit {
     reader.readAsText(file);
   }
   
-  
+  /** adds new questions to the quiz */
   addQuestion() {
     if (
       !this.newQuestion ||

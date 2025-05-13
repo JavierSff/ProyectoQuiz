@@ -31,7 +31,7 @@ export class ProfilePage implements OnInit {
     private authService: AuthenticationService,
     private toastCtrl: ToastController
   ) {}
-
+/** preloads content for screen */
   ngOnInit() {
     this.loadProfile();
   }
@@ -69,7 +69,7 @@ onFileSelected(event: any) {
 }
 
 
-
+/** allows uploading new images */
 async uploadImage(file: File) {
   try {
     const user = await this.authService.getProfile();
@@ -100,7 +100,7 @@ async uploadImage(file: File) {
   }
 }
 
-  
+  /** laods user profile picture */
   async loadProfile() {
     try {
       const userProfile = await this.profileService.loadProfile(); // Fetch profile data from service

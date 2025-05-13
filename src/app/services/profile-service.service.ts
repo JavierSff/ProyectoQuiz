@@ -11,7 +11,7 @@ export class ProfileService {
     private firestore: Firestore,
     private authService: AuthenticationService
   ) {}
-
+/** uploads profile */
   async uploadProfile(profileData: any) {
     try {
       const user = await this.authService.getProfile();
@@ -32,7 +32,7 @@ export class ProfileService {
       throw new Error('Error uploading profile data: ' + error);
     }
   }
-
+/** loads user profile */
   async loadProfile() {
     return this.getUserProfile();
   }
@@ -46,7 +46,7 @@ export class ProfileService {
 
     return userProfileDoc.exists() ? userProfileDoc.data() : null;
   }
-
+/** retrieves the profile data */
   async getUserProfile() {
     return this.getProfileData();
   }

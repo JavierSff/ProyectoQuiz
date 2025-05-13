@@ -44,7 +44,7 @@ export class HomePage implements OnInit {
   cityName: any;
   weatherIcon: any;
   weatherDetails: any;
-  todayEvents: any[] = []; // You can change 'any' to your proper event model if defined
+  todayEvents: any[] = []; 
 
 
   constructor(
@@ -88,6 +88,8 @@ export class HomePage implements OnInit {
   selectTab(tab: string) {
     this.activeTab = tab;
   }
+
+  /** Component for handling daily tip */
   
   loadDailyTip() {
     this.httpClient.get<any>('assets/student-tips.json').subscribe((data) => {
@@ -95,6 +97,8 @@ export class HomePage implements OnInit {
       this.tipOfTheDay = data.tips[dayIndex];
     });
   }
+
+   /** Component for handling screen refresh with dragging down */
 
   handleRefresh(event: CustomEvent) {
     this.loadData();
@@ -104,6 +108,8 @@ export class HomePage implements OnInit {
       (event.target as HTMLIonRefresherElement).complete();
     }, 1000);
   }
+
+   /** Component for handling the logout button */
 
   async logout() {
     try {

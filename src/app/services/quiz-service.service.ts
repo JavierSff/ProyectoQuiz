@@ -42,7 +42,7 @@ export class QuizService {
     this.auth.getProfile().then(user => this.userId = user?.uid || '');
   }
   
-
+/** adds a new quiz */
   addQuiz(quiz: Quiz) {
     quiz.userId = this.userId;
     quiz.createdAt = new Date();
@@ -50,7 +50,7 @@ export class QuizService {
     const ref = collection(this.firestore, 'quizzes');
     return addDoc(ref, quiz);
   }
-
+/** retrieves quizzes */
   getQuizzes(userId: string): Observable<Quiz[]> {
     const ref = query(
       collection(this.firestore, 'quizzes'),
@@ -70,18 +70,18 @@ export class QuizService {
     })) as Quiz[];
   }
 
-  
+  /** retrieves quiz by id */
 
   getQuizById(id: string): Observable<Quiz> {
     const docRef = doc(this.firestore, `quizzes/${id}`);
     return docData(docRef, { idField: 'id' }) as Observable<Quiz>;
   }
-
+/** updates quiz background */
   updateQuizBackground(quizId: string, backgroundImage: string) {
     const docRef = doc(this.firestore, `quizzes/${quizId}`);
     return updateDoc(docRef, { backgroundImage });
   }
-
+/** deletes quiz  */
   deleteQuiz(id: string) {
     return deleteDoc(doc(this.firestore, `quizzes/${id}`));
   }

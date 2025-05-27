@@ -8,9 +8,15 @@ This software and its associated files (CitriQuiz) are the intellectual property
 
 You are not permitted to copy, modify, distribute, publish, sublicense, or use any part of this Software, in whole or in part, without the express written permission of the author.
 
-Unauthorized use, reproduction, or distribution of this Software is strictly prohibited and may result in civil and criminal penalties.
+Exceptions:
+This project includes assets that are the intellectual property of their respective creators and are used under permitted terms. These include:
 
-For licensing inquiries, contact the author directly.
+- AI-generated images created using ChatGPT (DALL·E) by OpenAI, used with attribution.
+- Lottie animations from LottieFiles, such as those by Sepideh Yazdi, used according to the terms on lottiefiles.com.
+
+These assets remain the property of their respective authors and are **not** covered by this license. Please refer to their original sources for reuse or licensing conditions.
+
+For licensing inquiries related to the software, contact the author directly.
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Todos los derechos reservados.
 
@@ -18,6 +24,13 @@ Este software y sus archivos asociados (CitriQuiz) son propiedad intelectual del
 
 No se permite copiar, modificar, distribuir, publicar, sublicenciar ni utilizar ninguna parte de este software, total o parcialmente, sin el permiso expreso y por escrito del autor.
 
-El uso, reproducción o distribución no autorizados de este software están estrictamente prohibidos y pueden dar lugar a sanciones civiles y penales.
+**Excepciones:**
+Este proyecto incluye recursos que son propiedad intelectual de sus respectivos creadores y se utilizan bajo condiciones permitidas. Estos incluyen:
 
-Para consultas sobre licencias, contacte directamente con el autor.
+- Imágenes generadas con inteligencia artificial mediante ChatGPT (DALL·E) de OpenAI, utilizadas con atribución.
+- Animaciones Lottie de LottieFiles, como las creadas por Sepideh Yazdi, utilizadas conforme a los términos de lottiefiles.com.
+
+Estos recursos siguen siendo propiedad de sus autores originales y **no** están cubiertos por esta licencia. Consulte sus fuentes originales para conocer las condiciones de reutilización o licenciamiento.
+
+Para consultas sobre licencias relacionadas con el software, contacte directamente con el autor.
+

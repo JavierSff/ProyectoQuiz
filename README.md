@@ -38,6 +38,12 @@ CitriQuiz es una aplicación multiplataforma que permite a estudiantes y docente
 ## Autor
 - Javier J. Sierralta F. – [@JavierSff](https://github.com/JavierSff/ProyectoQuiz.git)
 
+## Assets
+
+- Yazdi, S. (2024). [Title of the Lottie animation] [Lottie animation]. LottieFiles. [https://lottiefiles.com/free-animation/orange-ballerina-pdoTCye1bq]
+- OpenAI. (2024). [Orange Logo, simple plain image] [AI-generated image]. ChatGPT (DALL·E). https://chat.openai.com/
+- OpenAI. (2024). [RoadMap Banner with future updates of the app, as well as a background of oranges animations on a park] [AI-generated image]. ChatGPT (DALL·E). https://chat.openai.com/
+
 ## Licencia
 Este proyecto está bajo la Licencia MIT. Consulta el archivo [LICENSE](LICENSE) para más detalles.
 
